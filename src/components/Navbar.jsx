@@ -17,7 +17,6 @@ const Navbar = ({ language, setLanguage, t }) => {
         { id: 'gallery', label: t('navGallery'), type: 'scroll' },
         { id: 'about', label: t('navAbout'), type: 'scroll' },
         { id: 'map', label: t('navMap'), type: 'scroll' },
-        { id: 'intranet', label: t('navIntranet'), type: 'route', path: '/intranet' },
         { id: 'contact', label: t('navContact'), type: 'route', path: '/contact' },
     ];
 
