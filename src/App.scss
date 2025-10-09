@@ -1,0 +1,17 @@
+// Estilos para la aplicación principal
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #3498db, #2ecc71);
+  
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  &__main {
+    flex-grow: 1;
+  }
+} 

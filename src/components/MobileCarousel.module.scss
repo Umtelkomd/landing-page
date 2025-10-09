@@ -1,0 +1,47 @@
+@import '../styles/variables';
+
+/* Estilos para el carrusel móvil */
+.mobileCarouselContainer {
+  display: block; /* Visible por defecto, se ocultará en pantallas grandes */
+  width: 100%;
+  padding: 1rem 0;
+
+  @media (min-width: $breakpoint-md) { /* Ocultar en medium y superior */
+    display: none;
+  }
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto; /* Habilita el scroll horizontal */
+  scroll-snap-type: x mandatory; /* Fuerza el snap al hacer scroll */
+  gap: 1rem; /* Espacio entre imágenes */
+  padding: 0 1rem; /* Padding lateral para que no pegue a los bordes */
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Oculta la barra de scroll en Chrome/Safari/Edge */
+  }
+}
+
+.slide {
+  flex: 0 0 auto; /* Evita que los items se estiren */
+  width: 80%; /* Ancho de cada slide (ajustable) */
+  scroll-snap-align: center; /* Centra el slide al hacer snap */
+  border-radius: 0.375rem; /* Valor directo en lugar de $border-radius-md */
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Valor directo en lugar de $shadow-md */
+  border: 1px solid #374151; /* Valor directo en lugar de $border-gray-700 */
+
+  @media (min-width: $breakpoint-sm) {
+      width: 60%; // Más ancho en pantallas un poco más grandes
+  }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Mantiene la proporción */
+  object-fit: cover;
+} 

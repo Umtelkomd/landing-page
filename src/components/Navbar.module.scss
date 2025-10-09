@@ -1,0 +1,259 @@
+@import '../styles/variables';
+
+/* src/components/Navbar.module.scss */
+
+$navbar-height: 5rem; // 80px (h-20)
+$breakpoint-md: 768px;
+$text-gray-300: #d1d5db;
+$bg-gray-700: #374151;
+$bg-gray-800: #1f2937;
+$bg-gray-900: #111827;
+$text-white: #ffffff;
+$indigo-500: #6366f1;
+$indigo-400: #818cf8; // Color añadido para hover/focus
+$teal-400: #2dd4bf; // Nuevo color de acento vibrante
+$teal-500: #14b8a6;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: linear-gradient(to bottom, rgba($bg-gray-900, 0.9), rgba($bg-gray-900, 0.8));
+  backdrop-filter: blur(12px); // backdrop-blur-lg (un poco más de blur)
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); // shadow-md ajustado
+  border-bottom: 1px solid rgba($teal-500, 0.3); // Borde con el nuevo acento
+}
+
+.container {
+  max-width: 1280px; // max-w-7xl
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; // px-4
+  padding-right: 1rem;
+  @media (min-width: 640px) { // sm:
+    padding-left: 1.5rem; // sm:px-6
+    padding-right: 1.5rem;
+  }
+  @media (min-width: 1024px) { // lg:
+    padding-left: 2rem; // lg:px-8
+    padding-right: 2rem;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $navbar-height;
+}
+
+.logoContainer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.25rem; // Pequeño padding alrededor del logo
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out; // Transición añadida
+
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.03); // Efecto ligeramente más notorio
+  }
+
+  .logoIcon {
+    height: 2.5rem; // h-10
+    width: 2.5rem; // w-10
+    color: $indigo-500;
+  }
+
+  .logoImg {
+    height: 3.25rem; // h-13 (aproximadamente)
+    width: auto;
+  }
+
+  .logoText {
+    margin-left: 0.5rem; // ml-2
+    font-size: 1.4rem; // Incrementado de text-xl
+    font-weight: 700; // font-bold
+    color: $text-white;
+  }
+}
+
+.navDesktop {
+  display: none; // hidden
+  @media (min-width: $breakpoint-md) { // md:
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; // Aumentar espaciado entre elementos
+  }
+}
+
+.navLink {
+  color: $text-gray-300;
+  padding: 0.625rem 0.875rem; // px-3.5 py-2.5
+  border-radius: 0.375rem; // rounded-md
+  font-size: 1.05rem; // Incrementado al tamaño text-base+
+  font-weight: 500; // font-medium
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.1s ease-in-out; // Transición más completa
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  position: relative; // Para pseudo-elementos si se necesitaran
+  overflow: hidden; // Para efectos contenidos
+
+  &::after { // Cambiado a ::after para la línea activa/hover
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+    background: linear-gradient(90deg, $teal-400, $indigo-400, $teal-500, $indigo-500); // Gradiente para hover y activo
+  }
+
+  &:hover {
+    color: $text-white; // Texto blanco en hover para mejor contraste
+    &::after { // Animar subrayado en hover
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+  }
+
+  &:focus {
+    outline: none;
+    color: $text-white; // También blanco en focus
+    // En lugar de modificar ::after, usamos un outline sutil o box-shadow
+    // Opción 1: Outline (más accesible)
+    outline: 2px solid $teal-400;
+    outline-offset: 2px;
+    // Opción 2: Box-shadow (si prefieres quitar el outline por defecto)
+    // box-shadow: 0 0 0 2px rgba($teal-500, 0.5);
+  }
+
+  &.activeLink {
+    color: $text-white; // Texto blanco también para el activo
+    font-weight: 600; // Un poco más de énfasis
+
+    &::after {
+      transform: scaleX(1); // Mostrar la línea siempre
+      transform-origin: bottom center; // Origen centrado para el activo
+      background: linear-gradient(90deg, #2dd4bf, #38bdf8, #34d399, #38bdf8); // Gradiente específico solicitado
+    }
+
+    &:hover::after {
+      // Podríamos mantener la misma apariencia o hacer algo sutil
+      // Por ahora, mantenemos el subrayado activo visible
+    }
+  }
+}
+
+.menuButtonContainer {
+  display: flex;
+  align-items: center;
+  @media (min-width: $breakpoint-md) { // md:
+    display: none; // md:hidden
+  }
+  .langSwitcherMobile { // Clase específica para el switcher en móvil
+    margin-right: 0.5rem; // mr-2
+  }
+
+  &.activeLink {
+    color: $teal-400; // Color teal para activo en móvil (sin subrayado)
+    background-color: rgba($teal-500, 0.1); // Fondo sutil
+  }
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem; // p-2.5
+  border-radius: 0.375rem; // rounded-md
+  color: #9ca3af; // text-gray-400
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out; // Añadir transform a transición
+
+  &:hover {
+    color: $text-white;
+    background-color: $bg-gray-700;
+    transform: scale(1.1); // Efecto de escala en hover
+  }
+
+  &:focus {
+    outline: none;
+    color: $text-white; // También blanco en focus
+    // En lugar de modificar ::after, usamos un outline sutil o box-shadow
+    // Opción 1: Outline (más accesible)
+    outline: 2px solid $teal-400;
+    outline-offset: 2px;
+    // Opción 2: Box-shadow (si prefieres quitar el outline por defecto)
+    // box-shadow: 0 0 0 2px rgba($teal-500, 0.5);
+  }
+
+  svg {
+    display: block;
+    height: 1.75rem; // h-7
+    width: 1.75rem; // w-7
+  }
+}
+
+.navMobile {
+  background-color: rgba($bg-gray-800, 0.95); // Ligeramente transparente y más oscuro
+  backdrop-filter: blur(5px); // Aplicar también un leve blur al menú móvil
+  border-top: 1px solid rgba($bg-gray-700, 0.5); // Borde superior para separación
+  @media (min-width: $breakpoint-md) { // md:
+    display: none; // md:hidden
+  }
+
+  .mobileMenuContent {
+    padding: 0.75rem 1rem 1rem; // Aumentado para mayor espaciado
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; // space-y-1
+
+    @media (min-width: 640px) { // sm:
+      padding-left: 1rem; // sm:px-4
+      padding-right: 1rem;
+    }
+  }
+  
+  .navLink {
+    // Reutiliza .navLink pero con ajustes para móvil
+    width: 100%;
+    font-size: 1.2rem; // Incrementado para mejor visibilidad
+    text-align: center; // Centrar texto en móvil para mejor estética
+    padding: 1rem 1.25rem; // Incrementado para dar más espacio
+
+    &.activeLink {
+      color: $teal-400; // Color teal para activo en móvil (sin subrayado)
+      background-color: rgba($teal-500, 0.1); // Fondo sutil
+    }
+
+    &:hover {
+      // Ajuste específico para móvil si es necesario, si no, hereda de .navLink
+      background-color: rgba($teal-400, 0.15);
+      color: $teal-400;
+    }
+
+    &:focus {
+      outline: none;
+      background-color: rgba($teal-500, 0.2); // Fondo teal más oscuro en focus
+      color: $teal-400;
+      // Añadir un indicador de foco visual claro también en móvil
+      outline: 2px solid $teal-400;
+      outline-offset: -2px; // Hacia adentro para no solapar
+      // Para móvil, el estado focus es similar al activo
+      &.activeLink {
+        background-color: rgba($teal-500, 0.25); // Ligeramente más oscuro si está activo y enfocado
+      }
+    }
+  }
+} 

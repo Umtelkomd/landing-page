@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Favicon Generator Instructions</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #3158a8;
+        }
+        .step {
+            margin-bottom: 25px;
+            border-left: 4px solid #3158a8;
+            padding-left: 15px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        .note {
+            background: #ffffdd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #e7c000;
+        }
+    </style>
+    </head>
+    <body>
+        <h1>Instrucciones para generar favicons</h1>
+
+        <p>Este archivo contiene instrucciones para generar los archivos de
+            favicon faltantes para el sitio glassfaser-utk.de.</p>
+
+        <div class="step">
+            <h2>Paso 1: Usar el favicon.svg como base</h2>
+            <p>Ya hemos creado un archivo SVG optimizado
+                (<code>/public/images/favicons/favicon.svg</code>) que puede
+                utilizarse como punto de partida.</p>
+        </div>
+
+        <div class="step">
+            <h2>Paso 2: Generar los archivos PNG</h2>
+            <p>Necesitarás generar los siguientes archivos:</p>
+            <ul>
+                <li><code>favicon-16x16.png</code> (16×16 píxeles)</li>
+                <li><code>favicon-32x32.png</code> (32×32 píxeles)</li>
+                <li><code>apple-touch-icon.png</code> (180×180 píxeles)</li>
+                <li><code>android-chrome-192x192.png</code> (192×192
+                    píxeles)</li>
+                <li><code>android-chrome-512x512.png</code> (512×512
+                    píxeles)</li>
+            </ul>
+            <p>Puedes generar estos archivos de varias formas:</p>
+            <ol>
+                <li><strong>Herramienta online:</strong> Visita <a
+                        href="https://realfavicongenerator.net/"
+                        target="_blank">Real Favicon Generator</a> y sube el
+                    archivo favicon.svg.</li>
+                <li><strong>Software gráfico:</strong> Abre el SVG en Adobe
+                    Illustrator, Inkscape o similar y exporta en los tamaños
+                    requeridos.</li>
+                <li><strong>Línea de comandos:</strong> Usa herramientas como
+                    ImageMagick o librsvg para convertir SVG a PNG en diferentes
+                    tamaños.</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2>Paso 3: Crear favicon.ico</h2>
+            <p>También necesitarás un archivo <code>favicon.ico</code> que
+                incluya múltiples tamaños (16x16, 32x32):</p>
+            <ol>
+                <li>Puedes usar <a href="https://www.favicon-generator.org/"
+                        target="_blank">favicon-generator.org</a> para convertir
+                    PNG a ICO</li>
+                <li>O usar la opción de Real Favicon Generator que crea este
+                    archivo automáticamente</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2>Paso 4: Ubicar los archivos</h2>
+            <p>Coloca todos los archivos generados en la carpeta
+                <code>/public/images/favicons/</code></p>
+        </div>
+
+        <div class="note">
+            <p><strong>Nota:</strong> Una vez que hayas generado todos los
+                archivos y los hayas colocado en la ubicación correcta, puedes
+                eliminar este archivo HTML de instrucciones antes de construir
+                la versión final para producción.</p>
+        </div>
+    </body>
+</html>

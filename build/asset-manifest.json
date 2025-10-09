@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ab278a3d.css",
+    "main.js": "/static/js/main.9aa19ad8.js",
+    "static/media/averias.png": "/static/media/averias.27de53dd51fff6cdffb9.png",
+    "static/media/n3n4.png": "/static/media/n3n4.29facc079e8bc507d525.png",
+    "static/media/soplado.png": "/static/media/soplado.bc0489df06131a1e341c.png",
+    "static/media/llaveenmano.png": "/static/media/llaveenmano.40d52a74e9ab43d673e4.png",
+    "static/media/activacion.png": "/static/media/activacion.dd1fdb5a38603229ffc0.png",
+    "static/media/fusiontarjetas.png": "/static/media/fusiontarjetas.1863285a7481f9c8968b.png",
+    "static/media/logo_azul.png": "/static/media/logo_azul.25826c453b1e9a89234d.png",
+    "static/media/background.webp": "/static/media/background.4307892be7db8a184e48.webp",
+    "index.html": "/index.html",
+    "main.ab278a3d.css.map": "/static/css/main.ab278a3d.css.map",
+    "main.9aa19ad8.js.map": "/static/js/main.9aa19ad8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ab278a3d.css",
+    "static/js/main.9aa19ad8.js"
+  ]
+}

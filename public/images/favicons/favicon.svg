@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- Versión simplificada del logo para favicon -->
+  <style>
+    .logo-color {
+      fill: #3158a8;
+    }
+    .gradient {
+      stop-color: #76d1f5;
+      stop-opacity: 1;
+    }
+    .gradient2 {
+      stop-color: #214197;
+      stop-opacity: 1;
+    }
+  </style>
+  
+  <defs>
+    <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" class="gradient" />
+      <stop offset="100%" class="gradient2" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Círculo base con gradiente -->
+  <circle cx="24" cy="24" r="22" fill="url(#grad1)" />
+  
+  <!-- Texto simplificado o inicial -->
+  <text x="24" y="30" font-family="Arial, sans-serif" font-weight="bold" font-size="16" text-anchor="middle" fill="#ffffff">UTK</text>
+</svg> 

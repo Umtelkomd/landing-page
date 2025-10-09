@@ -1,0 +1,322 @@
+@import '../styles/_variables';
+
+/* src/components/Footer.module.scss */
+
+$text-gray-400: #9ca3af;
+$text-white: #ffffff;
+$indigo-500: #6366f1;
+$breakpoint-md: 768px;
+
+.footer {
+  position: relative;
+  background: linear-gradient(180deg, #0e1128 0%, #0e2345 100%);
+  color: $text-white;
+  padding: 5rem 0 2rem;
+  overflow: hidden;
+  border-top: 1px solid rgba(45, 212, 191, 0.3);
+}
+
+.footerBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footerGlow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  
+  &:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: 10%;
+    background: radial-gradient(circle, rgba($teal-400, 0.2), transparent 70%);
+  }
+  
+  &:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    bottom: -150px;
+    right: 10%;
+    background: radial-gradient(circle, rgba($azure-400, 0.15), transparent 70%);
+  }
+  
+  &:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    top: 20%;
+    left: 50%;
+    background: radial-gradient(circle, rgba($emerald-400, 0.1), transparent 70%);
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $spacing-8;
+  position: relative;
+  z-index: 1;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-10;
+  
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: 1.5fr 1fr 1.5fr 1.8fr;
+    gap: $spacing-8;
+  }
+}
+
+.logoSection {
+  .logoImg {
+    height: 60px;
+    width: auto;
+    margin-bottom: $spacing-6;
+  }
+}
+
+.companySlogan {
+  font-size: $font-sm;
+  color: $text-gray-400;
+  line-height: 1.6;
+  margin-bottom: $spacing-4;
+  max-width: 300px;
+}
+
+.certifications {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.certBadge {
+  display: flex;
+  align-items: center;
+  background: rgba($azure-400, 0.1);
+  border: 1px solid rgba($azure-400, 0.3);
+  border-radius: 2rem;
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-xs;
+  backdrop-filter: blur(4px);
+  
+  .certIcon {
+    color: $teal-400;
+    margin-right: $spacing-2;
+  }
+}
+
+.footerTitle {
+  color: $text-white;
+  font-size: $font-lg;
+  margin-bottom: $spacing-6;
+  font-weight: $font-semibold;
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    height: 2px;
+    width: 40px;
+    background: linear-gradient(90deg, $teal-400, transparent);
+  }
+}
+
+.footerLinks {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    margin-bottom: $spacing-3;
+  }
+  
+  .footerLink {
+    color: rgba($text-white, 0.7);
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+    padding: $spacing-1 0;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: $teal-400;
+      transition: width 0.3s ease;
+    }
+    
+    &:hover {
+      color: $text-white;
+      
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  font-size: $font-sm;
+  line-height: 1.6;
+  margin-bottom: $spacing-3;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  div {
+    font-size: $font-sm;
+    line-height: 1.4;
+    
+    strong {
+      color: $teal-400;
+      font-weight: 600;
+    }
+  }
+  
+  .contactIcon {
+    color: $teal-400;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  
+  span {
+    opacity: 0.9;
+  }
+}
+
+.newsletterText {
+  color: $text-gray-400;
+  font-size: $font-sm;
+  margin-bottom: $spacing-4;
+  line-height: 1.6;
+}
+
+.subscribeForm {
+  display: flex;
+  margin-bottom: $spacing-6;
+}
+
+.emailInput {
+  flex-grow: 1;
+  background: rgba($bg-gray-900, 0.6);
+  border: 1px solid rgba($teal-400, 0.3);
+  border-radius: 2rem 0 0 2rem;
+  padding: $spacing-3 $spacing-4;
+  color: $text-white;
+  font-size: $font-sm;
+  outline: none;
+  transition: all 0.3s;
+  
+  &:focus {
+    border-color: rgba($teal-400, 0.6);
+    background: rgba($bg-gray-900, 0.8);
+  }
+  
+  &::placeholder {
+    color: rgba($text-white, 0.4);
+  }
+}
+
+.subscribeButton {
+  background: linear-gradient(90deg, $teal-400, $azure-400);
+  border: none;
+  border-radius: 0 2rem 2rem 0;
+  padding: 0 $spacing-4;
+  color: $text-white;
+  cursor: pointer;
+  transition: transform 0.3s;
+  
+  &:hover {
+    transform: translateX(2px);
+  }
+}
+
+.socialLinks {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba($bg-gray-800, 0.7);
+  border: 1px solid rgba($teal-400, 0.3);
+  border-radius: 50%;
+  color: $text-white;
+  transition: all 0.3s;
+  
+  &:hover {
+    background: linear-gradient(135deg, $teal-400, $azure-400);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba($teal-400, 0.3);
+  }
+}
+
+.divider {
+  margin: $spacing-10 0 $spacing-6;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba($teal-400, 0.3), 
+    rgba($azure-400, 0.3),
+    rgba($teal-400, 0.3),
+    transparent
+  );
+}
+
+.copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-2;
+  text-align: center;
+  font-size: $font-sm;
+  color: rgba($text-white, 0.8);
+  
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: $spacing-4;
+  }
+  
+  p {
+    margin: 0;
+  }
+} 
