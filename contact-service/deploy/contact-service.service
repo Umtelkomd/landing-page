@@ -1,0 +1,26 @@
+[Unit]
+Description=UMTELKOMD contact form relay
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/contact-service.env
+ExecStart=/usr/bin/python3 /opt/contact-service/contact_service.py
+User=contact
+Group=contact
+Restart=on-failure
+RestartSec=5
+# Hardening: the service only needs outbound SMTP and a loopback socket.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target
