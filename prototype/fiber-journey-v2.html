@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UMTELKOMD · Glasfasernetze vom Plan bis zum Anschluss (Prototyp v2)</title>
+<!-- Photo provenance: UMTELKOMD field documentation, cropped (stamps, addresses removed) and brand duotone. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#111113; --grey:#5E5E62; --grey-l:#B4B4B8; --teal:#14B8A6; --teal-t:#0B7A70;
+    --deep:#0C2E2B; --cream:#FDFBF6; --line:#E4E4DF; --tint:#E8F7F5;
+    --pad:clamp(20px,5vw,72px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--cream);color:var(--black);font:400 16px/1.55 'IBM Plex Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--teal-t);outline-offset:3px}
+
+  /* NAV */
+  .nav{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad);transition:background .3s,box-shadow .3s}
+  .nav.solid{background:rgba(253,251,246,.94);box-shadow:0 1px 0 var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .brand .em{height:46px;width:auto;display:block}
+  .brand .wm{width:220px;height:auto;display:block}
+  .nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0;font:500 14px 'IBM Plex Sans'}
+  .nav ul a{text-decoration:none;color:#2B2B2F}
+  .nav ul a:hover{color:var(--teal-t)}
+  .cta{font:600 14px 'IBM Plex Sans';text-decoration:none;background:var(--teal);color:var(--deep);padding:12px 18px;border-radius:8px;transition:transform .2s}
+  .cta:hover{transform:translateY(-1px)}
+
+  /* HERO */
+  .hero{min-height:100svh;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:140px var(--pad) 90px;position:relative}
+  .hero .eyebrow{font:500 12px/16px 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--teal-t)}
+  .hero h1{font:600 clamp(44px,6.6vw,104px)/.98 'IBM Plex Sans';letter-spacing:-.04em;margin:20px 0 28px}
+  .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+  .hero h1 .w > span{display:inline-block}
+  .hero h1 em{font-style:normal;color:var(--teal-t)}
+  .hero .lead{display:flex;gap:22px}
+  .hero .lead .bar{flex:0 0 4px;border-radius:2px;background:var(--teal)}
+  .hero .lead p{font:300 clamp(18px,1.5vw,22px)/1.5 'IBM Plex Sans';color:var(--grey);max-width:44ch;margin:0}
+  .hero .facts{display:flex;gap:40px;margin-top:44px;flex-wrap:wrap}
+  .hero .facts b{display:block;font:600 30px/1 'IBM Plex Sans';letter-spacing:-.02em}
+  .hero .facts span{font:400 13px 'IBM Plex Sans';color:var(--grey)}
+  .hero{grid-template-columns:1fr;overflow:hidden}
+  .hero > div{position:relative;z-index:1}
+  .hero .bgmark{position:absolute;right:clamp(-160px,-6vw,-60px);top:50%;width:min(58vw,820px);transform:translateY(-50%);opacity:.09;pointer-events:none;z-index:0}
+  .scrollcue{position:absolute;left:var(--pad);bottom:28px;display:flex;align-items:center;gap:12px;font:500 12px 'IBM Plex Mono';color:var(--grey)}
+  .scrollcue i{display:block;width:1px;height:44px;background:var(--line);position:relative;overflow:hidden}
+  .scrollcue i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--teal);animation:cue 1.8s cubic-bezier(.6,0,.2,1) infinite}
+  @keyframes cue{to{top:100%}}
+
+  /* JOURNEY */
+  .journey{position:relative;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(340px,40%) 1fr;background:var(--cream)}
+  .copy{position:relative;z-index:2;padding:110px var(--pad) 60px;display:flex;flex-direction:column;justify-content:center}
+  .phase{font:500 12px 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--grey);display:flex;gap:10px;align-items:center;margin-bottom:22px}
+  .phase i{width:24px;height:1px;background:var(--grey-l)}
+  .num{font:600 clamp(72px,9vw,140px)/.85 'Cinzel',serif;letter-spacing:.04em;color:var(--black);height:.9em;overflow:hidden;position:relative}
+  .num span{position:absolute;left:0;top:0}
+  .texts{position:relative;min-height:260px;margin-top:26px}
+  .t{position:absolute;inset:0 0 auto 0;display:flex;gap:18px;opacity:0;visibility:hidden}
+  .t .bar{flex:0 0 3px;border-radius:2px;background:var(--teal)}
+  .t h2{font:600 clamp(24px,2.4vw,36px)/1.12 'IBM Plex Sans';letter-spacing:-.025em;margin:0 0 12px}
+  .t p{margin:0 0 14px;font:300 17px/1.6 'IBM Plex Sans';color:#2B2B2F;max-width:44ch}
+  .t ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+  .t li{font:500 12px 'IBM Plex Sans';color:var(--teal-t);background:var(--tint);padding:5px 10px;border-radius:999px}
+  .rail{position:absolute;left:var(--pad);right:var(--pad);bottom:36px;display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+  .rail span{height:3px;border-radius:2px;background:var(--line);overflow:hidden}
+  .rail span b{display:block;height:100%;width:100%;background:var(--teal);transform:scaleX(0);transform-origin:left}
+
+  .stage{position:relative;overflow:hidden;background:var(--deep);margin:88px var(--pad) 36px 0;border-radius:14px}
+  .frame{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+  .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:var(--fx,50%) var(--fy,50%)}
+  .frame .cap{position:absolute;left:20px;bottom:18px;font:500 11px 'IBM Plex Mono';letter-spacing:.06em;color:var(--tint);background:rgba(12,46,43,.7);padding:6px 10px;border-radius:6px}
+  .frame.diagram{background:var(--deep)}
+  .frame.diagram svg{position:absolute;inset:0;width:100%;height:100%}
+  .fiber{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .fiber svg{width:100%;height:100%}
+
+  /* SERVICES STRIP */
+  .strip{padding:clamp(80px,10vw,140px) var(--pad);display:grid;grid-template-columns:1fr 2fr;gap:56px;border-top:1px solid var(--line)}
+  .strip h3{font:600 clamp(28px,3vw,44px)/1.08 'IBM Plex Sans';letter-spacing:-.03em;margin:0}
+  .strip dl{margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
+  .strip dt{font:600 17px 'IBM Plex Sans';padding-top:22px;border-top:1px solid var(--line)}
+  .strip dd{margin:6px 0 26px;color:var(--grey);font:300 16px/1.55 'IBM Plex Sans'}
+
+  /* CLOSE */
+  .close{background:var(--deep);color:#fff;padding:clamp(90px,12vw,170px) var(--pad);display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:end}
+  .close h2{font:600 clamp(34px,4.6vw,66px)/1.02 'IBM Plex Sans';letter-spacing:-.035em;margin:0}
+  .close p{font:300 19px/1.55 'IBM Plex Sans';color:var(--grey-l);margin:0 0 28px}
+  .btn{display:inline-block;font:600 15px 'IBM Plex Sans';text-decoration:none;padding:15px 24px;border-radius:8px;margin:0 10px 10px 0}
+  .btn.p{background:var(--teal);color:var(--deep)} .btn.s{border:1px solid #2E5A55;color:#fff}
+  footer{background:var(--deep);border-top:1px solid #1D4440;color:var(--grey-l);font-size:12px;padding:26px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  footer img{height:34px}
+
+  @media (max-width:900px){
+    .nav ul{display:none} .brand .em{height:36px} .brand .wm{width:196px}
+    .hero{padding-top:120px} .hero .bgmark{width:90vw;opacity:.06}
+    .journey{grid-template-columns:1fr;grid-template-rows:46svh 1fr}
+    .stage{grid-row:1;margin:76px 14px 0;border-radius:12px}
+    .copy{grid-row:2;padding:18px 20px 56px;justify-content:flex-start}
+    .num{font-size:56px} .phase{margin-bottom:10px} .texts{margin-top:12px;min-height:220px}
+    .t p{font-size:15px}
+    .rail{bottom:22px;left:20px;right:20px}
+    .strip,.close{grid-template-columns:1fr} .strip dl{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){ .scrollcue i::after{animation:none} }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="UMTELKOMD Startseite"><img class="em" src="assets/hmr-nexus-emblem-turquoise.svg" alt=""><img class="wm" src="assets/umtelkomd-wordmark-positive.svg" alt="UMTELKOMD"></a>
+  <ul><li><a href="#ablauf">Ablauf</a></li><li><a href="#leistungen">Leistungen</a></li><li><a href="#kontakt">Kontakt</a></li></ul>
+  <a class="cta" href="#kontakt">Projekt anfragen</a>
+</nav>
+
+<header class="hero" id="top">
+  <div>
+    <div class="eyebrow">Glasfaserausbau · FTTH · Deutschland</div>
+    <h1 aria-label="Glasfasernetze. Geplant, gebaut, aktiviert.">
+      <span class="w"><span>Glasfasernetze.</span></span><br>
+      <span class="w"><span>Geplant,</span></span> <span class="w"><span>gebaut,</span></span><br>
+      <span class="w"><span><em>aktiviert.</em></span></span>
+    </h1>
+    <div class="lead"><div class="bar"></div><p>Wir begleiten Netzbetreiber von der ersten Netzplanung bis zum aktiven Kundenanschluss – und bleiben danach im Störungsdienst an ihrer Seite.</p></div>
+    <div class="facts">
+      <div><b>8</b><span>Schritte aus einer Hand</span></div>
+      <div><b>FTTH</b><span>Backbone bis Wohnung</span></div>
+      <div><b>DE · ES · AT</b><span>Projekte in Europa</span></div>
+    </div>
+  </div>
+  <img class="bgmark" src="assets/hmr-nexus-emblem-turquoise.svg" alt="">
+  <div class="scrollcue"><i></i>Scrollen Sie durch unseren Ablauf</div>
+</header>
+
+<section class="journey" id="ablauf" aria-label="Unser Ablauf in acht Schritten">
+  <div class="copy">
+    <div class="phase"><i></i><span id="phase">Planung</span></div>
+    <div class="num" aria-hidden="true"><span id="num">01</span></div>
+    <div class="texts">
+      <article class="t"><div class="bar"></div><div><h2>Netzplanung &amp; Trassenstudie</h2><p>Wir erfassen das Gebiet vor Ort, planen Trassen, Verteilerstandorte und Hausanschlüsse und bereiten alle Genehmigungen vor.</p><ul><li>Begehung</li><li>Trassenplanung</li><li>Genehmigungen</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Projektsteuerung</h2><p>Ein fester Ansprechpartner, ein klarer Bauzeitenplan und tägliche Dokumentation – damit Sie jederzeit wissen, wo Ihr Projekt steht.</p><ul><li>Bauzeitenplan</li><li>Teams &amp; Material</li><li>Dokumentation</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Zentrale &amp; Backbone</h2><p>Am Netzknoten (POP) montieren und verbinden wir Verteiler und Patchfelder – der Ausgangspunkt für jede Faser im Netz.</p><ul><li>POP-Ausbau</li><li>Patchen</li><li>Backbone</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Tiefbau &amp; Rohrverlegung</h2><p>Wir öffnen die Oberfläche nur so weit wie nötig, verlegen Rohrverbände im Verteilnetz und stellen alles sauber wieder her.</p><ul><li>Offene Bauweise</li><li>Spülbohrung</li><li>Wiederherstellung</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Einblasen &amp; Spleißen</h2><p>Die Faser wird mit Druckluft eingeblasen und in Muffen und Verteilern per Fusionsspleiß verbunden – jede Verbindung wird gemessen.</p><ul><li>Einblasen</li><li>Fusionsspleiß</li><li>Messung</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Hausanschluss &amp; Inhouse</h2><p>Vom Gehweg ins Gebäude und durch den Steigschacht bis in jede Wohnung – sauber verlegt, mit Rücksicht auf Eigentümer und Mieter.</p><ul><li>Hauseinführung</li><li>Steigleitung</li><li>Wohnungsanschluss</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Anschluss &amp; Aktivierung</h2><p>Wir schalten den Anschluss am Netzknoten, prüfen die Strecke Ende-zu-Ende und übergeben ein vollständiges Abnahmeprotokoll.</p><ul><li>Schaltung</li><li>Ende-zu-Ende-Test</li><li>Abnahme</li></ul></div></article>
+      <article class="t"><div class="bar"></div><div><h2>Störungsdienst &amp; Wartung</h2><p>Wenn eine Leitung beschädigt wird, sind wir schnell vor Ort, lokalisieren den Fehler und stellen den Betrieb wieder her.</p><ul><li>Fehlersuche</li><li>Reparatur</li><li>Wartung</li></ul></div></article>
+    </div>
+    <div class="rail" aria-hidden="true"><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span><span><b></b></span></div>
+  </div>
+
+  <div class="stage" aria-hidden="true">
+    <!-- 01 planning map (data graphic) -->
+    <div class="frame diagram">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <g stroke="#1D4440" stroke-width="1">
+          <path d="M0 100H800M0 200H800M0 300H800M0 400H800M0 500H800M100 0V600M200 0V600M300 0V600M400 0V600M500 0V600M600 0V600M700 0V600"/>
+        </g>
+        <g fill="#123C38">
+          <rect x="120" y="120" width="140" height="70" rx="4"/><rect x="290" y="120" width="90" height="70" rx="4"/><rect x="420" y="110" width="160" height="90" rx="4"/><rect x="610" y="130" width="100" height="60" rx="4"/>
+          <rect x="120" y="240" width="90" height="110" rx="4"/><rect x="240" y="240" width="140" height="110" rx="4"/><rect x="420" y="250" width="110" height="100" rx="4"/><rect x="560" y="240" width="150" height="110" rx="4"/>
+          <rect x="120" y="400" width="200" height="80" rx="4"/><rect x="350" y="400" width="120" height="80" rx="4"/><rect x="500" y="400" width="210" height="80" rx="4"/>
+        </g>
+        <g class="route" fill="none" stroke="#14B8A6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M60 215 H400 V375 H730"/><path d="M400 215 H740"/><path d="M270 215 V375"/><path d="M545 375 V520"/><path d="M400 100 V215"/>
+        </g>
+        <g class="nodes" fill="#FDFBF6" stroke="#14B8A6" stroke-width="3">
+          <circle cx="60" cy="215" r="9"/><circle cx="400" cy="215" r="9"/><circle cx="400" cy="375" r="9"/><circle cx="730" cy="375" r="9"/><circle cx="270" cy="375" r="7"/><circle cx="545" cy="520" r="7"/><circle cx="740" cy="215" r="7"/><circle cx="400" cy="100" r="7"/>
+        </g>
+        <g class="labels" font-family="IBM Plex Mono" font-size="13" fill="#B4B4B8">
+          <text x="30" y="200">POP</text><text x="412" y="205">Verteiler 01</text><text x="412" y="365">Verteiler 02</text><text x="600" y="365">Abschnitt B · 640 m</text><text x="60" y="560" fill="#14B8A6">Trassenplan · Entwurf</text>
+        </g>
+      </svg>
+    </div>
+    <!-- 02 project control (gantt as data graphic) -->
+    <div class="frame diagram">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <g font-family="IBM Plex Mono" font-size="13" fill="#B4B4B8">
+          <text x="80" y="110">KW 10</text><text x="240" y="110">KW 12</text><text x="400" y="110">KW 14</text><text x="560" y="110">KW 16</text>
+        </g>
+        <g stroke="#1D4440"><path d="M80 125H720M240 125V520M400 125V520M560 125V520"/></g>
+        <g font-family="IBM Plex Sans" font-size="15" fill="#E8F7F5">
+          <text x="80" y="170">Genehmigungen</text><text x="80" y="240">Tiefbau Abschnitt A</text><text x="80" y="310">Einblasen &amp; Spleißen</text><text x="80" y="380">Hausanschlüsse</text><text x="80" y="450">Aktivierung</text>
+        </g>
+        <g class="bars" fill="#14B8A6">
+          <rect x="80" y="180" width="170" height="14" rx="7"/><rect x="200" y="250" width="260" height="14" rx="7"/><rect x="360" y="320" width="220" height="14" rx="7"/><rect x="430" y="390" width="230" height="14" rx="7"/><rect x="600" y="460" width="120" height="14" rx="7"/>
+        </g>
+        <path d="M470 140 V510" stroke="#FDFBF6" stroke-width="2" stroke-dasharray="4 6"/><text x="478" y="150" font-family="IBM Plex Mono" font-size="12" fill="#FDFBF6">heute</text>
+      </svg>
+    </div>
+    <div class="frame" style="--fx:55%;--fy:45%"><img src="assets/photos/field-115.jpg" alt=""><span class="cap">Netzknoten · Patchfeld</span></div>
+    <div class="frame" style="--fx:50%;--fy:50%"><img src="assets/photos/field-003.jpg" alt=""><span class="cap">Rohrverband im Verteilnetz</span></div>
+    <div class="frame" style="--fx:50%;--fy:60%"><img src="assets/photos/field-012.jpg" alt=""><span class="cap">Spleißkassetten</span></div>
+    <div class="frame" style="--fx:40%;--fy:55%"><img src="assets/photos/field-038.jpg" alt=""><span class="cap">Verteiler · Hauseinführung</span></div>
+    <div class="frame" style="--fx:35%;--fy:50%"><img src="assets/photos/field-089.jpg" alt=""><span class="cap">Schaltung am Netzknoten</span></div>
+    <div class="frame" style="--fx:50%;--fy:50%"><img src="assets/photos/field-009.jpg" alt=""><span class="cap">Reparatur nach Leitungsschaden</span></div>
+
+    <!-- the fiber: one continuous thread across every shot -->
+    <div class="fiber"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path id="thread" d="M-2 82 C 20 82, 30 50, 50 50 S 80 18, 102 18" fill="none" stroke="#14B8A6" stroke-width=".5" vector-effect="non-scaling-stroke" style="stroke-width:3px" stroke-linecap="round"/></svg></div>
+  </div>
+</section>
+
+<section class="strip" id="leistungen">
+  <h3>Alles, was ein Glasfasernetz braucht. Aus einer Hand.</h3>
+  <dl>
+    <dt>Planung &amp; Genehmigung</dt><dd>Begehung, Trassen- und Ausführungsplanung, Abstimmung mit Kommunen.</dd>
+    <dt>Tiefbau</dt><dd>Offene und geschlossene Bauweise, Rohrverlegung, Oberflächenwiederherstellung.</dd>
+    <dt>Montage &amp; Spleißen</dt><dd>Einblasen, Muffen- und Verteilermontage, Fusionsspleiß, Messprotokolle.</dd>
+    <dt>Hausanschluss &amp; Inhouse</dt><dd>Hauseinführung, Steigleitungen und Wohnungsanschlüsse in Mehrfamilienhäusern.</dd>
+    <dt>Aktivierung</dt><dd>Schaltung, Ende-zu-Ende-Prüfung und Übergabe an den Netzbetreiber.</dd>
+    <dt>Störungsdienst</dt><dd>Schnelle Fehlerlokalisierung und Reparatur im laufenden Netz.</dd>
+  </dl>
+</section>
+
+<section class="close" id="kontakt">
+  <h2>Ihr Netz. Von der ersten Trasse bis zum letzten Anschluss.</h2>
+  <div>
+    <p>Netzbetreiber und Generalunternehmer setzen beim Glasfaserausbau auf UMTELKOMD. Sprechen wir über Ihr Projekt.</p>
+    <a class="btn p" href="mailto:info@umtelkomd.net">Projekt anfragen</a><a class="btn s" href="#ablauf">Ablauf ansehen</a>
+  </div>
+</section>
+<footer><img src="assets/umtelkomd-horizontal-negative.svg" alt="UMTELKOMD"><span>UMTELKOMD GmbH · ein Unternehmen der HMR nexus Gruppe · Prototyp v2</span></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 40), { passive: true });
+
+  const frames = gsap.utils.toArray('.frame');
+  const texts = gsap.utils.toArray('.t');
+  const bars = gsap.utils.toArray('.rail b');
+  const numEl = document.getElementById('num');
+  const phaseEl = document.getElementById('phase');
+  const phases = ['Planung', 'Planung', 'Bau', 'Bau', 'Bau', 'Bau', 'Inbetriebnahme', 'Betrieb'];
+  const thread = document.getElementById('thread');
+  const N = frames.length;
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || reduce) {
+    // static, complete fallback: every step readable, first frame shown
+    frames[0].style.visibility = 'visible';
+    document.querySelector('.journey').style.cssText = 'height:auto;display:block';
+    document.querySelector('.texts').style.cssText = 'display:grid;gap:28px;min-height:0';
+    texts.forEach(t => t.style.cssText = 'position:static;opacity:1;visibility:visible');
+    document.querySelector('.stage').style.cssText = 'position:relative;height:50vh;margin:0 20px';
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // hero intro: words rise, mark fades in
+  gsap.from('.hero h1 .w > span', { yPercent: 110, duration: 1, ease: 'power4.out', stagger: .08, delay: .1 });
+  gsap.from(['.hero .lead', '.hero .facts', '.hero .bgmark'], { y: 24, autoAlpha: 0, duration: .9, ease: 'power3.out', stagger: .12, delay: .45 });
+
+  // initial state
+  gsap.set(frames, { autoAlpha: 0 });
+  gsap.set(frames[0], { autoAlpha: 1 });
+  gsap.set(texts[0], { autoAlpha: 1 });
+  const L = thread.getTotalLength();
+  gsap.set(thread, { strokeDasharray: L, strokeDashoffset: L });
+
+  // planning graphics draw themselves
+  const routes = frames[0].querySelectorAll('.route path');
+  routes.forEach(p => { const l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
+  gsap.set(frames[0].querySelectorAll('.nodes circle, .labels text'), { autoAlpha: 0 });
+  gsap.set(frames[1].querySelectorAll('.bars rect'), { scaleX: 0, transformOrigin: 'left center' });
+
+  let current = 0;
+  const setStep = i => {
+    if (i === current) return;
+    const dir = i > current ? 1 : -1;
+    gsap.to(texts[current], { autoAlpha: 0, y: -16 * dir, duration: .35, overwrite: true });
+    gsap.fromTo(texts[i], { autoAlpha: 0, y: 22 * dir }, { autoAlpha: 1, y: 0, duration: .55, delay: .12, ease: 'power3.out', overwrite: true });
+    const next = String(i + 1).padStart(2, '0');
+    gsap.to(numEl, { yPercent: -100 * dir, autoAlpha: 0, duration: .3, ease: 'power2.in', onComplete: () => {
+      numEl.textContent = next; gsap.fromTo(numEl, { yPercent: 100 * dir, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: .45, ease: 'power3.out' });
+    }});
+    phaseEl.textContent = phases[i];
+    current = i;
+  };
+
+  // master timeline: each step = settle (slow drift) + camera push-through into the next shot
+  const tl = gsap.timeline({ defaults: { ease: 'none' } });
+  frames.forEach((f, i) => {
+    const img = f.querySelector('img');
+    tl.addLabel('s' + i);
+    if (i === 0) {
+      tl.to(routes, { strokeDashoffset: 0, duration: .8, stagger: .12 }, 's0')
+        .to(f.querySelectorAll('.nodes circle, .labels text'), { autoAlpha: 1, duration: .3, stagger: .04 }, 's0+=.3');
+    } else if (i === 1) {
+      tl.to(f.querySelectorAll('.bars rect'), { scaleX: 1, duration: .8, stagger: .12, ease: 'power2.out' }, 's1+=.15');
+    } else if (img) {
+      tl.fromTo(img, { scale: 1.08 }, { scale: 1.18, duration: 1 }, 's' + i); // slow dolly while reading
+    }
+    tl.to(bars[i], { scaleX: 1, duration: 1 }, 's' + i);
+    tl.to(thread, { strokeDashoffset: L * (1 - (i + 1) / N), duration: 1 }, 's' + i);
+    if (i < N - 1) {
+      // camera push: current shot rushes toward the lens, next shot settles from wide
+      const nxt = frames[i + 1];
+      const nimg = nxt.querySelector('img') || nxt.querySelector('svg');
+      tl.to(img || f.querySelector('svg'), { scale: 1.9, duration: .6, ease: 'power2.in' }, '>-0.05')
+        .to(f, { autoAlpha: 0, duration: .25 }, '<.35')
+        .fromTo(nxt, { autoAlpha: 0, clipPath: 'circle(8% at 50% 50%)' }, { autoAlpha: 1, clipPath: 'circle(75% at 50% 50%)', duration: .55, ease: 'power3.out' }, '<-.1')
+        .fromTo(nimg, { scale: 1.45 }, { scale: 1.08, duration: .7, ease: 'power3.out' }, '<');
+    }
+  });
+
+  ScrollTrigger.create({
+    animation: tl, trigger: '.journey', start: 'top top', end: () => '+=' + innerHeight * N * 1.1,
+    pin: true, scrub: .8, anticipatePin: 1,
+    snap: { snapTo: 'labels', duration: { min: .25, max: .8 }, delay: .1, ease: 'power2.inOut' },
+    onUpdate: self => {
+      const t = self.progress * tl.duration();
+      let i = 0; for (let k = 0; k < N; k++) if (t >= tl.labels['s' + k] - .05) i = k;
+      setStep(i);
+    }
+  });
+
+  gsap.from('.strip dt, .strip dd', { scrollTrigger: { trigger: '.strip', start: 'top 75%' }, y: 18, autoAlpha: 0, duration: .6, stagger: .05, ease: 'power3.out' });
+  addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

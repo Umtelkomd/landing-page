@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UMTELKOMD · Glasfaser vom Plan bis zur Wohnung (Prototyp)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#111113; --grey:#5E5E62; --grey-l:#B4B4B8; --teal:#14B8A6; --teal-t:#0B7A70;
+    --deep:#0C2E2B; --cream:#FDFBF6; --line:#E4E4DF; --tint:#E8F7F5; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--cream);color:var(--black);font:400 16px/1.5 'IBM Plex Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+
+  /* NAV */
+  .nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,56px);pointer-events:none}
+  .nav img{height:26px;pointer-events:auto}
+  .nav .cta{pointer-events:auto;font:600 14px 'IBM Plex Sans';text-decoration:none;background:var(--teal);color:var(--deep);padding:10px 16px;border-radius:8px}
+
+  /* HERO */
+  .hero{min-height:100svh;display:grid;align-content:center;padding:120px clamp(20px,6vw,96px) 80px;position:relative;overflow:hidden}
+  .hero .eyebrow{font:600 11px/16px 'IBM Plex Sans';letter-spacing:.16em;text-transform:uppercase;color:var(--teal-t)}
+  .hero h1{font:600 clamp(40px,6.4vw,92px)/1.02 'IBM Plex Sans';letter-spacing:-.035em;margin:18px 0 22px;max-width:12ch}
+  .hero h1 em{font-style:normal;color:var(--teal-t)}
+  .hero p{font:300 clamp(18px,1.6vw,22px)/1.5 'IBM Plex Sans';color:var(--grey);max-width:46ch;margin:0}
+  .hero .row{display:flex;gap:22px;margin-top:4px}
+  .hero .bar{width:4px;border-radius:2px;background:var(--teal)}
+  .scrollcue{position:absolute;left:clamp(20px,6vw,96px);bottom:36px;display:flex;align-items:center;gap:12px;font:500 12px 'IBM Plex Mono';color:var(--grey);letter-spacing:.04em}
+  .scrollcue i{display:block;width:1px;height:44px;background:var(--line);position:relative;overflow:hidden}
+  .scrollcue i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--teal);animation:cue 1.8s cubic-bezier(.6,0,.2,1) infinite}
+  @keyframes cue{to{top:100%}}
+  .hero .knot{position:absolute;right:clamp(-120px,-4vw,-40px);top:50%;width:min(46vw,640px);transform:translateY(-50%);opacity:.08}
+
+  /* JOURNEY */
+  .journey{position:relative;height:100svh;overflow:hidden;background:var(--cream)}
+  .stage{position:absolute;inset:0}
+  .stage svg{width:100%;height:100%;display:block}
+  .panel{position:absolute;left:clamp(20px,5vw,72px);top:50%;transform:translateY(-50%);width:min(380px,40vw);z-index:3}
+  .step{position:absolute;left:0;top:0;transform:translateY(-50%);display:flex;gap:18px;opacity:0;visibility:hidden;
+        background:rgba(253,251,246,.92);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px 24px 22px 0;border-radius:10px}
+  .step .bar{flex:0 0 3px;border-radius:2px;background:var(--teal)}
+  .step .k{font:500 11px/16px 'IBM Plex Mono';letter-spacing:.08em;color:var(--teal-t);text-transform:uppercase}
+  .step h2{font:600 clamp(22px,2.3vw,32px)/1.15 'IBM Plex Sans';letter-spacing:-.02em;margin:8px 0 10px}
+  .step p{margin:0;font:300 17px/1.55 'IBM Plex Sans';color:#2B2B2F}
+  .progress{position:absolute;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);display:grid;gap:14px;z-index:3}
+  .progress span{font:500 11px 'IBM Plex Mono';color:var(--grey-l);display:flex;align-items:center;gap:10px;justify-content:flex-end;transition:color .3s}
+  .progress span::after{content:"";width:18px;height:2px;border-radius:1px;background:var(--line);transition:background .3s,width .3s}
+  .progress span.on{color:var(--teal-t)} .progress span.on::after{background:var(--teal);width:34px}
+
+  /* CLOSE */
+  .close{background:var(--deep);color:#fff;padding:clamp(80px,12vw,160px) clamp(20px,6vw,96px);display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:end}
+  .close h2{font:600 clamp(32px,4.4vw,60px)/1.05 'IBM Plex Sans';letter-spacing:-.03em;margin:0}
+  .close p{font:300 19px/1.55 'IBM Plex Sans';color:var(--grey-l);margin:0 0 26px}
+  .close .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font:600 15px 'IBM Plex Sans';text-decoration:none;padding:14px 22px;border-radius:8px}
+  .btn.p{background:var(--teal);color:var(--deep)} .btn.s{border:1px solid #2E5A55;color:#fff}
+  footer{background:var(--deep);border-top:1px solid #1D4440;color:var(--grey-l);font-size:12px;padding:22px clamp(20px,6vw,96px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer img{height:22px}
+
+  @media (max-width:760px){
+    .panel{left:16px;right:16px;width:auto;top:auto;bottom:22px;transform:none}
+    .step{top:auto;bottom:0;transform:none;padding:16px 18px 16px 0}
+    .step p{font-size:15px}
+    .progress{top:86px;transform:none;right:14px;gap:8px}
+    .progress span{font-size:0;gap:0} .progress span::after{width:12px} .progress span.on::after{width:24px}
+    .close{grid-template-columns:1fr}
+    .hero .knot{opacity:.06;width:80vw}
+  }
+  @media (prefers-reduced-motion:reduce){ .scrollcue i::after{animation:none} }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <img src="assets/umtelkomd-horizontal-positive.svg" alt="UMTELKOMD">
+  <a class="cta" href="#kontakt">Projekt anfragen</a>
+</nav>
+
+<header class="hero">
+  <img class="knot" src="assets/hmr-nexus-emblem-turquoise.svg" alt="">
+  <div class="eyebrow">Glasfaserausbau · NE3 &amp; NE4</div>
+  <h1>Glasfaser. Vom Plan bis <em>zur Wohnung.</em></h1>
+  <div class="row"><div class="bar"></div><p>Wir planen, bauen, spleißen und aktivieren Glasfasernetze – aus einer Hand, Schritt für Schritt. Scrollen Sie mit.</p></div>
+  <div class="scrollcue"><i></i>Scrollen · 6 Schritte</div>
+</header>
+
+<section class="journey" id="journey">
+  <div class="stage">
+    <svg id="world" viewBox="0 300 3200 1800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#E4E4DF" stroke-width="2"/></pattern>
+        <pattern id="soil" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2.2" fill="#D9D3C4"/><circle cx="18" cy="16" r="1.6" fill="#D9D3C4"/></pattern>
+      </defs>
+
+      <!-- sky / plan grid -->
+      <rect x="-400" y="0" width="4000" height="1100" fill="#FDFBF6"/>
+      <rect id="planGrid" x="-400" y="0" width="4000" height="1100" fill="url(#grid)"/>
+
+      <!-- ground -->
+      <rect x="-400" y="1100" width="4000" height="1400" fill="#EFEBE1"/>
+      <rect x="-400" y="1100" width="4000" height="1400" fill="url(#soil)"/>
+      <rect x="-400" y="1092" width="4000" height="16" fill="#111113"/>
+      <!-- road markings -->
+      <g fill="#FDFBF6"><rect x="700" y="1098" width="60" height="4"/><rect x="820" y="1098" width="60" height="4"/><rect x="1380" y="1098" width="60" height="4"/><rect x="1500" y="1098" width="60" height="4"/><rect x="2000" y="1098" width="60" height="4"/></g>
+
+      <!-- trees -->
+      <g fill="#111113">
+        <rect x="628" y="1010" width="6" height="84"/><circle cx="631" cy="990" r="34" fill="#14B8A6" opacity=".35"/>
+        <rect x="1468" y="1020" width="6" height="74"/><circle cx="1471" cy="1002" r="28" fill="#14B8A6" opacity=".35"/>
+        <rect x="2118" y="1000" width="6" height="94"/><circle cx="2121" cy="978" r="38" fill="#14B8A6" opacity=".35"/>
+      </g>
+
+      <!-- POP -->
+      <g id="pop">
+        <rect x="200" y="840" width="320" height="252" fill="#FFFFFF" stroke="#111113" stroke-width="6"/>
+        <rect x="200" y="840" width="320" height="40" fill="#111113"/>
+        <text x="230" y="868" font-family="IBM Plex Mono" font-size="22" fill="#FDFBF6" letter-spacing="2">POP</text>
+        <g fill="#E4E4DF" stroke="#111113" stroke-width="3">
+          <rect x="236" y="910" width="70" height="150"/><rect x="326" y="910" width="70" height="150"/><rect x="416" y="910" width="70" height="150"/>
+        </g>
+        <g fill="#14B8A6"><circle cx="252" cy="930" r="5"/><circle cx="342" cy="930" r="5"/><circle cx="432" cy="930" r="5"/></g>
+      </g>
+
+      <!-- trench + blowing machine -->
+      <g id="trench">
+        <rect x="900" y="1100" width="360" height="190" fill="#FDFBF6" stroke="#111113" stroke-width="5"/>
+        <rect x="900" y="1100" width="360" height="190" fill="url(#soil)" opacity=".5"/>
+        <!-- spoil heap -->
+        <path d="M1270 1094 q60 -70 140 0z" fill="#D9D3C4" stroke="#111113" stroke-width="4"/>
+        <!-- blower -->
+        <g id="blower">
+          <rect x="760" y="1000" width="150" height="90" rx="10" fill="#14B8A6" stroke="#111113" stroke-width="5"/>
+          <rect x="780" y="1020" width="60" height="30" fill="#FDFBF6" stroke="#111113" stroke-width="3"/>
+          <circle cx="790" cy="1094" r="14" fill="#111113"/><circle cx="880" cy="1094" r="14" fill="#111113"/>
+          <path d="M910 1040 C 960 1040 960 1250 1000 1250" fill="none" stroke="#111113" stroke-width="7"/>
+          <text x="768" y="985" font-family="IBM Plex Mono" font-size="20" fill="#5E5E62">Einblasgerät</text>
+        </g>
+        <!-- airflow ticks -->
+        <g id="air" stroke="#14B8A6" stroke-width="5" stroke-linecap="round">
+          <line x1="1030" y1="1222" x2="1060" y2="1222"/><line x1="1100" y1="1222" x2="1130" y2="1222"/><line x1="1170" y1="1222" x2="1200" y2="1222"/>
+        </g>
+      </g>
+
+      <!-- duct (underground) -->
+      <path d="M520 1250 H2420" stroke="#B4B4B8" stroke-width="30" fill="none" stroke-linecap="round"/>
+      <path d="M520 1250 H2420" stroke="#FDFBF6" stroke-width="18" fill="none" stroke-linecap="round"/>
+      <path d="M520 1100 V1250" stroke="#B4B4B8" stroke-width="30" fill="none"/>
+      <path d="M520 1100 V1250" stroke="#FDFBF6" stroke-width="18" fill="none"/>
+
+      <!-- DP cabinet -->
+      <g id="dp">
+        <rect x="1580" y="990" width="90" height="104" rx="6" fill="#FFFFFF" stroke="#111113" stroke-width="5"/>
+        <line x1="1625" y1="1000" x2="1625" y2="1084" stroke="#111113" stroke-width="3"/>
+        <text x="1592" y="975" font-family="IBM Plex Mono" font-size="20" fill="#5E5E62">DP</text>
+        <path d="M1625 1094 V1250" stroke="#B4B4B8" stroke-width="16"/>
+      </g>
+
+      <!-- splice closure (handhole) -->
+      <g id="closure">
+        <rect x="1820" y="1190" width="160" height="120" rx="8" fill="#FFFFFF" stroke="#111113" stroke-width="5"/>
+        <rect x="1820" y="1100" width="160" height="12" fill="#5E5E62"/>
+        <g stroke="#111113" stroke-width="2" fill="#E8F7F5"><rect x="1846" y="1222" width="108" height="56" rx="4"/></g>
+        <g stroke="#5E5E62" stroke-width="2"><line x1="1858" y1="1236" x2="1942" y2="1236"/><line x1="1858" y1="1264" x2="1942" y2="1264"/></g>
+        <circle id="spark" cx="1900" cy="1250" r="7" fill="#14B8A6"/>
+        <circle id="sparkRing" cx="1900" cy="1250" r="7" fill="none" stroke="#14B8A6" stroke-width="3"/>
+        <text x="1830" y="1340" font-family="IBM Plex Mono" font-size="18" fill="#5E5E62">Muffe</text>
+      </g>
+
+      <!-- building -->
+      <g id="building">
+        <rect x="2300" y="390" width="520" height="702" fill="#FFFFFF" stroke="#111113" stroke-width="6"/>
+        <rect x="2290" y="372" width="540" height="22" fill="#111113"/>
+        <g stroke="#111113" stroke-width="3">
+          <line x1="2300" y1="530" x2="2820" y2="530"/><line x1="2300" y1="670" x2="2820" y2="670"/><line x1="2300" y1="810" x2="2820" y2="810"/><line x1="2300" y1="950" x2="2820" y2="950"/>
+        </g>
+        <g fill="#E4E4DF" stroke="#111113" stroke-width="3">
+          <rect x="2560" y="420" width="70" height="80"/><rect x="2690" y="420" width="70" height="80"/>
+          <rect x="2560" y="560" width="70" height="80"/><rect x="2690" y="560" width="70" height="80"/>
+          <rect x="2560" y="700" width="70" height="80"/><rect x="2690" y="700" width="70" height="80"/>
+          <rect x="2560" y="840" width="70" height="80"/><rect x="2690" y="840" width="70" height="80"/>
+          <rect x="2690" y="980" width="70" height="112"/>
+        </g>
+        <!-- riser channel -->
+        <rect x="2346" y="400" width="28" height="692" fill="#F3F1EA" stroke="#B4B4B8" stroke-width="2"/>
+        <path d="M2360 1092 V1250" stroke="#B4B4B8" stroke-width="16"/>
+        <!-- floor labels -->
+        <g font-family="IBM Plex Mono" font-size="18" fill="#B4B4B8">
+          <text x="2390" y="1030">EG</text><text x="2390" y="890">1. OG</text><text x="2390" y="750">2. OG</text><text x="2390" y="610">3. OG</text><text x="2390" y="470">4. OG</text>
+        </g>
+        <!-- flat on 4th floor -->
+        <g id="flat">
+          <rect id="ont" x="2440" y="478" width="44" height="30" rx="4" fill="#FFFFFF" stroke="#111113" stroke-width="3"/>
+          <circle id="ontLed" cx="2452" cy="493" r="4" fill="#B4B4B8"/>
+          <image id="flatKnot" href="assets/hmr-nexus-emblem-turquoise.svg" x="2494" y="420" width="54" height="50" opacity=".15"/>
+        </g>
+      </g>
+
+      <!-- service van -->
+      <g id="van">
+        <path d="M2950 1000 h170 l50 44 v46 h-220z" fill="#FFFFFF" stroke="#111113" stroke-width="5"/>
+        <rect x="2950" y="1030" width="220" height="10" fill="#14B8A6"/>
+        <path d="M3124 1004 l38 36 h-38z" fill="#E4E4DF" stroke="#111113" stroke-width="3"/>
+        <circle cx="2990" cy="1092" r="18" fill="#111113"/><circle cx="3120" cy="1092" r="18" fill="#111113"/>
+        <circle id="beacon" cx="3030" cy="992" r="8" fill="#14B8A6"/>
+      </g>
+
+      <!-- plan overlay (step 1) -->
+      <g id="plan" fill="none" stroke="#0B7A70" stroke-width="5" stroke-dasharray="18 14">
+        <path d="M360 840 V700 H1625 V990"/>
+        <path d="M1625 700 H2560 V390"/>
+        <g font-family="IBM Plex Mono" font-size="22" fill="#0B7A70" stroke="none">
+          <text x="380" y="680">Trasse A · 1.920 m</text><text x="1660" y="680">Abschnitt DP 13</text><text x="2580" y="370">MFH · 18 WE</text>
+        </g>
+        <g fill="#14B8A6" stroke="#111113" stroke-width="3" stroke-dasharray="0"><circle cx="360" cy="700" r="12"/><circle cx="1625" cy="700" r="12"/><circle cx="2560" cy="700" r="12"/></g>
+      </g>
+
+      <!-- FIBER (the camera path) -->
+      <path id="fiberBase" d="M360 960 V1100 H520 M520 1100 V1250 H2360 V493 H2440" fill="none" stroke="#E4E4DF" stroke-width="0"/>
+      <path id="fiber" d="M520 1100 V1250 H2360 V493 H2440" fill="none" stroke="#14B8A6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="pulse" d="M520 1100 V1250 H2360 V493 H2440" fill="none" stroke="#0C2E2B" stroke-width="4" stroke-linecap="round" opacity="0"/>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <article class="step" data-step="1"><div class="bar"></div><div><div class="k">Schritt 01 · Planung</div><h2>Erst der Plan, dann der Spaten.</h2><p>Wir planen Trassen, Abschnitte und Hausanschlüsse und steuern das Projekt vom ersten Meter an – mit Genehmigungen, Terminen und klarer Dokumentation.</p></div></article>
+    <article class="step" data-step="2"><div class="bar"></div><div><div class="k">Schritt 02 · NE3 Tiefbau</div><h2>Graben, verlegen, einblasen.</h2><p>Vom POP bis zum Verteilerpunkt verlegen wir Rohrverbände und blasen die Glasfaser mit Druckluft ein – sauber, schnell, wiederhergestellt.</p></div></article>
+    <article class="step" data-step="3"><div class="bar"></div><div><div class="k">Schritt 03 · Spleißen</div><h2>Präzision auf einen Mikrometer.</h2><p>In der Muffe verbinden wir jede Faser per Fusionsspleiß und messen jede Verbindung, bevor die Muffe geschlossen wird.</p></div></article>
+    <article class="step" data-step="4"><div class="bar"></div><div><div class="k">Schritt 04 · NE4 Inhouse</div><h2>Etage für Etage nach oben.</h2><p>Im Gebäude führen wir die Faser durch den Steigschacht bis in jede Wohnung – sauber verlegt, mit Rücksicht auf die Bewohner.</p></div></article>
+    <article class="step" data-step="5"><div class="bar"></div><div><div class="k">Schritt 05 · Aktivierung</div><h2>Das Licht geht an.</h2><p>Wir montieren den Anschluss, aktivieren ihn und übergeben ein vollständiges Abnahmeprotokoll. Der Kunde ist online.</p></div></article>
+    <article class="step" data-step="6"><div class="bar"></div><div><div class="k">Schritt 06 · Störungsdienst</div><h2>Und wenn etwas passiert: Wir sind da.</h2><p>Unser Störungsdienst lokalisiert und behebt Fehler im Netz schnell – damit das Licht nicht ausgeht.</p></div></article>
+  </div>
+
+  <nav class="progress" aria-label="Fortschritt">
+    <span data-p="1">01</span><span data-p="2">02</span><span data-p="3">03</span><span data-p="4">04</span><span data-p="5">05</span><span data-p="6">06</span>
+  </nav>
+</section>
+
+<section class="close" id="kontakt">
+  <h2>Ihr Netz. Von der Planung bis zum letzten Anschluss.</h2>
+  <div>
+    <p>Netzbetreiber und Generalunternehmer in Deutschland vertrauen auf UMTELKOMD für NE3 und NE4. Sprechen wir über Ihr Projekt.</p>
+    <div class="btns"><a class="btn p" href="mailto:info@umtelkomd.net">Projekt anfragen</a><a class="btn s" href="#">Referenzen ansehen</a></div>
+  </div>
+</section>
+<footer><img src="assets/umtelkomd-horizontal-negative.svg" alt="UMTELKOMD"><span>UMTELKOMD GmbH · ein Unternehmen der HMR nexus Gruppe · Prototyp</span></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  const svg = document.getElementById('world');
+  const steps = gsap.utils.toArray('.step');
+  const dots = gsap.utils.toArray('.progress span');
+  const fiber = document.getElementById('fiber');
+  const pulse = document.getElementById('pulse');
+  const L = fiber.getTotalLength();
+  const narrow = () => window.matchMedia('(max-width:760px)').matches;
+
+  // camera shots: [x, y, w, h] in world units (16:9); narrow screens use taller framing
+  const shots = {
+    wide:     [0, 300, 3200, 1800],
+    trench:   [620, 860, 1100, 619],
+    closure:  [1760, 1120, 400, 225],
+    building: [2180, 760, 760, 428],
+    top:      [2180, 360, 760, 428],
+    flat:     [2400, 410, 220, 124],
+    final:    [-100, 250, 3400, 1912]
+  };
+  const tall = s => { const [x,y,w,h] = s; const nh = w * 1.6; return [x + w*0.15, y + h/2 - nh*0.42, w*0.7, nh*0.7]; };
+  const vb = s => (narrow() ? tall(s) : s).join(' ');
+
+  // fiber length checkpoints (fraction of total path)
+  const seg = { pop:150, toClosure:150 + (1900-520), toRiser:150 + (2360-520), top: 150 + (2360-520) + (1250-493), end: L };
+
+  const show = i => {
+    steps.forEach((s, k) => gsap.to(s, { autoAlpha: k === i ? 1 : 0, y: k === i ? 0 : 14, duration: .45, overwrite: true }));
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+  };
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.set(fiber, { strokeDasharray: L, strokeDashoffset: L });
+
+  if (reduce) {
+    svg.setAttribute('viewBox', shots.wide.join(' '));
+    gsap.set(fiber, { strokeDashoffset: 0 });
+    gsap.set('#flatKnot', { opacity: 1 });
+    document.querySelector('.journey').style.height = 'auto';
+    document.querySelector('.panel').style.cssText = 'position:static;transform:none;width:auto;padding:24px;display:grid;gap:16px';
+    steps.forEach(s => s.style.cssText = 'position:static;opacity:1;visibility:visible;transform:none');
+    return;
+  }
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'power2.inOut' },
+    scrollTrigger: {
+      trigger: '.journey', start: 'top top', end: '+=700%', pin: true, scrub: 1, anticipatePin: 1,
+      snap: { snapTo: 'labelsDirectional', duration: { min: .3, max: .9 }, delay: .08, ease: 'power1.inOut' },
+      onUpdate(self) {
+        const p = self.progress, i = Math.min(5, Math.floor(p * 6.0001));
+        if (i !== show.last) { show.last = i; show(i); }
+      }
+    }
+  });
+
+  // 1 · plan (wide, grid + dashed routes)
+  tl.addLabel('s1')
+    .fromTo('#plan path', { strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 1, ease: 'none' }, 's1')
+    .to({}, { duration: .4 })
+  // 2 · trench & blowing — camera drops to street level
+    .addLabel('s2')
+    .to(svg, { attr: { viewBox: vb(shots.trench) }, duration: 1 }, 's2')
+    .to(['#plan', '#planGrid'], { opacity: 0, duration: .6 }, 's2')
+    .to(fiber, { strokeDashoffset: L - seg.toClosure * .55, duration: 1.2, ease: 'none' }, 's2+=.4')
+    .fromTo('#air line', { x: -20, opacity: 0 }, { x: 40, opacity: 1, duration: .4, stagger: { each: .12, repeat: 2, yoyo: true } }, 's2+=.4')
+  // 3 · splice — close-up into the closure
+    .addLabel('s3')
+    .to(svg, { attr: { viewBox: vb(shots.closure) }, duration: 1 }, 's3')
+    .to(fiber, { strokeDashoffset: L - seg.toClosure, duration: .8, ease: 'none' }, 's3')
+    .fromTo('#sparkRing', { attr: { r: 7 }, opacity: 1 }, { attr: { r: 40 }, opacity: 0, duration: .6, ease: 'power1.out' }, 's3+=.8')
+    .fromTo('#spark', { scale: .4, transformOrigin: '50% 50%' }, { scale: 1.4, duration: .3, yoyo: true, repeat: 1 }, 's3+=.8')
+  // 4 · in-house — pull out to the building, then climb floor by floor
+    .addLabel('s4')
+    .to(svg, { attr: { viewBox: vb(shots.building) }, duration: 1 }, 's4')
+    .to(fiber, { strokeDashoffset: L - seg.toRiser, duration: 1, ease: 'none' }, 's4')
+    .to(svg, { attr: { viewBox: vb(shots.top) }, duration: 1.2, ease: 'power1.inOut' }, 's4+=1')
+    .to(fiber, { strokeDashoffset: L - seg.top, duration: 1.2, ease: 'none' }, 's4+=1')
+  // 5 · activation — push in to the flat, knot lights up
+    .addLabel('s5')
+    .to(svg, { attr: { viewBox: vb(shots.flat) }, duration: 1 }, 's5')
+    .to(fiber, { strokeDashoffset: 0, duration: .5, ease: 'none' }, 's5')
+    .to('#ontLed', { attr: { fill: '#14B8A6' }, duration: .2 }, 's5+=.6')
+    .to('#flatKnot', { opacity: 1, duration: .5 }, 's5+=.7')
+  // 6 · service — zoom out to the whole network, van on call
+    .addLabel('s6')
+    .to(svg, { attr: { viewBox: vb(shots.final) }, duration: 1.2 }, 's6')
+    .fromTo('#van', { x: 260 }, { x: 0, duration: 1, ease: 'power2.out' }, 's6+=.2')
+    .to(pulse, { opacity: 1, duration: .3 }, 's6+=.6')
+    .addLabel('end');
+
+  // ambient loops (cheap, transform/dash only)
+  gsap.set(pulse, { strokeDasharray: '40 ' + L });
+  gsap.fromTo(pulse, { strokeDashoffset: 40 }, { strokeDashoffset: -L, duration: 3.2, ease: 'none', repeat: -1 });
+  gsap.to('#beacon', { opacity: .2, duration: .6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+  show.last = 0; show(0);
+  window.addEventListener('resize', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
