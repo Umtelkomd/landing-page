@@ -1,7 +1,9 @@
 """Tests for the contact form relay. Run: python3 -m unittest -v (from contact-service/)."""
 import io
 import json
+import socket
 import threading
+import time
 import unittest
 import urllib.error
 import urllib.request
@@ -29,6 +31,25 @@ def multipart(fields, files=()):
                   f"Content-Type: {ctype}\r\n\r\n".encode() + data + b"\r\n")
     out.write(f"--{boundary}--\r\n".encode())
     return out.getvalue(), f"multipart/form-data; boundary={boundary}"
+
+
+def read_response(sock):
+    """Read one HTTP response (head, body) using Content-Length, without waiting for close."""
+    buf = b""
+    while b"\r\n\r\n" not in buf:
+        chunk = sock.recv(4096)
+        if not chunk:
+            break
+        buf += chunk
+    head, _, body = buf.partition(b"\r\n\r\n")
+    head = head.decode()
+    length = int(next(l.split(":", 1)[1] for l in head.splitlines() if l.lower().startswith("content-length:")))
+    while len(body) < length:
+        chunk = sock.recv(4096)
+        if not chunk:
+            break
+        body += chunk
+    return head, body
 
 
 def valid(**over):
@@ -60,7 +81,8 @@ class Base(unittest.TestCase):
             with urllib.request.urlopen(req, timeout=5) as r:
                 return r.status, json.loads(r.read())
         except urllib.error.HTTPError as e:
-            return e.code, json.loads(e.read())
+            with e:
+                return e.code, json.loads(e.read())
 
 
 class Accepts(Base):
@@ -91,6 +113,16 @@ class Accepts(Base):
         self.assertEqual(self.post(*multipart(valid(website="http://spam"))), (200, {"ok": True}))
         self.assertEqual(self.sent, [])
 
+    def test_smtp_timeout_stays_under_nginx_read_timeout(self):
+        self.assertEqual(self.post(*multipart(valid())), (200, {"ok": True}))
+        self.smtp.assert_called_once_with("smtp.example.test", 587, timeout=10)
+
+    def test_cv_of_exactly_max_size_is_accepted(self):
+        cv = PDF + b"0" * (cs.MAX_CV - len(PDF))
+        body, ctype = multipart(valid(form="job"), [("cv", "cv.pdf", "application/pdf", cv)])
+        self.assertEqual(self.post(body, ctype), (200, {"ok": True}))
+        self.assertEqual([len(a.get_content()) for a in self.sent[0].iter_attachments()], [cs.MAX_CV])
+
 
 class Rejects(Base):
     def assertRejected(self, result, status, error):
@@ -102,6 +134,10 @@ class Rejects(Base):
 
     def test_invalid_email(self):
         self.assertRejected(self.post(*multipart(valid(email="nope"))), 400, "invalid_email")
+
+    def test_non_ascii_email(self):
+        for addr in ("jörg@example.de", "erika@exämple.de"):
+            self.assertRejected(self.post(*multipart(valid(email=addr))), 400, "invalid_email")
 
     def test_header_injection_in_email(self):
         self.assertRejected(self.post(*multipart(valid(email="a@b.de\r\nBcc: x@evil.test"))), 400, "invalid_email")
@@ -127,6 +163,11 @@ class Rejects(Base):
         body, ctype = multipart(valid(form="job"), [("cv", "cv.pdf", "application/pdf", b"MZ\x90\x00")])
         self.assertRejected(self.post(body, ctype), 400, "invalid_file")
 
+    def test_cv_one_byte_over_max_size(self):
+        cv = PDF + b"0" * (cs.MAX_CV + 1 - len(PDF))
+        body, ctype = multipart(valid(form="job"), [("cv", "cv.pdf", "application/pdf", cv)])
+        self.assertRejected(self.post(body, ctype), 400, "invalid_file")
+
     def test_body_too_large(self):
         big = PDF + b"0" * (cs.MAX_BODY + 1)
         body, ctype = multipart(valid(form="job"), [("cv", "cv.pdf", "application/pdf", big)])
@@ -145,8 +186,53 @@ class Rejects(Base):
         self.assertEqual(len(self.sent), cs.RATE_MAX)
         self.assertEqual(self.post(*multipart(valid()), ip="198.51.100.1")[0], 200)
 
+    def test_invalid_requests_do_not_consume_quota(self):
+        for _ in range(cs.RATE_MAX + 2):
+            self.assertRejected(self.post(*multipart(valid(email="nope"))), 400, "invalid_email")
+        for _ in range(cs.RATE_MAX + 2):
+            self.assertEqual(self.post(*multipart(valid(website="http://spam"))), (200, {"ok": True}))
+        self.assertEqual(self.sent, [])
+        for _ in range(cs.RATE_MAX):
+            self.assertEqual(self.post(*multipart(valid())), (200, {"ok": True}))
+        self.assertEqual(len(self.sent), cs.RATE_MAX)
+
+    def test_exhausted_ip_is_rejected_before_validation(self):
+        for _ in range(cs.RATE_MAX):
+            self.assertEqual(self.post(*multipart(valid()))[0], 200)
+        self.sent.clear()
+        self.assertRejected(self.post(*multipart(valid(email="nope"))), 429, "rate_limited")
+
+    def test_busy_when_no_body_slot_is_free(self):
+        slots = threading.BoundedSemaphore(cs.MAX_CONCURRENT)
+        with mock.patch.object(cs, "BODY_SLOTS", slots):
+            for _ in range(cs.MAX_CONCURRENT):
+                slots.acquire()
+            # Headers announce a body that never arrives: the answer must come without reading it.
+            with socket.create_connection(("127.0.0.1", self.server.server_port), timeout=5) as s:
+                s.sendall(b"POST /api/contact HTTP/1.1\r\nHost: x\r\nX-Real-IP: 203.0.113.7\r\n"
+                          b"Content-Type: multipart/form-data; boundary=b\r\nContent-Length: 1000\r\n\r\n")
+                head, body = read_response(s)
+            self.assertIn(" 503 ", head.splitlines()[0])
+            self.assertIn("Connection: close", head)
+            self.assertEqual(json.loads(body), {"ok": False, "error": "busy"})
+            self.assertEqual(self.sent, [])
+            for _ in range(cs.MAX_CONCURRENT):
+                slots.release()
+            self.assertEqual(self.post(*multipart(valid())), (200, {"ok": True}))
+
+    def test_body_slots_are_released_after_every_outcome(self):
+        slots = threading.BoundedSemaphore(cs.MAX_CONCURRENT)
+        with mock.patch.object(cs, "BODY_SLOTS", slots):
+            self.post(*multipart(valid()))
+            self.post(*multipart(valid(email="nope")))
+            self.post(*multipart(valid(website="http://spam")))
+            self.post(b"{}", "application/json")
+            self.smtp.return_value.__enter__.return_value.send_message.side_effect = OSError("down")
+            self.post(*multipart(valid()))
+            for _ in range(cs.MAX_CONCURRENT):
+                self.assertTrue(slots.acquire(blocking=False))
+
     def raw(self, request):
-        import socket
         with socket.create_connection(("127.0.0.1", self.server.server_port), timeout=5) as s:
             s.sendall(request.replace(b"Host: x\r\n", b"Host: x\r\nConnection: close\r\n"))
             chunks = []
@@ -165,12 +251,53 @@ class Rejects(Base):
         self.assertIn(" 400 ", resp.splitlines()[0])
         self.assertEqual(self.sent, [])
 
-    def test_slow_client_times_out(self):
-        self.assertLessEqual(cs.make_handler(CONFIG).timeout, 30)
+    def test_slow_client_is_disconnected(self):
+        self.assertEqual(cs.make_handler(CONFIG).timeout, 15)
+        with mock.patch.object(self.server.RequestHandlerClass, "timeout", 0.3):
+            with socket.create_connection(("127.0.0.1", self.server.server_port), timeout=5) as s:
+                s.sendall(b"POST /api/contact HTTP/1.1\r\nHost: x\r\n"
+                          b"Content-Type: multipart/form-data; boundary=b\r\nContent-Length: 1000\r\n\r\n--b\r\n")
+                start = time.monotonic()
+                try:
+                    data = s.recv(4096)
+                except ConnectionResetError:
+                    data = b""
+                elapsed = time.monotonic() - start
+        self.assertEqual(data, b"")  # closed without an answer
+        self.assertLess(elapsed, 3)
+        self.assertEqual(self.sent, [])
 
     def test_smtp_failure_reports_error(self):
         self.smtp.return_value.__enter__.return_value.send_message.side_effect = OSError("down")
         self.assertEqual(self.post(*multipart(valid())), (502, {"ok": False, "error": "send_failed"}))
+
+
+class RateLimiterMemory(unittest.TestCase):
+    def test_expired_keys_are_pruned(self):
+        lim = cs.RateLimiter()
+        for i in range(50):
+            self.assertTrue(lim.allow(f"10.0.0.{i}", now=0))
+        self.assertEqual(len(lim), 50)
+        self.assertTrue(lim.allow("10.0.1.1", now=cs.RATE_WINDOW + 1))
+        self.assertEqual(len(lim), 1)
+
+    def test_tracked_keys_are_capped_dropping_the_oldest(self):
+        lim = cs.RateLimiter(max_keys=3)
+        for _ in range(cs.RATE_MAX):
+            self.assertTrue(lim.allow("a", now=1))
+        self.assertFalse(lim.allow("a", now=2))
+        lim.allow("b", now=3)
+        lim.allow("c", now=4)
+        lim.allow("d", now=5)  # full: "a" (least recent) is dropped
+        self.assertEqual(len(lim), 3)
+        self.assertTrue(lim.allow("a", now=6))
+        self.assertEqual(len(lim), 3)
+
+    def test_default_cap(self):
+        lim = cs.RateLimiter()
+        for i in range(cs.RATE_MAX_KEYS + 100):
+            lim.allow(str(i), now=1)
+        self.assertEqual(len(lim), cs.RATE_MAX_KEYS)
 
 
 class ConfigFromEnv(unittest.TestCase):

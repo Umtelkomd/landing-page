@@ -15,10 +15,10 @@ Relays the website's contact and application forms to the company inbox by e-mai
 | --- | --- |
 | `form` | `biz` (project inquiry) or `job` (application / subcontractor) |
 | `name` | required, at most 120 characters, no control characters |
-| `email` | required, valid address, used as `Reply-To` |
+| `email` | required, valid ASCII address (at most 254 characters), used as `Reply-To` |
 | `summary` | optional text, at most 5000 characters |
 | `website` | honeypot; if filled the request is answered `ok` and dropped |
-| `cv` | `job` only, optional; PDF, DOC, DOCX, JPG or PNG, at most 5 MB, content must match the extension |
+| `cv` | `job` only, optional; PDF, DOC, DOCX, JPG or PNG, at most 5 MB (5,242,880 bytes), content must match the extension |
 
 Responses are JSON: `{"ok": true}` or `{"ok": false, "error": "<code>"}`.
 
@@ -26,9 +26,23 @@ Responses are JSON: `{"ok": true}` or `{"ok": false, "error": "<code>"}`.
 | --- | --- |
 | 400 | `bad_request`, `invalid_form`, `invalid_name`, `invalid_email`, `invalid_summary`, `invalid_file` |
 | 404 | `not_found` |
-| 413 | `too_large` (request body over 6 MB) |
-| 429 | `rate_limited` (more than 5 requests per IP in 10 minutes) |
+| 413 | `too_large` (request body over 6 MB; from the service or from nginx) |
+| 429 | `rate_limited` (more than 5 sent messages per IP in 10 minutes, or the nginx request limit) |
 | 502 | `send_failed` (SMTP error; the website then falls back to `mailto:`) |
+| 503 | `busy` (all upload slots in use; the connection is closed without reading the body) |
+
+## Limits
+
+| Limit | Value | Why |
+| --- | --- | --- |
+| Request body | 6 MB | larger bodies get `413` before they are read into memory |
+| Sent messages per IP | 5 per 10 minutes | only requests that pass validation count; invalid requests and honeypot hits do not use quota. An IP without quota left gets `429` before its body is parsed |
+| Tracked IPs | 10,000 | expired entries are pruned; when full, the least recently seen IP is dropped |
+| Concurrent uploads | 2 | each extra request gets `503 busy`. One 5 MB CV peaks at about 60 MB in the stdlib MIME parser (about 70-80 MB RSS per request), so 2 fit `MemoryMax=256M` |
+| Client socket read | 15 s | slow clients are disconnected |
+| SMTP socket operation | 10 s | stays well under nginx `proxy_read_timeout 30s` |
+
+nginx also limits raw requests (`limit_req`, 10 per minute, burst 5) and the body size (`client_max_body_size 6m`). When nginx rejects with 413 or 429, it answers with the same JSON as the service.
 
 ## Configuration (environment)
 

@@ -25,6 +25,13 @@ MAX_CV = 5 * 1024 * 1024
 MAX_SUMMARY = 5000
 RATE_MAX = 5
 RATE_WINDOW = 600  # seconds
+RATE_MAX_KEYS = 10_000  # tracked sender IPs; the least recently seen are dropped first
+SOCKET_TIMEOUT = 15  # seconds per client socket read
+SMTP_TIMEOUT = 10  # seconds per SMTP socket operation; well under nginx proxy_read_timeout (30s)
+# Requests whose body is being read, parsed or sent at the same time. One 5 MB CV peaks at about
+# 60 MB in the stdlib MIME parser (70-80 MB RSS per request), so 2 slots fit MemoryMax=256M.
+MAX_CONCURRENT = 2
+BODY_SLOTS = threading.BoundedSemaphore(MAX_CONCURRENT)
 
 SUBJECTS = {
     "biz": "Projektanfrage über umtelkomd.net",
@@ -76,25 +83,53 @@ class Config:
 
 
 class RateLimiter:
-    def __init__(self):
-        self._hits, self._lock = {}, threading.Lock()
+    """At most RATE_MAX recorded hits per key in RATE_WINDOW seconds.
+
+    Memory is bounded: keys are kept in order of their last hit, expired keys are pruned on
+    every recorded hit, and at most max_keys keys are tracked (least recently hit dropped first).
+    """
+
+    def __init__(self, max_keys=RATE_MAX_KEYS):
+        self._hits, self._lock, self._max_keys = {}, threading.Lock(), max_keys
+
+    def __len__(self):
+        with self._lock:
+            return len(self._hits)
 
     def reset(self):
         with self._lock:
             self._hits.clear()
 
-    def allow(self, key, now=None):
+    def _recent(self, key, now):
+        return [t for t in self._hits.get(key, ()) if now - t < RATE_WINDOW]
+
+    def _prune(self, now):
+        while self._hits:  # oldest last hit first, so stop at the first live key
+            key = next(iter(self._hits))
+            if now - self._hits[key][-1] < RATE_WINDOW:
+                break
+            del self._hits[key]
+
+    def exhausted(self, key, now=None):
+        """True if key has no quota left. Records nothing."""
         now = time.monotonic() if now is None else now
         with self._lock:
-            hits = [t for t in self._hits.get(key, []) if now - t < RATE_WINDOW]
-            ok = len(hits) < RATE_MAX
-            if ok:
-                hits.append(now)
-            if hits:
-                self._hits[key] = hits
-            else:
-                self._hits.pop(key, None)
-            return ok
+            return len(self._recent(key, now)) >= RATE_MAX
+
+    def allow(self, key, now=None):
+        """Record one hit for key if it has quota left; return whether it had."""
+        now = time.monotonic() if now is None else now
+        with self._lock:
+            self._prune(now)
+            hits = self._recent(key, now)
+            if len(hits) >= RATE_MAX:
+                return False
+            hits.append(now)
+            self._hits.pop(key, None)  # re-insert at the end: most recently hit
+            while len(self._hits) >= self._max_keys:
+                del self._hits[next(iter(self._hits))]
+            self._hits[key] = hits
+            return True
 
 
 LIMITER = RateLimiter()
@@ -129,7 +164,7 @@ def validate(fields, files):
     if not name or len(name) > 120 or CONTROL_RE.search(name):
         raise Rejected(400, "invalid_name")
     addr = fields.get("email", "").strip()
-    if len(addr) > 254 or not EMAIL_RE.fullmatch(addr):
+    if len(addr) > 254 or not addr.isascii() or not EMAIL_RE.fullmatch(addr):
         raise Rejected(400, "invalid_email")
     summary = fields.get("summary", "").replace("\r\n", "\n").strip()
     if len(summary) > MAX_SUMMARY:
@@ -167,7 +202,7 @@ def build_message(cfg, data):
 
 
 def send(cfg, msg):
-    with smtplib.SMTP(cfg.smtp_host, cfg.smtp_port, timeout=20) as smtp:
+    with smtplib.SMTP(cfg.smtp_host, cfg.smtp_port, timeout=SMTP_TIMEOUT) as smtp:
         smtp.starttls()
         smtp.login(cfg.smtp_user, cfg.smtp_password)
         smtp.send_message(msg)
@@ -177,7 +212,7 @@ def make_handler(cfg):
     class Handler(BaseHTTPRequestHandler):
         server_version = "contact-service"
         sys_version = ""
-        timeout = 15  # seconds per socket read: slow clients cannot hold a thread forever
+        timeout = SOCKET_TIMEOUT  # per socket read: slow clients cannot hold a thread forever
 
         def reply(self, status, payload):
             raw = json.dumps(payload).encode()
@@ -185,11 +220,31 @@ def make_handler(cfg):
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(raw)))
             self.send_header("Cache-Control", "no-store")
+            if self.close_connection:
+                self.send_header("Connection", "close")
             self.end_headers()
             self.wfile.write(raw)
 
         def fail(self, status, error):
             self.reply(status, {"ok": False, "error": error})
+
+        def reject_unread(self, status, error, length):
+            """Answer before reading the body, then discard a bounded amount of it and close.
+
+            Discarding lets the client finish sending and read the answer; it is done in
+            small chunks, so the body is never held in memory.
+            """
+            self.close_connection = True
+            self.fail(status, error)
+            remaining = length if length <= 4 * MAX_BODY else 0
+            try:
+                while remaining > 0:
+                    chunk = self.rfile.read(min(remaining, 64 * 1024))
+                    if not chunk:
+                        break
+                    remaining -= len(chunk)
+            except OSError:
+                pass
 
         def do_GET(self):
             self.fail(404, "not_found")
@@ -203,29 +258,41 @@ def make_handler(cfg):
                     self.close_connection = True
                     raise Rejected(400, "bad_request")
                 if length > MAX_BODY:
-                    # Drain a bounded amount so the client can read the answer, then close.
-                    self.close_connection = True
-                    if length <= 4 * MAX_BODY:
-                        self.rfile.read(length)
-                    raise Rejected(413, "too_large")
-                body = self.rfile.read(length)
-                ip = self.headers.get("X-Real-IP") or self.client_address[0]
-                if not LIMITER.allow(ip):
-                    raise Rejected(429, "rate_limited")
-                fields, files = parse_multipart(self.headers.get("Content-Type", ""), body)
-                if fields.get("website", "").strip():  # honeypot: bots fill it, people never see it
-                    return self.reply(200, {"ok": True})
-                data = validate(fields, files)
+                    return self.reject_unread(413, "too_large", length)
+                slots = BODY_SLOTS
+                if not slots.acquire(blocking=False):  # bounds memory under concurrent uploads
+                    return self.reject_unread(503, "busy", length)
                 try:
-                    send(cfg, build_message(cfg, data))
-                except (OSError, smtplib.SMTPException) as exc:
-                    self.log_error("send failed: %s", type(exc).__name__)
-                    raise Rejected(502, "send_failed")
-                self.reply(200, {"ok": True})
+                    self.process(length)
+                finally:
+                    slots.release()
             except Rejected as r:
                 self.fail(r.status, r.error)
             except ValueError:
                 self.fail(400, "bad_request")
+
+        def process(self, length):
+            body = self.rfile.read(length)
+            ip = self.headers.get("X-Real-IP") or self.client_address[0]
+            if LIMITER.exhausted(ip):  # cheap early guard: no parsing for senders without quota
+                raise Rejected(429, "rate_limited")
+            fields, files = parse_multipart(self.headers.get("Content-Type", ""), body)
+            del body
+            if fields.get("website", "").strip():  # honeypot: bots fill it, people never see it
+                return self.reply(200, {"ok": True})
+            data = validate(fields, files)
+            del fields, files
+            # Only requests that are about to be sent use up quota.
+            if not LIMITER.allow(ip):
+                raise Rejected(429, "rate_limited")
+            msg = build_message(cfg, data)
+            del data  # free parse buffers before the (slow) SMTP send
+            try:
+                send(cfg, msg)
+            except (OSError, smtplib.SMTPException) as exc:
+                self.log_error("send failed: %s", type(exc).__name__)
+                raise Rejected(502, "send_failed")
+            self.reply(200, {"ok": True})
 
         def log_message(self, fmt, *args):  # no personal data in logs: method, path, status only
             sys.stderr.write("contact-service: " + (fmt % args) + "\n")

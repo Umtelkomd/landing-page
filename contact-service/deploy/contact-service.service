@@ -20,7 +20,9 @@ ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectControlGroups=true
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
-MemoryMax=128M
+# Measured: one request with a 5 MB CV peaks at ~60 MB in the stdlib MIME parser (~70-80 MB RSS
+# per request end to end). The service handles at most 2 bodies at once (MAX_CONCURRENT), others get 503.
+MemoryMax=256M
 
 [Install]
 WantedBy=multi-user.target
