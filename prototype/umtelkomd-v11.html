@@ -334,6 +334,20 @@
     .card{grid-template-columns:1fr} .card figure{min-height:220px}
     footer .grid{grid-template-columns:1fr 1fr}
   }
+  .nav-cta{white-space:nowrap}
+  @media (max-width:640px){
+    .nav .wrap{height:68px}
+    .brand{gap:10px} .brand img{height:30px} .brand .wm{width:138px}
+    .nav-cta{padding:10px 14px;font-size:12px;letter-spacing:.06em}
+    .hide-sm{display:none}
+  }
+  @media (max-width:480px){
+    .numbers .grid{gap:22px 14px}
+    .numbers b{font-size:clamp(30px,9.5vw,44px)}
+    .numbers span{font-size:13px}
+  }
+  /* never let a wide child create sideways scrolling (marquee, large numbers) */
+  html,body{overflow-x:clip}
 </style>
 </head>
 <body>
@@ -346,7 +360,7 @@
       <img class="wm wm-pos" src="assets/umtelkomd-wordmark-positive.svg" alt="">
     </a>
     <ul><li><a href="#leistungen">Leistungen</a></li><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#karriere">Karriere</a></li></ul>
-    <a class="btn p" href="#kontakt">Projekt anfragen</a>
+    <a class="btn p nav-cta" href="#kontakt"><span class="hide-sm">Projekt&nbsp;</span>anfragen</a>
   </div>
 </nav>
 
