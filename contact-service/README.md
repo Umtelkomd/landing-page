@@ -48,13 +48,18 @@ nginx also limits raw requests (`limit_req`, 10 per minute, burst 5) and the bod
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `SMTP_USER` | required | Sending account, e.g. a Google Workspace user |
-| `SMTP_PASSWORD` | required | App password of that account |
+| `SMTP_USER` | empty | Login account. Leave empty for relay mode |
+| `SMTP_PASSWORD` | required with `SMTP_USER` | App password of that account |
 | `MAIL_TO` | required | Comma-separated recipients |
 | `SMTP_HOST` | `smtp.gmail.com` | |
 | `SMTP_PORT` | `587` | STARTTLS |
-| `MAIL_FROM` | `SMTP_USER` | |
+| `MAIL_FROM` | `SMTP_USER` | Required in relay mode; must be an address of your domain |
 | `PORT` | `8787` | Local port |
+
+Two sending modes:
+
+- **Relay (recommended, used in production):** Google Workspace SMTP relay (`smtp-relay.gmail.com`) allowlists the server IP and requires TLS. No credentials exist on the server. Set `SMTP_HOST=smtp-relay.gmail.com` and `MAIL_FROM`; leave `SMTP_USER` empty.
+- **Login:** `SMTP_USER` + `SMTP_PASSWORD` (e.g. a Google app password).
 
 The service exits at start if a required variable is missing.
 

@@ -68,15 +68,18 @@ class Config:
 
     @classmethod
     def from_env(cls, env=os.environ):
-        missing = [k for k in ("SMTP_USER", "SMTP_PASSWORD", "MAIL_TO") if not env.get(k)]
+        # Two modes: login (SMTP_USER + SMTP_PASSWORD) or IP-allowlisted relay such as
+        # smtp-relay.gmail.com (no credentials, MAIL_FROM required).
+        required = ["MAIL_TO"] + (["SMTP_PASSWORD"] if env.get("SMTP_USER") else ["MAIL_FROM"])
+        missing = [k for k in required if not env.get(k)]
         if missing:
             sys.exit(f"contact-service: missing configuration: {', '.join(missing)}")
         return cls(
             smtp_host=env.get("SMTP_HOST", "smtp.gmail.com"),
             smtp_port=int(env.get("SMTP_PORT", "587")),
-            smtp_user=env["SMTP_USER"],
-            smtp_password=env["SMTP_PASSWORD"],
-            mail_from=env.get("MAIL_FROM", env["SMTP_USER"]),
+            smtp_user=env.get("SMTP_USER", ""),
+            smtp_password=env.get("SMTP_PASSWORD", ""),
+            mail_from=env.get("MAIL_FROM") or env["SMTP_USER"],
             mail_to=[a.strip() for a in env["MAIL_TO"].split(",") if a.strip()],
             port=int(env.get("PORT", "8787")),
         )
@@ -204,7 +207,8 @@ def build_message(cfg, data):
 def send(cfg, msg):
     with smtplib.SMTP(cfg.smtp_host, cfg.smtp_port, timeout=SMTP_TIMEOUT) as smtp:
         smtp.starttls()
-        smtp.login(cfg.smtp_user, cfg.smtp_password)
+        if cfg.smtp_user:  # relay mode authenticates by server IP, not by login
+            smtp.login(cfg.smtp_user, cfg.smtp_password)
         smtp.send_message(msg)
 
 
