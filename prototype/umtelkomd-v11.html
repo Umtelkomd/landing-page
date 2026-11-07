@@ -441,7 +441,7 @@
 <section class="contact" id="kontakt">
   <div class="wrap">
     <div class="ctop">
-      <div><div class="kicker">[ 06 ] · <b>KONTAKT</b></div><h2 class="display split">Lassen Sie uns reden.</h2></div>
+      <div><div class="kicker">[ 06 ] · <b>KONTAKT</b></div><h2 class="display split">Kontaktieren Sie uns.</h2></div>
       <p class="fade">Ein paar Klicks genügen. Wir melden uns innerhalb von 24 Stunden – persönlich, nicht automatisch.</p>
     </div>
 
@@ -712,7 +712,7 @@
   // numbers count up
   document.querySelectorAll('[data-count]').forEach(b => {
     const o = { v: 0 }, to = +b.dataset.count, suf = b.dataset.suffix || '';
-    gsap.to(o, { v: to, duration: 1.6, ease: 'power2.out', scrollTrigger: { trigger: b, start: 'top 85%' }, onUpdate: () => b.textContent = Math.round(o.v).toLocaleString('de-DE') + suf });
+    gsap.to(o, { v: to, duration: 2.8, ease: 'power1.inOut', scrollTrigger: { trigger: b, start: 'top 70%', toggleActions: 'play none none none' }, onUpdate: () => b.textContent = Math.round(o.v).toLocaleString('de-DE') + suf });
   });
 
   // process: the fiber fills with the scroll, each step lights up, a light pulse runs ahead
