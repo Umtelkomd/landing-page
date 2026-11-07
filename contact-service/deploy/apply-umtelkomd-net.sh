@@ -42,9 +42,11 @@ systemctl daemon-reload
 systemctl enable contact-service >/dev/null 2>&1
 systemctl restart contact-service
 sleep 2
-systemctl is-active contact-service
-code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8787/api/contact -H 'Content-Type: application/json' -d '{}')
-[ "$code" = 400 ] || { echo "service self-check failed (HTTP $code)"; journalctl -u contact-service -n 20 --no-pager; exit 1; }
+# Explicit checks (not set -e) so a failure always prints the reason. nginx is untouched until here.
+fail_service() { echo "service self-check failed: $1"; journalctl -u contact-service -n 20 --no-pager; echo "nginx was NOT changed"; exit 1; }
+systemctl is-active -q contact-service || fail_service "service not running"
+code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8787/api/contact -H 'Content-Type: application/json' -d '{}' || true)
+[ "$code" = 400 ] || fail_service "HTTP $code"
 echo "service self-check OK (bad request rejected with 400, nothing sent)"
 
 echo "== 3. nginx (backups: *.bak-$TS)"
