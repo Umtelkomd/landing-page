@@ -242,10 +242,10 @@
   .fld input[type=file]:hover::file-selector-button{background:#d3f0ec}
   /* press wave: the hero's light pulse riding a wave, played inside the pressed control */
   .btn,.chips button,.tab,.who span{position:relative;overflow:hidden;isolation:isolate}
-  .press-wave{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:visible}
+  .press-wave{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
   .press-wave path{fill:none;stroke-linecap:round}
-  .press-wave .trail{stroke:var(--teal);stroke-width:7;opacity:.45}
-  .press-wave .pulse{stroke:var(--tint);stroke-width:2.6}
+  .press-wave .trail{stroke:var(--teal);stroke-width:5;opacity:.4}
+  .press-wave .pulse{stroke:var(--tint);stroke-width:2}
   .chips button:not(.on) .press-wave .pulse,.tab:not(.on) .press-wave .pulse,.who span .press-wave .pulse,.btn.o .press-wave .pulse{stroke:var(--teal-t)}
   @media (prefers-reduced-motion:reduce){.btn,.chips button,.chips button::before,.who span,.who span::after,.tab{transition:none}.chips button.pop{animation:none}}
   .direct{display:flex;gap:40px;flex-wrap:wrap;margin-top:34px}
@@ -715,20 +715,20 @@
     const host = e.target.closest('.btn, .chips button, .tab, .who label');
     if (!host || host.disabled) return;
     const el = host.matches('.who label') ? host.querySelector('span') : host;
-    const r = el.getBoundingClientRect(), W = r.width, H = r.height, mid = H / 2;
+    const r = el.getBoundingClientRect(), W = r.width, H = r.height, mid = H - Math.min(10, H * .18); // just under the label
     const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'press-wave');
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'none'); svg.setAttribute('aria-hidden', 'true');
     const trail = document.createElementNS(NS, 'path'), pulse = document.createElementNS(NS, 'path');
     trail.setAttribute('class', 'trail'); pulse.setAttribute('class', 'pulse'); svg.append(trail, pulse);
     el.querySelectorAll('.press-wave').forEach(n => n.remove()); el.append(svg);
-    const fromRight = e.clientX - r.left > W / 2, t0 = performance.now(), dur = 900;
+    const fromRight = e.clientX - r.left > W / 2, t0 = performance.now(), dur = 380;
     const frame = now => {
-      const t = Math.min(1, (now - t0) / dur), amp = H * .3 * (1 - t * .6);
-      let d = ''; for (let x = 0; x <= W; x += 4) { const y = mid + Math.sin(x / (W / 6) - t * 9) * amp * Math.sin(x / W * Math.PI); d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1); }
+      const t = Math.min(1, (now - t0) / dur), amp = Math.min(4, H * .08) * (1 - t * .5);
+      let d = ''; for (let x = 0; x <= W; x += 4) { const y = mid + Math.sin(x / 9 - t * 14) * amp * Math.sin(x / W * Math.PI); d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1); }
       trail.setAttribute('d', d); pulse.setAttribute('d', d);
       const L = pulse.getTotalLength(), seg = L * .4, head = (fromRight ? 1 - t : t) * (L + seg) - (fromRight ? 0 : seg);
       [pulse, trail].forEach(p => { p.style.strokeDasharray = `${seg} ${L * 2}`; p.style.strokeDashoffset = -head; });
-      svg.style.opacity = t > .7 ? (1 - t) / .3 : 1;
+      svg.style.opacity = t > .8 ? (1 - t) / .2 : 1;
       if (t < 1) requestAnimationFrame(frame); else svg.remove();
     };
     requestAnimationFrame(frame);
