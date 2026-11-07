@@ -319,6 +319,19 @@ class ConfigFromEnv(unittest.TestCase):
         with self.assertRaises(SystemExit):
             cs.Config.from_env({"SMTP_HOST": "smtp-relay.gmail.com", "MAIL_FROM": "web@umtelkomd.com"})
 
+    def test_password_without_user_fails_closed(self):
+        with self.assertRaises(SystemExit):
+            cs.Config.from_env({"SMTP_HOST": "smtp-relay.gmail.com", "SMTP_PASSWORD": "x",
+                                "MAIL_FROM": "web@umtelkomd.com", "MAIL_TO": "a@umtelkomd.com"})
+
+    def test_relay_mode_requires_explicit_host(self):
+        with self.assertRaises(SystemExit):
+            cs.Config.from_env({"MAIL_FROM": "web@umtelkomd.com", "MAIL_TO": "a@umtelkomd.com"})
+
+    def test_login_mode_still_defaults_to_gmail(self):
+        cfg = cs.Config.from_env({"SMTP_USER": "web@umtelkomd.com", "SMTP_PASSWORD": "x", "MAIL_TO": "a@umtelkomd.com"})
+        self.assertEqual((cfg.smtp_host, cfg.mail_from), ("smtp.gmail.com", "web@umtelkomd.com"))
+
     def test_relay_send_uses_tls_without_login(self):
         cfg = cs.Config("smtp-relay.gmail.com", 587, "", "", "web@umtelkomd.com", ["a@umtelkomd.com"])
         with mock.patch.object(cs.smtplib, "SMTP") as smtp:

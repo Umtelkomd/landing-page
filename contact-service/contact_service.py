@@ -70,7 +70,9 @@ class Config:
     def from_env(cls, env=os.environ):
         # Two modes: login (SMTP_USER + SMTP_PASSWORD) or IP-allowlisted relay such as
         # smtp-relay.gmail.com (no credentials, MAIL_FROM required).
-        required = ["MAIL_TO"] + (["SMTP_PASSWORD"] if env.get("SMTP_USER") else ["MAIL_FROM"])
+        if env.get("SMTP_PASSWORD") and not env.get("SMTP_USER"):
+            sys.exit("contact-service: SMTP_PASSWORD is set but SMTP_USER is missing")
+        required = ["MAIL_TO"] + (["SMTP_PASSWORD"] if env.get("SMTP_USER") else ["MAIL_FROM", "SMTP_HOST"])
         missing = [k for k in required if not env.get(k)]
         if missing:
             sys.exit(f"contact-service: missing configuration: {', '.join(missing)}")

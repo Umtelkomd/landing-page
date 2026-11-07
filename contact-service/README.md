@@ -51,7 +51,7 @@ nginx also limits raw requests (`limit_req`, 10 per minute, burst 5) and the bod
 | `SMTP_USER` | empty | Login account. Leave empty for relay mode |
 | `SMTP_PASSWORD` | required with `SMTP_USER` | App password of that account |
 | `MAIL_TO` | required | Comma-separated recipients |
-| `SMTP_HOST` | `smtp.gmail.com` | |
+| `SMTP_HOST` | `smtp.gmail.com` (login mode) | Required in relay mode, e.g. `smtp-relay.gmail.com` |
 | `SMTP_PORT` | `587` | STARTTLS |
 | `MAIL_FROM` | `SMTP_USER` | Required in relay mode; must be an address of your domain |
 | `PORT` | `8787` | Local port |
