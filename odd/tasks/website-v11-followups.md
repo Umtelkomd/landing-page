@@ -15,7 +15,7 @@ Server 72.60.123.94 is shared with the ERP, Nodo and databases: no change may af
 
 - T1 S1 inline — favicon in site + deploy — done c305851, live (/favicon.ico 200)
 - T2 S2 inline — mobile menu + deploy — done c305851, live; checked 344px open/close/link, desktop unchanged
-- T3 S5 inline — push branch
+- T3 S5 inline — push branch — done, origin/feat/website-v11
 - T4 S3 user DNS + inline nginx/cert — .com redirect
 - T5 S4 plan first, user approval per step — Ubuntu upgrade
 
