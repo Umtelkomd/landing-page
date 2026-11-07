@@ -22,3 +22,4 @@ Server 72.60.123.94 is shared with the ERP, Nodo and databases: no change may af
 ## Log
 
 - L1 User (2026-11-07), answering "¿Con cuál seguimos?" over the list (Ubuntu, .com redirect, favicon, mobile menu, push): "todas"
+- L2 User (2026-11-07), on the upgrade window: "si los sabados por la manana" → proposed Saturday 2026-11-14, 08:00–10:00 (to confirm)
