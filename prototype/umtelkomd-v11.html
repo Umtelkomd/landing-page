@@ -213,6 +213,34 @@
   .who b{display:block;font:600 20px 'IBM Plex Sans';color:var(--black);margin-bottom:4px}
   .who input:checked + span{border-color:var(--teal);box-shadow:inset 0 0 0 1.5px var(--teal);background:var(--tint)}
   .who input:focus-visible + span{outline:2px solid var(--teal);outline-offset:2px}
+  /* form controls: tactile press, clear selected state */
+  .btn{transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s,box-shadow .2s}
+  .btn:active{transform:translateY(0) scale(.97);transition-duration:.08s}
+  .btn.p:hover{box-shadow:0 8px 22px -10px rgba(20,184,166,.7)}
+  .btn .ar{display:inline-block;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+  .btn:hover .ar{transform:translateX(4px)}
+  .btn[disabled]{opacity:.7;pointer-events:none}
+  .btn[disabled]::after{content:"";width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .tab:hover:not(.on){border-color:var(--teal);color:var(--grey)}
+  .tab:active{transform:scale(.98)}
+  .chips button{display:inline-flex;align-items:center;gap:0;transition:background .2s,border-color .2s,color .2s,transform .15s cubic-bezier(.2,.8,.2,1),gap .25s}
+  .chips button::before{content:"✓";flex:none;display:inline-block;max-width:0;overflow:hidden;font-weight:700;font-size:14px;line-height:1;color:var(--teal);transform:scale(0);transition:max-width .25s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+  .chips button:hover:not(.on){background:var(--tint)}
+  .chips button:active{transform:scale(.94)}
+  .chips button.on{gap:7px}
+  .chips button.on::before{max-width:16px;transform:scale(1)}
+  .chips button.pop{animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes pop{40%{transform:scale(1.07)}}
+  .who span{position:relative;padding-right:52px;transition:border-color .2s,background .2s,box-shadow .2s,transform .15s}
+  .who span::after{content:"";position:absolute;right:20px;top:22px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--grey-l);background:#fff;transition:.25s cubic-bezier(.3,1.6,.5,1)}
+  .who input:checked + span::after{border-color:var(--teal-t);box-shadow:inset 0 0 0 4px #fff;background:var(--teal-t)}
+  .who label:hover input:not(:checked) + span{border-color:var(--teal)}
+  .who label:active span{transform:scale(.985)}
+  .fld input[type=file]{padding:10px;cursor:pointer;color:var(--grey);font-size:14px}
+  .fld input[type=file]::file-selector-button{font:600 13px 'IBM Plex Sans';letter-spacing:.04em;text-transform:uppercase;color:var(--deep);background:var(--tint);border:0;border-radius:6px;padding:10px 14px;margin-right:12px;cursor:pointer;transition:background .2s}
+  .fld input[type=file]:hover::file-selector-button{background:#d3f0ec}
+  @media (prefers-reduced-motion:reduce){.btn,.chips button,.chips button::before,.who span,.who span::after,.tab{transition:none}.chips button.pop{animation:none}}
   .direct{display:flex;gap:40px;flex-wrap:wrap;margin-top:34px}
   .direct small{display:block;font:500 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:4px}
   .direct a{font:600 19px 'IBM Plex Sans';text-decoration:none;color:var(--teal-t)}
@@ -502,7 +530,7 @@
           <label class="fld"><span>Telefon</span><input name="Telefon" type="tel" autocomplete="tel"></label>
         </div>
         <label class="fld"><span>Erzählen Sie uns kurz von Ihrem Projekt</span><textarea name="Nachricht" rows="4" placeholder="Was steht an, was ist Ihnen wichtig?"></textarea></label>
-        <label class="consent"><input type="checkbox" required> Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verarbeitet werden. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</label>
+        <label class="consent"><input type="checkbox" required> <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verarbeitet werden. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</span></label>
         <div class="nav-row"><button type="button" class="btn o back">← Zurück</button><button type="submit" class="btn p">Anfrage senden</button></div>
         <p class="err" aria-live="polite"></p>
       </fieldset>
@@ -548,7 +576,7 @@
       </div>
       <label class="fld"><span>Ein paar Worte über Sie</span><textarea name="Nachricht" rows="3" placeholder="Was sollten wir über Sie wissen?"></textarea></label>
       <label class="fld"><span>Lebenslauf oder Referenzen (optional · PDF, Word, JPG, PNG · max. 5 MB)</span><input name="cv" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"></label>
-      <label class="consent"><input type="checkbox" required> Ich bin einverstanden, dass meine Angaben für das Bewerbungs- bzw. Partnerverfahren verarbeitet werden. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</label>
+      <label class="consent"><input type="checkbox" required> <span>Ich bin einverstanden, dass meine Angaben für das Bewerbungs- bzw. Partnerverfahren verarbeitet werden. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</span></label>
       <div class="nav-row"><span></span><button type="submit" class="btn p">Jetzt senden</button></div>
       <p class="err" aria-live="polite"></p>
       <div class="done"><svg class="tick" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36"/><path d="M24 41 l11 11 l21 -24"/></svg><b>Danke!</b><p data-mail="Ihr E-Mail-Programm öffnet sich mit Ihren Angaben. Hängen Sie gern Ihren Lebenslauf an und senden Sie ab – wir melden uns schnell.">Ihre Nachricht ist bei uns angekommen. Wir melden uns schnell.</p></div>
@@ -608,6 +636,7 @@
     const b = e.target.closest('button'); if (!b) return;
     if (!g.hasAttribute('data-multi')) g.querySelectorAll('button').forEach(x => x !== b && x.classList.remove('on'));
     b.classList.toggle('on');
+    if (b.classList.contains('on')) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
   }));
   const biz = document.getElementById('form-biz'), fsteps = [...biz.querySelectorAll('.step')], ind = [];
   let cur = 0;
