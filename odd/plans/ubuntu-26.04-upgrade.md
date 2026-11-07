@@ -1,6 +1,6 @@
 # Plan: upgrade 72.60.123.94 from Ubuntu 25.04 to 26.04 LTS
 
-Status: draft for review. Nothing in this plan has been executed.
+Status: EXECUTED 2026-11-07 20:15–20:40 UTC. Result: Ubuntu 26.04.1 LTS, kernel 7.0.0-43, all 26 containers + host services up, all sites match baseline. See "Execution log" at the end.
 
 ## Why
 
@@ -60,3 +60,13 @@ Ubuntu 25.04 (plucky) reached end of life in January 2026 and receives no securi
 
 - Maintenance window date/time and who informs the ERP users.
 - Who owns the `alendro` app (pm2) and can test it afterwards.
+
+## Execution log (2026-11-07)
+
+- Pre-upgrade copies in `/root/pre-upgrade-20261107` (root only, 1.4 GB): host MySQL, host PostgreSQL 17, ERP prod/staging MariaDB (password var is `MYSQL_ROOT_PASSWORD`), Nodo prod/staging, engram, `/etc`, package list, pm2 dump, baseline (`sites.txt`, `running-containers.txt`).
+- New Hostinger snapshot taken by the user right before the upgrade.
+- 25.04 brought up to date; 26 containers and `pm2-alendro` stopped; `do-release-upgrade -f DistUpgradeViewNonInteractive` in tmux, log `/root/upgrade-26.04.log`, exit 0 after ~13 min.
+- Kept: SSH hardening (key-only), nginx config, fail2ban, ufw, PostgreSQL 17 cluster online, MySQL 8.4.11. Python is now 3.14 (contact-service is stdlib-only).
+- After reboot: no failed units. Two ERP `frontend-erp` containers exited because they started before `backend` resolved (`host not found in upstream "backend:8000"`); a second `docker start` fixed them. Follow-up: start order / restart policy for those containers.
+- Docker apt repo was disabled by the upgrader; re-added as `/etc/apt/sources.list.d/docker.sources` (resolute). Tailscale list switched to resolute.
+- Pending: Docker engine upgrade (29.2 → 29.9) restarts containers; do it in a later window.
