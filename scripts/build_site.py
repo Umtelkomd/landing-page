@@ -26,7 +26,7 @@ ATTR = re.compile(r'(?:href|src)="([^"]+)"')
 SRCSET = re.compile(r'srcset="([^"]+)"')
 CSS_URL = re.compile(r'url\(\s*["\']?([^"\')]+)["\']?\s*\)')
 INLINE_SCRIPT = re.compile(r"<script(?![^>]*\bsrc=)(?![^>]*application/ld\+json)[^>]*>", re.I)
-INLINE_STYLE = re.compile(r"<style\b|\sstyle=\"", re.I)
+INLINE_STYLE = re.compile(r"<style\b|\s(?:style|on[a-z]+)\s*=", re.I)  # style attributes and on* handlers, any quoting
 errors = []
 
 
@@ -81,7 +81,7 @@ def main() -> int:
     for name, target in PAGES.items():
         html = (SRC / name).read_text(encoding="utf-8")
         if INLINE_SCRIPT.search(html) or INLINE_STYLE.search(html):
-            errors.append(f"{name}: inline script or style (blocked by the Content-Security-Policy)")
+            errors.append(f"{name}: inline script, style or event handler (blocked by the Content-Security-Policy)")
         refs = ATTR.findall(html) + [c.split()[0] for s in SRCSET.findall(html) for c in s.split(",")]
         for ref in refs:
             path = ref.split("#")[0].split("?")[0]
@@ -95,6 +95,7 @@ def main() -> int:
     for extra in EXTRA:
         take(extra, SRC, "extra files", seen)
     if errors:
+        shutil.rmtree(OUT, ignore_errors=True)  # never leave a partial build that could be deployed
         print("\n".join(errors), file=sys.stderr)
         return 1
     files = [f for f in OUT.rglob("*") if f.is_file()]
