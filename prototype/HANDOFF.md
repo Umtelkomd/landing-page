@@ -1,7 +1,14 @@
 # UMTELKOMD website redesign — handoff (2026-11-06)
 
 ## Current version
-`umtelkomd-v11.html` (single file, opens by double-click). Assets in `assets/`. Older versions v1–v10 are kept for history only.
+`umtelkomd-v11.html` (opens by double-click) with its stylesheet `assets/site.css` and script `assets/site.js`. Other assets in `assets/`. Older versions v1–v10 are kept for history only.
+
+The page carries no inline script or style, so the server's Content-Security-Policy does not need `'unsafe-inline'`. Keep it that way: `scripts/build_site.py` fails if inline code comes back.
+
+## Build and deploy
+- `python3 scripts/optimize_photos.py` — after adding or replacing a photo: writes `<name>.webp` (max. 1200 px) and `<name>-640.webp` next to the JPEG master. The pages reference only the WebP files.
+- `python3 scripts/build_site.py` — writes `dist/` (not in git): `index.html`, legal pages, `404.html`, `robots.txt`, `sitemap.xml`, `.well-known/security.txt` and only the assets the pages reference, with content-hashed CSS/JS URLs. It fails on a broken reference.
+- Deploy the contents of `dist/` to `/var/www/landing`.
 
 Style is based on the user's references: metriccivil.ca (awwwards.com/sites/metric) and sts-hydro.com. The site is photo-led, with big Cinzel display type, a cream/deep-teal palette, GSAP 3.13, SplitText and Lenis.
 
