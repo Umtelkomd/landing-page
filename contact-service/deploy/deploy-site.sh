@@ -38,6 +38,7 @@ if ! nginx -t; then
   exit 1
 fi
 systemctl reload nginx
+sleep 3  # reload is asynchronous: old workers may answer the first requests
 
 echo "== 4. self-check"
 check() { # url expected-status
