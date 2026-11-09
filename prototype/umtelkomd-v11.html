@@ -154,6 +154,26 @@
   .card .meta{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px solid var(--line);padding-top:16px;font-size:14px}
   .card .meta b{display:block;font-family:'Cinzel',serif;font-size:24px}
 
+  /* CLIENTS */
+  .clients{padding:clamp(100px,11vw,150px) 0 clamp(20px,3vw,40px)}
+  .clients .top{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:56px}
+  .clients h2{font-size:clamp(38px,5vw,76px);margin:14px 0 0}
+  .clients .top p{margin:0;color:var(--grey);max-width:46ch}
+  .clients ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);column-gap:30px}
+  .clients li{--s:1;border-top:1px solid var(--line);padding:26px 0 30px;display:flex;flex-direction:column;gap:14px}
+  .clients li span{font:500 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--teal-t)}
+  .clients .logo{height:calc(64px * var(--s));display:flex;align-items:center}
+  .clients li img{display:block;height:calc(var(--h,44px) * var(--s));width:auto;max-width:100%;object-fit:contain;object-position:left center;filter:grayscale(1) brightness(.6) contrast(1.15);opacity:.8;transition:filter .4s,opacity .4s}
+  .clients .logo b{font:600 calc(34px * var(--s))/1 'IBM Plex Sans';letter-spacing:.14em;text-transform:uppercase;opacity:.75;transition:opacity .4s}
+  @media (hover:hover){ .clients li:hover img,.clients li:focus-within img{filter:none;opacity:1} .clients li:hover .logo b{opacity:1} }
+  .clients .lg-insyte{--h:50px} .clients .lg-miicom{--h:46px} .clients .lg-lymbau{--h:56px} .clients .lg-fibernet{--h:50px} .clients .lg-cobra{--h:44px}
+  .clients .lg-cobra img,.clients .lg-cobra:hover img{filter:brightness(0)}
+  .clients .ops{margin-top:56px;padding-top:30px;border-top:1px solid var(--black);display:grid;grid-template-columns:1fr 3fr;gap:30px;align-items:center}
+  .clients .ops h3{margin:0;font:500 13px 'IBM Plex Mono';letter-spacing:.12em;color:var(--grey)}
+  .clients .ops ul{grid-template-columns:repeat(6,auto);justify-content:space-between;align-items:center;column-gap:30px;row-gap:10px}
+  .clients .ops li{border:0;padding:0;height:calc(44px * var(--s));justify-content:center;align-items:center}
+  .clients .op-gfp{--h:40px} .clients .op-telekom{--h:38px} .clients .op-ugg{--h:36px} .clients .op-westconnect{--h:18px} .clients .op-goetel{--h:24px} .clients .op-dg{--h:38px}
+
   /* CAREER */
   .career{padding:clamp(110px,12vw,170px) 0}
   .career .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:center}
@@ -335,6 +355,8 @@
     .svc .view{display:none}
     .steps{grid-template-columns:repeat(2,1fr);row-gap:10px} .track svg{display:none}
     .card{grid-template-columns:1fr} .card figure{min-height:220px}
+    .clients .top,.clients .ops{grid-template-columns:1fr} .clients ul,.clients .ops ul{grid-template-columns:repeat(2,1fr)}
+    .clients li{--s:.82} .clients .ops ul{row-gap:22px} .clients .ops li{align-items:flex-start}
     footer .grid{grid-template-columns:1fr 1fr}
   }
   .nav-cta{white-space:nowrap}
@@ -381,7 +403,7 @@
       <img class="wm wm-neg" src="assets/umtelkomd-wordmark-negative.svg" alt="UMTELKOMD">
       <img class="wm wm-pos" src="assets/umtelkomd-wordmark-positive.svg" alt="">
     </a>
-    <ul id="navLinks"><li><a href="#leistungen">Leistungen</a></li><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#karriere">Karriere</a></li></ul>
+    <ul id="navLinks"><li><a href="#leistungen">Leistungen</a></li><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#kunden">Kunden</a></li><li><a href="#karriere">Karriere</a></li></ul>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menü öffnen"><span></span><span></span></button>
     <a class="btn p nav-cta" href="#kontakt"><span class="hide-sm">Projekt&nbsp;</span>anfragen</a>
   </div>
@@ -445,6 +467,8 @@
         <li data-img="ne4-21"><button>Spleißen &amp; Messen</button><div class="desc"><div>Fusionsspleiß, OTDR- und Dämpfungsmessung mit vollständigen Messprotokollen.</div></div></li>
         <li data-img="hx-16"><button>Hausanschluss &amp; Inhouse</button><div class="desc"><div>Hauseinführung, Steigleitungen und Wohnungsanschlüsse in Ein- und Mehrfamilienhäusern.</div></div></li>
         <li data-img="ne4-3"><button>Aktivierung &amp; Störungsdienst</button><div class="desc"><div>Schaltung am Netzknoten, Ende-zu-Ende-Prüfung und schnelle Reparatur im laufenden Netz.</div></div></li>
+        <li data-img="field-089"><button>Energieanlagen &amp; Umspannwerke</button><div class="desc"><div>LWL-Infrastruktur in Kraftwerken und Umspannwerken: Kabelzug, Einblasen, Spleißen und Messung nach den Vorgaben des Netzbetreibers.</div></div></li>
+        <li data-img="field-092"><button>Antennen &amp; Mobilfunk</button><div class="desc"><div>Glasfaseranbindung von Antennen- und Mobilfunkstandorten – von der Trasse bis zur Montage am Standort.</div></div></li>
       </ol>
       <div class="view ph-slot" id="svcView">
         <img class="on" src="assets/photos/civil-3.jpg" alt="" data-k="civil-3">
@@ -453,6 +477,8 @@
         <img src="assets/photos/ne4-21.jpg" alt="" data-k="ne4-21">
         <img src="assets/photos/hx-16.jpg" alt="" data-k="hx-16">
         <img src="assets/photos/ne4-3.jpg" alt="" data-k="ne4-3">
+        <img src="assets/photos/field-089.jpg" alt="" data-k="field-089">
+        <img src="assets/photos/field-092.jpg" alt="" data-k="field-092">
       </div>
     </div>
   </div>
@@ -494,10 +520,39 @@
   </div>
 </section>
 
+<section class="clients" id="kunden">
+  <div class="wrap">
+    <div class="top">
+      <div><div class="kicker">[ 05 ] · <b>KUNDEN</b></div><h2 class="display split">Für wen wir bauen.</h2></div>
+      <p class="fade">Netzbetreiber, Generalunternehmer und Energieversorger in Deutschland und Österreich setzen auf unsere Teams.</p>
+    </div>
+    <ul>
+      <li class="lg-insyte"><div class="logo"><img src="assets/clients/insyte-mark.png" alt="Insyte Deutschland" width="640" height="198" loading="lazy"></div><span>Deutschland · FTTH · Tiefbau · Hausanschluss</span></li>
+      <li class="lg-insyte"><div class="logo"><img src="assets/clients/insyte-mark.png" alt="Insyte Österreich" width="640" height="198" loading="lazy"></div><span>Österreich · Einblasen</span></li>
+      <li><div class="logo"><b>Verne</b></div><span>NE4 · Inhouse</span></li>
+      <li class="lg-miicom"><div class="logo"><img src="assets/clients/miicom.svg" alt="Miicom" width="832" height="326" loading="lazy"></div><span>Einblasen · FTTH</span></li>
+      <li class="lg-lymbau"><div class="logo"><img src="assets/clients/lymbau.png" alt="Lymbau GmbH" width="320" height="320" loading="lazy"></div><span>Tiefbau · Querungen</span></li>
+      <li class="lg-fibernet"><div class="logo"><img src="assets/clients/fibernet-connect-light.png" alt="FiberNet Connect" width="632" height="184" loading="lazy"></div><span>Einblasen · FTTH</span></li>
+      <li class="lg-cobra"><div class="logo"><img src="assets/clients/grupo-cobra.png" alt="Moncobra (Grupo Cobra)" width="429" height="151" loading="lazy"></div><span>Energie · LWL in Umspannwerken</span></li>
+    </ul>
+    <div class="ops">
+      <h3>NETZBETREIBER, IN DEREN<br>NETZEN WIR BAUEN</h3>
+      <ul>
+        <li class="op-gfp"><img src="assets/clients/glasfaserplus.svg" alt="GlasfaserPlus" width="842" height="273" loading="lazy"></li>
+        <li class="op-telekom"><img src="assets/clients/telekom.svg" alt="Telekom" width="60" height="60" loading="lazy"></li>
+        <li class="op-ugg"><img src="assets/clients/ugg.svg" alt="UGG" width="173" height="52" loading="lazy"></li>
+        <li class="op-westconnect"><img src="assets/clients/westconnect.svg" alt="Westconnect" width="249" height="32" loading="lazy"></li>
+        <li class="op-goetel"><img src="assets/clients/goetel.svg" alt="Goetel" width="143" height="30" loading="lazy"></li>
+        <li class="op-dg"><img src="assets/clients/deutsche-glasfaser.svg" alt="Deutsche Glasfaser" width="230" height="77" loading="lazy"></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="career" id="karriere">
   <div class="wrap">
     <div>
-      <div class="kicker">[ 05 ] · <b>KARRIERE</b></div>
+      <div class="kicker">[ 06 ] · <b>KARRIERE</b></div>
       <h2 class="display split">Bau mit uns das Netz von morgen.</h2>
       <p class="fade">Monteure, Spleißer, Tiefbauer und Bauleiter: Wir suchen Menschen, die anpacken – mit fairen Löhnen, moderner Ausrüstung und einem Team, das zusammenhält.</p>
       <a class="btn p" href="#kontakt" data-open="job">Jetzt bewerben</a>
@@ -513,7 +568,7 @@
 <section class="contact" id="kontakt">
   <div class="wrap">
     <div class="ctop">
-      <div><div class="kicker">[ 06 ] · <b>KONTAKT</b></div><h2 class="display split">Kontaktieren Sie uns.</h2></div>
+      <div><div class="kicker">[ 07 ] · <b>KONTAKT</b></div><h2 class="display split">Kontaktieren Sie uns.</h2></div>
       <p class="fade">Ein paar Klicks genügen. Wir melden uns innerhalb von 24 Stunden – persönlich, nicht automatisch.</p>
     </div>
 
@@ -639,8 +694,8 @@
   <div class="wrap">
     <div class="grid">
       <div><h2 class="display big">Sprechen wir über Ihr Netz.</h2><a class="btn p" href="#kontakt">Projekt anfragen</a></div>
-      <div><h5>Leistungen</h5><ul><li><a href="#leistungen">Planung</a></li><li><a href="#leistungen">Tiefbau</a></li><li><a href="#leistungen">Spleißen</a></li><li><a href="#leistungen">Inhouse</a></li></ul></div>
-      <div><h5>Unternehmen</h5><ul><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#karriere">Karriere</a></li></ul></div>
+      <div><h5>Leistungen</h5><ul><li><a href="#leistungen">Planung</a></li><li><a href="#leistungen">Tiefbau</a></li><li><a href="#leistungen">Spleißen</a></li><li><a href="#leistungen">Inhouse</a></li><li><a href="#leistungen">Energieanlagen</a></li><li><a href="#leistungen">Antennen</a></li></ul></div>
+      <div><h5>Unternehmen</h5><ul><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#kunden">Kunden</a></li><li><a href="#karriere">Karriere</a></li></ul></div>
       <div><h5>Kontakt</h5><ul><li>UMTELKOMD GmbH</li><li><a href="mailto:administration@umtelkomd.com">administration@umtelkomd.com</a></li><li><a href="mailto:ihorstmann@umtelkomd.com">ihorstmann@umtelkomd.com</a></li></ul></div>
     </div>
     <div class="base"><img src="assets/umtelkomd-horizontal-negative.svg" alt="UMTELKOMD"><span>Ein Unternehmen der HMR nexus Gruppe · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span></div>
@@ -844,6 +899,8 @@
 
   // career stack fans out
   gsap.from('.stack figure', { rotate: (i) => [-6, 4, 8][i], y: 60, autoAlpha: 0, duration: 1.1, ease: 'power3.out', stagger: .12, scrollTrigger: { trigger: '.stack', start: 'top 80%' } });
+  gsap.from('.clients > .wrap > ul li', { y: 30, autoAlpha: 0, duration: .8, ease: 'power3.out', stagger: .06, scrollTrigger: { trigger: '.clients > .wrap > ul', start: 'top 85%' } });
+  gsap.from('.clients .ops li', { y: 20, autoAlpha: 0, duration: .8, ease: 'power3.out', stagger: .06, scrollTrigger: { trigger: '.clients .ops', start: 'top 90%' } });
   gsap.from('.card', { x: 80, autoAlpha: 0, duration: 1, ease: 'power3.out', stagger: .1, scrollTrigger: { trigger: '#rail', start: 'top 85%' } });
   addEventListener('load', () => ScrollTrigger.refresh());
 })();
