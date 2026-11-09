@@ -52,10 +52,11 @@ check https://umtelkomd.net/.well-known/security.txt 200
 check https://umtelkomd.net/does-not-exist 404
 check https://umtelkomd.net/.index.html.bak-20261109 404
 check https://www.umtelkomd.net/ 301
+check https://umtelkomd.net/signatur/umtelkomd-knot-112.png 200
 if [ "$FAILED" = 1 ]; then
   echo "self-check failed. To roll back:"
   echo "  cp -a $SITE.bak-$TS $SITE && cp -a $HEADERS.bak-$TS $HEADERS && nginx -t && systemctl reload nginx"
   echo "  tar -xzf $BACKUP -C $(dirname "$WWW")"
   exit 1
 fi
-echo "== done. Roll back with the two commands above if ever needed (backup: $BACKUP)."
+echo "== done. Backups: $BACKUP, $SITE.bak-$TS, $HEADERS.bak-$TS"
