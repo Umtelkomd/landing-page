@@ -4,399 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UMTELKOMD · Glasfaserausbau in Deutschland</title>
+<meta name="description" content="UMTELKOMD plant, baut und aktiviert Glasfasernetze für Netzbetreiber in Deutschland und Österreich: Tiefbau, Einblasen, Spleißen, Hausanschluss und Aktivierung aus einer Hand.">
+<link rel="canonical" href="https://umtelkomd.net/">
+<meta name="theme-color" content="#0C2E2B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UMTELKOMD">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://umtelkomd.net/">
+<meta property="og:title" content="UMTELKOMD · Glasfaserausbau in Deutschland">
+<meta property="og:description" content="UMTELKOMD plant, baut und aktiviert Glasfasernetze für Netzbetreiber in Deutschland und Österreich: Tiefbau, Einblasen, Spleißen, Hausanschluss und Aktivierung aus einer Hand.">
+<meta property="og:image" content="https://umtelkomd.net/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <!-- Photos: UMTELKOMD field documentation (cropped, brand duotone). Slots marked .ph-slot are candidates for replacement after a professional shoot (no visible label). -->
+<link rel="preload" href="assets/fonts/Cinzel-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
-<style>
-  :root{
-    --black:#111113; --grey:#5E5E62; --grey-l:#B4B4B8; --teal:#14B8A6; --teal-t:#0B7A70;
-    --deep:#0C2E2B; --cream:#FDFBF6; --sand:#F3EFE6; --line:#E4E4DF; --tint:#E8F7F5;
-    --pad:clamp(20px,4vw,56px); --max:1360px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--cream);color:var(--black);font:400 17px/1.6 'IBM Plex Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
-  a{color:inherit} img{display:block;max-width:100%}
-  :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-  .display{font-family:'Cinzel',serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;line-height:1.02}
-  .kicker{font:500 13px 'IBM Plex Mono';letter-spacing:.12em;color:var(--grey)}
-  .kicker b{color:var(--teal-t);font-weight:500}
-  .btn{display:inline-flex;align-items:center;gap:10px;font:600 15px 'IBM Plex Sans';letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:15px 24px;border-radius:6px;transition:transform .2s,background .2s}
-  .btn:hover{transform:translateY(-2px)}
-  .btn.p{background:var(--teal);color:var(--deep)} .btn.p:hover{background:#2CC7B5}
-  .btn.o{border:1.5px solid currentColor}
-  .ph-slot{position:relative}
-  .cform .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
-  .rv{will-change:transform}
-
-  /* NAV */
-  .nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,color .35s,box-shadow .35s;color:#fff}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:88px}
-  .nav.solid{background:rgba(253,251,246,.95);color:var(--black);box-shadow:0 1px 0 var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-  .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
-  .brand img{height:48px}
-  .brand .wm{width:232px;height:auto}
-  .brand .wm-neg{display:block} .brand .wm-pos{display:none}
-  .nav.solid .wm-neg{display:none} .nav.solid .wm-pos{display:block}
-  .nav ul{display:flex;gap:34px;list-style:none;margin:0;padding:0}
-  .nav ul a{font:600 14px 'IBM Plex Sans';letter-spacing:.08em;text-transform:uppercase;text-decoration:none;opacity:.92}
-  .nav ul a:hover{opacity:1;color:var(--teal)}
-
-  /* HERO */
-  .hero{position:relative;height:100svh;min-height:640px;color:#fff;overflow:hidden;background:var(--deep)}
-  .hero .bg{position:absolute;inset:-8% 0 0;background:url(assets/photos/aue-16.jpg) center top/cover}
-  .hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,46,43,.55) 0%,rgba(12,46,43,.35) 45%,rgba(12,46,43,.85) 100%)}
-  .hero .in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-  .hero h1{font-size:clamp(46px,8vw,124px);margin:0;max-width:14ch}
-  .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .04em}
-  .hero h1 .w>span{display:inline-block}
-  .hero p{font:300 clamp(18px,1.6vw,22px)/1.5 'IBM Plex Sans';max-width:46ch;margin:30px auto 34px;color:#E8F7F5}
-  .hero .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  .hero .reel{position:absolute;right:var(--pad);bottom:40px;z-index:3;width:220px;border-radius:8px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);text-decoration:none;color:#fff}
-  .hero .reel img{aspect-ratio:16/10;object-fit:cover;width:100%}
-  .hero .reel span{position:absolute;inset:0;display:grid;place-items:center;font:600 12px 'IBM Plex Sans';letter-spacing:.08em;text-transform:uppercase;background:rgba(12,46,43,.35)}
-  .hero .reel i{display:block;width:44px;height:44px;border-radius:50%;background:var(--cream);margin:0 auto 8px;position:relative}
-  .hero .reel i::after{content:"";position:absolute;left:18px;top:14px;border-left:12px solid var(--deep);border-top:8px solid transparent;border-bottom:8px solid transparent}
-  .wave{position:absolute;left:0;right:0;bottom:0;height:70px;z-index:2;pointer-events:none}
-  .wave svg{width:100%;height:100%;display:block;overflow:visible}
-  .wave .base{stroke:rgba(232,247,245,.25);stroke-width:1.5;fill:none}
-  .wave .trail{stroke:#14B8A6;stroke-width:7;opacity:.35;fill:none;stroke-linecap:round}
-  .wave .pulse{stroke:#E8F7F5;stroke-width:2.6;fill:none;stroke-linecap:round}
-
-  /* STANDARD */
-  .standard{padding:clamp(100px,12vw,170px) 0 clamp(70px,8vw,110px)}
-  .standard .head{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:end;margin-bottom:56px}
-  .standard h2{font-size:clamp(40px,5.4vw,82px);margin:14px 0 0}
-  .standard .head p{margin:0 0 6px;font-size:19px;color:#2B2B2F;padding-bottom:22px;border-bottom:1px solid var(--line)}
-  .standard .pics{display:grid;grid-template-columns:2fr 1fr;gap:24px}
-  .standard .pics figure{margin:0;border-radius:10px;overflow:hidden;height:min(56vw,560px)}
-  .standard .pics img{width:100%;height:118%;object-fit:cover}
-
-  /* NUMBERS */
-  .numbers{background:var(--deep);color:#fff;padding:clamp(70px,8vw,110px) 0}
-  .numbers .wrap{display:grid;grid-template-columns:1fr 2.2fr;gap:40px;align-items:end}
-  .numbers h3{font:600 22px 'IBM Plex Sans';margin:0;color:var(--tint)}
-  .numbers h3 small{display:block;margin-top:12px;font:400 14px/1.5 'IBM Plex Sans';color:var(--grey-l);max-width:26ch}
-  .numbers .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
-  .numbers b{display:inline-block;font-variant-numeric:lining-nums tabular-nums;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(44px,5vw,76px);line-height:1;color:#fff}
-  .numbers span{display:block;margin-top:12px;color:var(--grey-l);font-size:15px}
-  .numbers em{font-style:normal;font:500 10px 'IBM Plex Mono';color:var(--teal);display:block;margin-top:6px;letter-spacing:.06em}
-
-
-  /* SITE GALLERY */
-  .site{padding:clamp(70px,8vw,110px) 0 0;overflow:hidden}
-  .site .kicker{margin-bottom:28px}
-  .marquee{overflow:hidden}
-  .marquee .row{display:flex;gap:18px;width:max-content}
-  .marquee figure{margin:0;width:clamp(220px,22vw,320px);aspect-ratio:4/5;border-radius:10px;overflow:hidden;flex:0 0 auto}
-  .marquee img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
-  .marquee figure:hover img{transform:scale(1.05)}
-  .card .nophoto{position:absolute;inset:0;display:grid;place-items:center;background:#123C38;color:#B4B4B8;font:500 12px 'IBM Plex Mono';letter-spacing:.08em;text-align:center;padding:20px}
-
-  /* SERVICES */
-  .services{padding:clamp(100px,12vw,160px) 0}
-  .services .top{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:46px}
-  .services h2{font-size:clamp(38px,5vw,76px);margin:14px 0 0}
-  .svc{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
-  .svc ol{list-style:none;margin:0;padding:0;counter-reset:s}
-  .svc li{border-top:1px solid var(--line);counter-increment:s}
-  .svc li:last-child{border-bottom:1px solid var(--line)}
-  .svc button{all:unset;cursor:pointer;display:grid;grid-template-columns:56px 1fr 28px;align-items:center;width:100%;padding:24px 0;font:600 clamp(22px,2.2vw,32px)/1.15 'IBM Plex Sans';letter-spacing:-.02em;color:#9B9BA0;transition:color .25s}
-  .svc button::before{content:counter(s,decimal-leading-zero);font:500 13px 'IBM Plex Mono';color:var(--grey-l)}
-  .svc button::after{content:"→";font-weight:400;opacity:0;transform:translateX(-8px);transition:.25s;color:var(--teal-t)}
-  .svc li.on button,.svc button:hover{color:var(--black)}
-  .svc li.on button::after{opacity:1;transform:none}
-  .svc .desc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
-  .svc .desc>div{overflow:hidden;padding-left:56px;color:var(--grey);font-size:16px}
-  .svc li.on .desc{grid-template-rows:1fr}
-  .svc li.on .desc>div{padding-bottom:24px}
-  .svc .view{position:sticky;top:120px;border-radius:12px;overflow:hidden;aspect-ratio:4/5;background:var(--deep)}
-  .svc .view img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .6s,transform 1.2s}
-  .svc .view img.on{opacity:1;transform:none}
-
-  /* PROCESS */
-  .process{background:var(--sand);padding:clamp(100px,11vw,150px) 0}
-  .process h2{font-size:clamp(36px,4.6vw,70px);margin:14px 0 60px;max-width:16ch}
-  .track{position:relative}
-  .track svg{position:absolute;left:0;right:0;top:22px;width:100%;height:24px;overflow:visible}
-  .track .base{stroke:#D9D3C4;stroke-width:2;fill:none}
-  .track .fill{stroke:var(--teal);stroke-width:3;fill:none}
-  .track .trail{stroke:#14B8A6;stroke-width:8;opacity:.3;fill:none;stroke-linecap:round}
-  .track .pulse{stroke:#FDFBF6;stroke-width:3;fill:none;stroke-linecap:round}
-  .steps{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:18px;list-style:none;margin:0;padding:0}
-  .steps li{padding-top:64px;position:relative}
-  .steps li::before{content:"";position:absolute;left:0;top:23px;width:16px;height:16px;border-radius:50%;background:var(--sand);border:3px solid #D9D3C4;transition:border-color .3s,background .3s}
-  .steps li.lit::before{border-color:var(--teal);background:var(--teal)}
-  .steps small{font:500 12px 'IBM Plex Mono';color:var(--grey)}
-  .steps h4{font:600 17px/1.25 'IBM Plex Sans';margin:8px 0 8px;letter-spacing:-.01em}
-  .steps p{margin:0;font-size:14px;line-height:1.5;color:var(--grey)}
-
-  /* PROJECTS */
-  .projects{position:relative;background:var(--deep);color:#fff;padding:clamp(100px,11vw,150px) 0;overflow:hidden}
-  .projects .top{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:46px}
-  .projects h2{font-size:clamp(40px,5.4vw,82px);margin:14px 0 0}
-  .projects .ctrl{display:flex;gap:10px;align-items:center}
-  .projects .ctrl .count{font:500 13px 'IBM Plex Mono';color:var(--grey-l);margin-right:14px;letter-spacing:.12em}
-  .projects .ctrl button{all:unset;cursor:pointer;width:48px;height:48px;border-radius:6px;display:grid;place-items:center;background:var(--teal);color:var(--deep);font-size:20px}
-  .rail{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--pad) 10px calc((100vw - min(100vw,var(--max)))/2 + var(--pad));scrollbar-width:none}
-  .rail::-webkit-scrollbar{display:none}
-  .card{flex:0 0 min(86vw,760px);scroll-snap-align:start;background:var(--cream);color:var(--black);border-radius:12px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
-  .card figure{margin:0;min-height:340px;position:relative}
-  .card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .card .tag{position:absolute;left:14px;top:14px;z-index:2;font:600 11px 'IBM Plex Sans';letter-spacing:.1em;text-transform:uppercase;background:rgba(12,46,43,.85);color:#fff;padding:6px 10px;border-radius:4px}
-  .card .body{padding:30px 28px;display:flex;flex-direction:column;gap:14px}
-  .card .loc{font:500 13px 'IBM Plex Mono';color:var(--grey)}
-  .card h3{font-family:'Cinzel',serif;font-weight:700;font-size:26px;line-height:1.1;margin:0;letter-spacing:.03em;text-transform:uppercase}
-  .card ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-  .card li{font:600 11px 'IBM Plex Sans';letter-spacing:.08em;text-transform:uppercase;background:var(--teal);color:var(--deep);padding:6px 10px;border-radius:4px}
-  .card .meta{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px solid var(--line);padding-top:16px;font-size:14px}
-  .card .meta b{display:block;font-family:'Cinzel',serif;font-size:24px}
-
-  /* CLIENTS */
-  .clients{padding:clamp(100px,11vw,150px) 0 clamp(20px,3vw,40px)}
-  .clients .top{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:56px}
-  .clients h2{font-size:clamp(38px,5vw,76px);margin:14px 0 0}
-  .clients .top p{margin:0;color:var(--grey);max-width:46ch}
-  .clients ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);column-gap:30px}
-  .clients li{--s:1;border-top:1px solid var(--line);padding:26px 0 30px;display:flex;flex-direction:column;gap:14px}
-  .clients li span{font:500 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--teal-t)}
-  .clients .logo{height:calc(64px * var(--s));display:flex;align-items:center}
-  .clients li img{display:block;height:calc(var(--h,44px) * var(--s));width:auto;max-width:100%;object-fit:contain;object-position:left center;filter:grayscale(1) brightness(.6) contrast(1.15);opacity:.8;transition:filter .4s,opacity .4s}
-  .clients .logo b{font:600 calc(34px * var(--s))/1 'IBM Plex Sans';letter-spacing:.14em;text-transform:uppercase;opacity:.75;transition:opacity .4s}
-  @media (hover:hover){ .clients li:hover img,.clients li:focus-within img{filter:none;opacity:1} .clients li:hover .logo b{opacity:1} }
-  .clients .lg-insyte{--h:50px} .clients .lg-miicom{--h:46px} .clients .lg-lymbau{--h:56px} .clients .lg-fibernet{--h:50px} .clients .lg-cobra{--h:44px}
-  .clients .lg-cobra img,.clients .lg-cobra:hover img{filter:brightness(0)}
-  .clients .ops{margin-top:56px;padding-top:30px;border-top:1px solid var(--black);display:grid;grid-template-columns:1fr 3fr;gap:30px;align-items:center}
-  .clients .ops h3{margin:0;font:500 13px 'IBM Plex Mono';letter-spacing:.12em;color:var(--grey)}
-  .clients .ops ul{grid-template-columns:repeat(6,auto);justify-content:space-between;align-items:center;column-gap:30px;row-gap:10px}
-  .clients .ops li{border:0;padding:0;height:calc(44px * var(--s));justify-content:center;align-items:center}
-  .clients .op-gfp{--h:40px} .clients .op-telekom{--h:38px} .clients .op-ugg{--h:36px} .clients .op-westconnect{--h:18px} .clients .op-goetel{--h:24px} .clients .op-dg{--h:38px}
-
-  /* CAREER */
-  .career{padding:clamp(110px,12vw,170px) 0}
-  .career .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:center}
-  .career h2{font-size:clamp(38px,5vw,74px);margin:14px 0 22px}
-  .career p{font-size:19px;color:#2B2B2F;max-width:42ch;margin:0 0 30px}
-  .stack{position:relative;height:min(62vw,620px)}
-  .stack figure{position:absolute;margin:0;border-radius:12px;overflow:hidden;box-shadow:0 18px 40px rgba(12,46,43,.18)}
-  .stack figure img{width:100%;height:100%;object-fit:cover}
-  .stack .a{inset:0 18% 8% 0;z-index:3} .stack .b{inset:5% 9% 4% 9%;z-index:2} .stack .c{inset:10% 0 0 18%;z-index:1}
-
-
-  /* CONTACT */
-  .contact{background:var(--sand);padding:clamp(100px,11vw,150px) 0}
-  .contact .ctop{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:end;margin-bottom:44px}
-  .contact h2{font-size:clamp(40px,5.4vw,82px);margin:14px 0 0}
-  .contact .ctop p{font-size:19px;color:#2B2B2F;margin:0 0 6px}
-  .tabs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
-  .tab{all:unset;cursor:pointer;padding:22px 26px;border-radius:12px;background:var(--cream);border:1.5px solid var(--line);font:600 clamp(20px,2vw,28px) 'IBM Plex Sans';letter-spacing:-.02em;color:#9B9BA0;transition:.25s}
-  .tab small{display:block;font:500 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-  .tab.on{background:var(--deep);color:#fff;border-color:var(--deep)} .tab.on small{color:var(--teal)}
-  .tab:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-  .cform{display:none;background:var(--cream);border-radius:14px;padding:clamp(24px,4vw,48px);border:1px solid var(--line)}
-  .cform.on{display:block;animation:fin .45s ease}
-  @keyframes fin{from{opacity:0;transform:translateY(12px)}}
-  .steps-ind{display:flex;gap:8px;margin-bottom:30px;flex-wrap:wrap}
-  .steps-ind span{font:500 12px 'IBM Plex Mono';letter-spacing:.06em;color:var(--grey-l);padding:7px 12px;border-radius:999px;border:1px solid var(--line)}
-  .steps-ind span.on{color:var(--deep);background:var(--teal);border-color:var(--teal)}
-  .steps-ind span.ok{color:var(--teal-t);border-color:var(--teal)}
-  .step{display:none;border:0;margin:0;padding:0;min-width:0}
-  .step.on{display:block;animation:fin .4s ease}
-  legend{font:600 clamp(24px,2.6vw,36px)/1.15 'IBM Plex Sans';letter-spacing:-.02em;margin-bottom:8px;padding:0}
-  .hint{color:var(--grey);font-size:15px;margin:0 0 20px}
-  .lbl{display:block;font:600 13px 'IBM Plex Sans';letter-spacing:.06em;text-transform:uppercase;color:var(--grey);margin:24px 0 12px}
-  .chips{display:flex;flex-wrap:wrap;gap:10px}
-  .chips button{all:unset;cursor:pointer;padding:12px 18px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:500 15px 'IBM Plex Sans';color:#2B2B2F;transition:.2s}
-  .chips button:hover{border-color:var(--teal)}
-  .chips button.on{background:var(--deep);border-color:var(--deep);color:#fff}
-  .chips button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:22px}
-  .fld{display:flex;flex-direction:column;gap:7px;margin-top:16px}
-  .grid2 .fld{margin-top:0}
-  .fld span{font:500 13px 'IBM Plex Sans';color:var(--grey)}
-  .fld input,.fld textarea{font:400 16px 'IBM Plex Sans';color:var(--black);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:13px 14px;outline:none;transition:border-color .2s;resize:vertical}
-  .fld input:focus,.fld textarea:focus{border-color:var(--teal)}
-  .fld.bad input{border-color:#C9473D}
-  .consent{display:flex;gap:12px;align-items:flex-start;margin-top:20px;font-size:14px;color:var(--grey);line-height:1.5}
-  .consent input{margin-top:3px;accent-color:var(--teal-t);width:18px;height:18px;flex:0 0 18px}
-  .nav-row{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
-  .nav-row .btn.o{color:var(--black)}
-  .err{color:#C9473D;font-size:14px;margin:12px 0 0;min-height:1em}
-  .done{display:none;text-align:center;padding:30px 10px}
-  .done b{display:block;font-family:'Cinzel',serif;font-size:44px;margin-bottom:8px}
-  .done p{color:var(--grey);max-width:46ch;margin:0 auto}
-  .cform.sent > :not(.done){display:none!important}
-  .cform.sent .done{display:block}
-  .who{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .who label{cursor:pointer}
-  .who input{position:absolute;opacity:0}
-  .who span{display:block;padding:20px 22px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--grey);font-size:15px;transition:.2s}
-  .who b{display:block;font:600 20px 'IBM Plex Sans';color:var(--black);margin-bottom:4px}
-  .who input:checked + span{border-color:var(--teal);box-shadow:inset 0 0 0 1.5px var(--teal);background:var(--tint)}
-  .who input:focus-visible + span{outline:2px solid var(--teal);outline-offset:2px}
-  /* form controls: tactile press, clear selected state */
-  .btn{transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s,box-shadow .2s}
-  .btn:active{transform:translateY(0) scale(.97);transition-duration:.08s}
-  .btn.p:hover{box-shadow:0 8px 22px -10px rgba(20,184,166,.7)}
-  .btn .ar{display:inline-block;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
-  .btn:hover .ar{transform:translateX(4px)}
-  .btn[disabled]{opacity:.7;pointer-events:none}
-  .btn[disabled]::after{content:"";width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .tab:hover:not(.on){border-color:var(--teal);color:var(--grey)}
-  .tab:active{transform:scale(.98)}
-  .chips button{display:inline-flex;align-items:center;gap:0;transition:background .2s,border-color .2s,color .2s,transform .15s cubic-bezier(.2,.8,.2,1),gap .25s}
-  .chips button::before{content:"✓";flex:none;display:inline-block;max-width:0;overflow:hidden;font-weight:700;font-size:14px;line-height:1;color:var(--teal);transform:scale(0);transition:max-width .25s,transform .3s cubic-bezier(.3,1.6,.5,1)}
-  .chips button:hover:not(.on){background:var(--tint)}
-  .chips button:active{transform:scale(.94)}
-  .chips button.on{gap:7px}
-  .chips button.on::before{max-width:16px;transform:scale(1)}
-  .chips button.pop{animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
-  @keyframes pop{40%{transform:scale(1.07)}}
-  .who span{position:relative;padding-right:52px;transition:border-color .2s,background .2s,box-shadow .2s,transform .15s}
-  .who span::after{content:"";position:absolute;right:20px;top:22px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--grey-l);background:#fff;transition:.25s cubic-bezier(.3,1.6,.5,1)}
-  .who input:checked + span::after{border-color:var(--teal-t);box-shadow:inset 0 0 0 4px #fff;background:var(--teal-t)}
-  .who label:hover input:not(:checked) + span{border-color:var(--teal)}
-  .who label:active span{transform:scale(.985)}
-  .fld input[type=file]{padding:10px;cursor:pointer;color:var(--grey);font-size:14px}
-  .fld input[type=file]::file-selector-button{font:600 13px 'IBM Plex Sans';letter-spacing:.04em;text-transform:uppercase;color:var(--deep);background:var(--tint);border:0;border-radius:6px;padding:10px 14px;margin-right:12px;cursor:pointer;transition:background .2s}
-  .fld input[type=file]:hover::file-selector-button{background:#d3f0ec}
-  /* press wave: the hero's light pulse riding a wave, played inside the pressed control */
-  .btn,.chips button,.tab,.who span{position:relative;overflow:hidden;isolation:isolate}
-  .press-wave{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
-  .press-wave path{fill:none;stroke-linecap:round}
-  .press-wave .trail{stroke:var(--teal);stroke-width:5;opacity:.4}
-  .press-wave .pulse{stroke:var(--tint);stroke-width:2}
-  .chips button:not(.on) .press-wave .pulse,.tab:not(.on) .press-wave .pulse,.who span .press-wave .pulse,.btn.o .press-wave .pulse{stroke:var(--teal-t)}
-  @media (prefers-reduced-motion:reduce){.btn,.chips button,.chips button::before,.who span,.who span::after,.tab{transition:none}.chips button.pop{animation:none}}
-  .direct{display:flex;gap:40px;flex-wrap:wrap;margin-top:34px}
-  .direct small{display:block;font:500 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:4px}
-  .direct a{font:600 19px 'IBM Plex Sans';text-decoration:none;color:var(--teal-t)}
-  .direct a:hover{text-decoration:underline}
-  @media (max-width:980px){ .contact .ctop,.tabs,.grid2,.who{grid-template-columns:1fr} }
-
-
-  /* CONTACT v10 refinements */
-  [hidden]{display:none!important}
-  .csum-in{position:sticky;top:96px;height:auto;min-height:min(100%,760px)}
-  .tabs{position:relative;grid-template-columns:1fr 1fr;gap:0;background:var(--cream);border:1.5px solid var(--line);border-radius:14px;padding:6px;margin-bottom:26px}
-  .tab{position:relative;z-index:1;background:transparent!important;border:0!important;border-radius:10px;padding:18px 22px;transition:color .35s}
-  .tab.on{color:#fff}
-  .tab-ind{position:absolute;z-index:0;top:6px;bottom:6px;left:6px;width:calc(50% - 6px);border-radius:10px;background:var(--deep);transition:transform .5s cubic-bezier(.7,0,.2,1)}
-  .tabs.job .tab-ind{transform:translateX(100%)}
-  .cgrid{display:grid;grid-template-columns:minmax(300px,.8fr) 1.6fr;gap:22px;align-items:stretch}
-  .csum{position:relative;border-radius:14px;overflow:hidden;color:#fff;background:var(--deep);min-height:100%}
-  .csum-bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,46,43,.55),rgba(12,46,43,.96) 55%),url(assets/photos/aue-7.jpg) center/cover}
-  .csum-in{position:relative;padding:34px 30px;display:flex;flex-direction:column;height:100%;gap:18px}
-  .csum h3{font-family:'Cinzel',serif;font-weight:700;font-size:30px;line-height:1.1;margin:0;letter-spacing:.03em;text-transform:uppercase}
-  #sumList{list-style:none;margin:0;padding:0;display:grid;gap:12px;flex:1;align-content:start}
-  #sumList li{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:15px;line-height:1.45;color:#E8F7F5;animation:fin .35s ease}
-  #sumList li::before{content:"";width:14px;height:14px;margin-top:4px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(20,184,166,.18)}
-  #sumList li small{display:block;font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#B4B4B8}
-  #sumList li.empty{display:block;color:#B4B4B8;font-style:italic}
-  #sumList li.empty::before{display:none}
-  .promise{display:grid;grid-template-columns:1fr 1fr;gap:14px;border-top:1px solid rgba(232,247,245,.15);padding-top:18px}
-  .promise b{display:block;font-family:'Cinzel',serif;font-size:22px}
-  .promise span{font-size:13px;color:#B4B4B8}
-  .person{display:flex;align-items:center;gap:14px;text-decoration:none;background:rgba(232,247,245,.08);border-radius:10px;padding:12px 14px;transition:background .2s}
-  .person:hover{background:rgba(232,247,245,.14)}
-  .person .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--deep);font:700 15px 'IBM Plex Sans'}
-  .person small{display:block;font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#B4B4B8}
-  .cform{border:0;box-shadow:0 1px 0 var(--line),0 20px 50px rgba(12,46,43,.07);padding:clamp(26px,4vw,52px)}
-  .prog{margin-bottom:30px}
-  .prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-  .prog-n{font:500 13px 'IBM Plex Mono';color:var(--grey-l)} .prog-n b{font:700 26px 'Cinzel',serif;color:var(--black)}
-  .prog-l{font:500 12px 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--teal-t)}
-  .prog-bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden}
-  .prog-bar i{display:block;height:100%;width:33.3%;background:var(--teal);border-radius:2px;transition:width .6s cubic-bezier(.7,0,.2,1)}
-  legend{font-size:clamp(28px,3vw,42px)}
-  .chips{gap:10px}
-  .chips button{display:inline-flex;align-items:center;gap:0;padding:13px 20px;box-shadow:0 1px 2px rgba(17,17,19,.04);transition:background .25s,color .25s,border-color .25s,transform .15s,gap .25s}
-  .chips button::before{content:"";width:0;height:16px;overflow:hidden;background:no-repeat center/16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='%2314B8A6' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");transition:width .25s}
-  .chips button.on{gap:8px} .chips button.on::before{width:16px}
-  .chips button:hover{transform:translateY(-1px)}
-  .chips button:active{transform:scale(.97)}
-  .fld input,.fld textarea{background:transparent;border:0;border-bottom:1.5px solid var(--line);border-radius:0;padding:12px 2px;font-size:17px;background-image:linear-gradient(var(--teal),var(--teal));background-size:0 2px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .4s,border-color .2s}
-  .fld textarea{border:1.5px solid var(--line);border-radius:10px;padding:14px;background-image:none}
-  .fld input:focus{background-size:100% 2px;border-color:transparent}
-  .fld textarea:focus{border-color:var(--teal)}
-  .fld span{font:600 12px 'IBM Plex Sans';letter-spacing:.06em;text-transform:uppercase}
-  .fld.bad input{border-bottom-color:#C9473D}
-  .nav-row .btn{min-width:150px;justify-content:center}
-  .btn.p .ar{display:inline-block;transition:transform .25s} .btn.p:hover .ar{transform:translateX(4px)}
-  .who span{padding:22px 24px 22px 58px;position:relative}
-  .who span::before{content:"";position:absolute;left:22px;top:25px;width:20px;height:20px;border-radius:50%;border:2px solid var(--grey-l);transition:.25s}
-  .who input:checked + span::before{border-color:var(--teal);background:var(--teal);box-shadow:inset 0 0 0 4px #fff}
-  .done{padding:50px 10px}
-  .tick{width:84px;height:84px;margin:0 auto 18px;display:block}
-  .tick circle{fill:none;stroke:var(--teal);stroke-width:3;stroke-dasharray:227;stroke-dashoffset:227}
-  .tick path{fill:none;stroke:var(--teal-t);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50}
-  .cform.sent .tick circle{animation:draw .7s ease forwards} .cform.sent .tick path{animation:draw .45s .55s ease forwards}
-  @keyframes draw{to{stroke-dashoffset:0}}
-  @media (max-width:980px){ .cgrid{grid-template-columns:1fr} .csum{order:2} .tabs{grid-template-columns:1fr 1fr} }
-
-  /* FOOTER */
-  footer{background:var(--deep);color:var(--grey-l);padding:90px 0 36px}
-  footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:60px;border-bottom:1px solid #1D4440}
-  footer .big{font-size:clamp(30px,3.4vw,50px);color:#fff;margin:0 0 26px}
-  footer h5{font:600 12px 'IBM Plex Sans';letter-spacing:.12em;text-transform:uppercase;color:#fff;margin:0 0 16px}
-  footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px}
-  footer a{text-decoration:none} footer a:hover{color:var(--teal)}
-  footer .base{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:30px;font-size:13px;flex-wrap:wrap}
-  footer .base img{height:40px}
-
-  @media (max-width:980px){
-    .nav ul{display:none} .brand .wm{width:196px} .brand img{height:38px}
-    .hero .reel{display:none}
-    .standard .head,.numbers .wrap,.svc,.career .wrap{grid-template-columns:1fr}
-    .numbers .grid{grid-template-columns:repeat(2,1fr)}
-    .svc .view{display:none}
-    .steps{grid-template-columns:repeat(2,1fr);row-gap:10px} .track svg{display:none}
-    .card{grid-template-columns:1fr} .card figure{min-height:220px}
-    .clients .top,.clients .ops{grid-template-columns:1fr} .clients ul,.clients .ops ul{grid-template-columns:repeat(2,1fr)}
-    .clients li{--s:.82} .clients .ops ul{row-gap:22px} .clients .ops li{align-items:flex-start}
-    footer .grid{grid-template-columns:1fr 1fr}
-  }
-  .nav-cta{white-space:nowrap}
-  .menu-btn{display:none}
-  @media (max-width:980px){
-    .nav .wrap{gap:12px}
-    .nav-cta{margin-left:auto}
-    .menu-btn{all:unset;order:3;display:grid;place-content:center;gap:6px;width:44px;height:44px;margin-right:-8px;cursor:pointer;border-radius:8px}
-    .menu-btn span{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-    .menu-btn:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-    .nav.open .menu-btn span:first-child{transform:translateY(4px) rotate(45deg)}
-    .nav.open .menu-btn span:last-child{transform:translateY(-4px) rotate(-45deg)}
-    .nav.open{background:rgba(253,251,246,.98);color:var(--black);box-shadow:0 1px 0 var(--line)}
-    .nav.open .wm-neg{display:none} .nav.open .wm-pos{display:block}
-    .nav.open ul{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:rgba(253,251,246,.98);padding:6px var(--pad) 22px;box-shadow:0 12px 24px -16px rgba(12,46,43,.35)}
-    .nav.open ul li{border-bottom:1px solid var(--line)}
-    .nav.open ul a{display:block;padding:16px 0;font-size:16px;color:var(--black)}
-  }
-  @media (max-width:640px){
-    .nav .wrap{height:68px}
-    .brand{gap:10px} .brand img{height:30px} .brand .wm{width:138px}
-    .nav-cta{padding:10px 14px;font-size:12px;letter-spacing:.06em}
-    .hide-sm{display:none}
-  }
-  @media (max-width:400px){
-    .brand{gap:8px} .brand img{height:26px} .brand .wm{width:112px}
-    .nav-cta{padding:9px 12px;font-size:11.5px}
-  }
-  @media (max-width:480px){
-    .numbers .grid{gap:22px 14px}
-    .numbers b{font-size:clamp(30px,9.5vw,44px)}
-    .numbers span{font-size:13px}
-  }
-  /* never let a wide child create sideways scrolling (marquee, large numbers) */
-  html,body{overflow-x:clip}
-</style>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"UMTELKOMD","legalName":"UMTELKOMD GmbH","url":"https://umtelkomd.net/","logo":"https://umtelkomd.net/assets/apple-touch-icon.png","email":"administration@umtelkomd.com","description":"Planung, Bau und Aktivierung von Glasfasernetzen für Netzbetreiber.","areaServed":["DE","AT"]}</script>
 </head>
 <body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
 
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Hauptnavigation">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="UMTELKOMD Startseite">
       <img src="assets/hmr-nexus-emblem-turquoise.svg" alt="">
@@ -405,23 +39,24 @@
     </a>
     <ul id="navLinks"><li><a href="#leistungen">Leistungen</a></li><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#kunden">Kunden</a></li><li><a href="#karriere">Karriere</a></li></ul>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menü öffnen"><span></span><span></span></button>
-    <a class="btn p nav-cta" href="#kontakt"><span class="hide-sm">Projekt&nbsp;</span>anfragen</a>
+    <a class="btn p nav-cta" href="#kontakt"><span><span class="hide-sm">Projekt </span>anfragen</span></a>
   </div>
 </nav>
 
+<main id="inhalt" tabindex="-1">
 <header class="hero ph-slot" id="top">
-  <div class="bg rv" id="heroBg"></div>
+  <img class="bg rv" id="heroBg" src="assets/photos/aue-16.webp" width="916" height="658" alt="" fetchpriority="high" decoding="async">
   <div class="shade"></div>
   <div class="in wrap">
-    <div class="kicker" style="color:#B4B4B8">GLASFASERAUSBAU · <b style="color:#14B8A6">FTTH</b> · DEUTSCHLAND</div>
+    <div class="kicker on-dark">GLASFASERAUSBAU · <b>FTTH</b> · DEUTSCHLAND</div>
     <h1 class="display" aria-label="Wir bringen Licht ins Netz.">
       <span class="w"><span>Wir</span></span> <span class="w"><span>bringen</span></span><br>
       <span class="w"><span>Licht</span></span> <span class="w"><span>ins</span></span> <span class="w"><span>Netz.</span></span>
     </h1>
     <p>UMTELKOMD plant, baut und aktiviert Glasfasernetze für Netzbetreiber – vom ersten Spatenstich bis zum Anschluss in der Wohnung.</p>
-    <div class="ctas"><a class="btn p" href="#kontakt">Projekt anfragen</a><a class="btn o" href="#leistungen" style="color:#fff">Leistungen</a></div>
+    <div class="ctas"><a class="btn p" href="#kontakt">Projekt anfragen</a><a class="btn o on-dark" href="#leistungen">Leistungen</a></div>
   </div>
-  <a class="reel ph-slot" href="#projekte" aria-label="Video ansehen"><img src="assets/photos/aue-74.jpg" alt=""><span><div><i></i>Film ansehen</div></span></a>
+  <a class="reel ph-slot" href="#projekte"><img alt="" src="assets/photos/aue-74-640.webp" width="640" height="599" loading="lazy" decoding="async"><span><span><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i>Projekte ansehen</span></span></a>
   <div class="wave" aria-hidden="true"><svg viewBox="0 0 1200 70" preserveAspectRatio="none"><path class="base" id="waveBase"/><path class="trail" id="waveTrail"/><path class="pulse" id="wavePulse"/></svg></div>
 </header>
 
@@ -432,15 +67,15 @@
       <p class="fade">Wir sind Bauleiter, Tiefbauer, Monteure und Spleißer – ein Team, das Glasfasernetze termingerecht, sauber und dokumentiert übergibt. Ohne Umwege, ohne Ausreden.</p>
     </div>
     <div class="pics">
-      <figure class="ph-slot"><img class="rv par" src="assets/photos/aue-29.jpg" alt="Offene Trasse mit Rohrverband im Gehweg"></figure>
-      <figure class="ph-slot"><img class="rv par" src="assets/photos/aue-50.jpg" alt="Tiefbauer an der Trasse"></figure>
+      <figure class="ph-slot"><img class="rv par"  alt="Offene Trasse mit Rohrverband im Gehweg" src="assets/photos/aue-29.webp" srcset="assets/photos/aue-29-640.webp 640w, assets/photos/aue-29.webp 916w" sizes="(max-width:980px) 62vw, 860px" width="916" height="858" loading="lazy" decoding="async"></figure>
+      <figure class="ph-slot"><img class="rv par"  alt="Tiefbauer an der Trasse" src="assets/photos/aue-50.webp" srcset="assets/photos/aue-50-640.webp 640w, assets/photos/aue-50.webp 916w" sizes="(max-width:980px) 31vw, 430px" width="916" height="858" loading="lazy" decoding="async"></figure>
     </div>
   </div>
 </section>
 
 <section class="numbers" aria-label="In Zahlen">
   <div class="wrap">
-    <h3>In Zahlen<small>Seit 2021 im Glasfaserausbau.</small></h3>
+    <h2>In Zahlen<small>Seit 2021 im Glasfaserausbau.</small></h2>
     <div class="grid">
       <div><b data-count="330" data-suffix="+">0</b><span>Kilometer Glasfaser eingeblasen</span></div>
       <div><b data-count="13000" data-suffix="+">0</b><span>Wohneinheiten in unseren Netzen</span></div>
@@ -453,7 +88,7 @@
 
 <section class="site" aria-label="Von der Baustelle">
   <div class="wrap"><div class="kicker">AUS UNSEREN PROJEKTEN · <b>AUE-BAD SCHLEMA · HÖXTER · KINZIGTAL · HARSEWINKEL</b></div></div>
-  <div class="marquee"><div class="row" id="mq"><figure><img src="assets/photos/aue-22.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/hxc-17.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/aue-28.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/ne4-12.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/aue-7.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/hxc-1.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/aue-20.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/civil-42.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/aue-31.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/hxc-19.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/aue-54.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/hx-13.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/aue-11.jpg" alt="" loading="lazy"></figure><figure><img src="assets/photos/civil-4.jpg" alt="" loading="lazy"></figure></div></div>
+  <div class="marquee"><div class="row" id="mq"><figure><img alt="" src="assets/photos/aue-22-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/hxc-17-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/aue-28-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/ne4-12-640.webp" width="640" height="744" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/aue-7-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/hxc-1-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/aue-20-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/civil-42-640.webp" width="640" height="626" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/aue-31-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/hxc-19-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/aue-54-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/hx-13-640.webp" width="640" height="742" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/aue-11-640.webp" width="640" height="599" loading="lazy" decoding="async"></figure><figure><img alt="" src="assets/photos/civil-4-640.webp" width="640" height="626" loading="lazy" decoding="async"></figure></div></div>
 </section>
 
 <section class="services" id="leistungen">
@@ -461,24 +96,24 @@
     <div class="top"><div><div class="kicker">[ 02 ] · <b>LEISTUNGEN</b></div><h2 class="display split">Alles aus einer Hand.</h2></div></div>
     <div class="svc">
       <ol id="svcList">
-        <li class="on" data-img="civil-3"><button>Planung &amp; Genehmigung</button><div class="desc"><div>Begehung, Trassen- und Ausführungsplanung, Verkehrsrechtliche Anordnungen und Abstimmung mit Kommunen.</div></div></li>
-        <li data-img="aue-28"><button>Tiefbau &amp; Rohrverlegung</button><div class="desc"><div>Offene Bauweise, Spülbohrung und Rohrverlegung im Verteilnetz – mit sauberer Wiederherstellung der Oberfläche.</div></div></li>
-        <li data-img="hxc-17"><button>Einblasen &amp; Montage</button><div class="desc"><div>Einblasen von Kabeln und Fasern, Montage von Muffen, Verteilern und Netzverteilern.</div></div></li>
-        <li data-img="ne4-21"><button>Spleißen &amp; Messen</button><div class="desc"><div>Fusionsspleiß, OTDR- und Dämpfungsmessung mit vollständigen Messprotokollen.</div></div></li>
-        <li data-img="hx-16"><button>Hausanschluss &amp; Inhouse</button><div class="desc"><div>Hauseinführung, Steigleitungen und Wohnungsanschlüsse in Ein- und Mehrfamilienhäusern.</div></div></li>
-        <li data-img="ne4-3"><button>Aktivierung &amp; Störungsdienst</button><div class="desc"><div>Schaltung am Netzknoten, Ende-zu-Ende-Prüfung und schnelle Reparatur im laufenden Netz.</div></div></li>
-        <li data-img="field-089"><button>Energieanlagen &amp; Umspannwerke</button><div class="desc"><div>LWL-Infrastruktur in Kraftwerken und Umspannwerken: Kabelzug, Einblasen, Spleißen und Messung nach den Vorgaben des Netzbetreibers.</div></div></li>
-        <li data-img="field-092"><button>Antennen &amp; Mobilfunk</button><div class="desc"><div>Glasfaseranbindung von Antennen- und Mobilfunkstandorten – von der Trasse bis zur Montage am Standort.</div></div></li>
+        <li class="on" data-img="civil-3"><button type="button" aria-expanded="true">Planung &amp; Genehmigung</button><div class="desc"><div>Begehung, Trassen- und Ausführungsplanung, Verkehrsrechtliche Anordnungen und Abstimmung mit Kommunen.</div></div></li>
+        <li data-img="aue-28"><button type="button" aria-expanded="false">Tiefbau &amp; Rohrverlegung</button><div class="desc"><div>Offene Bauweise, Spülbohrung und Rohrverlegung im Verteilnetz – mit sauberer Wiederherstellung der Oberfläche.</div></div></li>
+        <li data-img="hxc-17"><button type="button" aria-expanded="false">Einblasen &amp; Montage</button><div class="desc"><div>Einblasen von Kabeln und Fasern, Montage von Muffen, Verteilern und Netzverteilern.</div></div></li>
+        <li data-img="ne4-21"><button type="button" aria-expanded="false">Spleißen &amp; Messen</button><div class="desc"><div>Fusionsspleiß, OTDR- und Dämpfungsmessung mit vollständigen Messprotokollen.</div></div></li>
+        <li data-img="hx-16"><button type="button" aria-expanded="false">Hausanschluss &amp; Inhouse</button><div class="desc"><div>Hauseinführung, Steigleitungen und Wohnungsanschlüsse in Ein- und Mehrfamilienhäusern.</div></div></li>
+        <li data-img="ne4-3"><button type="button" aria-expanded="false">Aktivierung &amp; Störungsdienst</button><div class="desc"><div>Schaltung am Netzknoten, Ende-zu-Ende-Prüfung und schnelle Reparatur im laufenden Netz.</div></div></li>
+        <li data-img="field-089"><button type="button" aria-expanded="false">Energieanlagen &amp; Umspannwerke</button><div class="desc"><div>LWL-Infrastruktur in Kraftwerken und Umspannwerken: Kabelzug, Einblasen, Spleißen und Messung nach den Vorgaben des Netzbetreibers.</div></div></li>
+        <li data-img="field-092"><button type="button" aria-expanded="false">Antennen &amp; Mobilfunk</button><div class="desc"><div>Glasfaseranbindung von Antennen- und Mobilfunkstandorten – von der Trasse bis zur Montage am Standort.</div></div></li>
       </ol>
       <div class="view ph-slot" id="svcView">
-        <img class="on" src="assets/photos/civil-3.jpg" alt="" data-k="civil-3">
-        <img src="assets/photos/aue-28.jpg" alt="" data-k="aue-28">
-        <img src="assets/photos/hxc-17.jpg" alt="" data-k="hxc-17">
-        <img src="assets/photos/ne4-21.jpg" alt="" data-k="ne4-21">
-        <img src="assets/photos/hx-16.jpg" alt="" data-k="hx-16">
-        <img src="assets/photos/ne4-3.jpg" alt="" data-k="ne4-3">
-        <img src="assets/photos/field-089.jpg" alt="" data-k="field-089">
-        <img src="assets/photos/field-092.jpg" alt="" data-k="field-092">
+        <img class="on"  alt="" data-k="civil-3" src="assets/photos/civil-3.webp" srcset="assets/photos/civil-3-640.webp 640w, assets/photos/civil-3.webp 1200w" sizes="(max-width:980px) 1px, 46vw" width="1421" height="1391" loading="lazy" decoding="async">
+        <img alt="" data-k="aue-28" src="assets/photos/aue-28.webp" srcset="assets/photos/aue-28-640.webp 640w, assets/photos/aue-28.webp 916w" sizes="(max-width:980px) 1px, 46vw" width="916" height="858" loading="lazy" decoding="async">
+        <img alt="" data-k="hxc-17" src="assets/photos/hxc-17.webp" srcset="assets/photos/hxc-17-640.webp 640w, assets/photos/hxc-17.webp 1200w" sizes="(max-width:980px) 1px, 46vw" width="1421" height="1330" loading="lazy" decoding="async">
+        <img alt="" data-k="ne4-21" src="assets/photos/ne4-21.webp" srcset="assets/photos/ne4-21-640.webp 640w, assets/photos/ne4-21.webp 1128w" sizes="(max-width:980px) 1px, 46vw" width="1128" height="1312" loading="lazy" decoding="async">
+        <img alt="" data-k="hx-16" src="assets/photos/hx-16.webp" srcset="assets/photos/hx-16-640.webp 640w, assets/photos/hx-16.webp 1131w" sizes="(max-width:980px) 1px, 46vw" width="1131" height="1312" loading="lazy" decoding="async">
+        <img alt="" data-k="ne4-3" src="assets/photos/ne4-3.webp" srcset="assets/photos/ne4-3-640.webp 640w, assets/photos/ne4-3.webp 1128w" sizes="(max-width:980px) 1px, 46vw" width="1128" height="1312" loading="lazy" decoding="async">
+        <img alt="" data-k="field-089" src="assets/photos/field-089.webp" srcset="assets/photos/field-089-640.webp 640w, assets/photos/field-089.webp 1200w" sizes="(max-width:980px) 1px, 46vw" width="1259" height="1800" loading="lazy" decoding="async">
+        <img alt="" data-k="field-092" src="assets/photos/field-092.webp" srcset="assets/photos/field-092-640.webp 640w, assets/photos/field-092.webp 1200w" sizes="(max-width:980px) 1px, 46vw" width="1800" height="814" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -491,14 +126,14 @@
     <div class="track">
       <svg viewBox="0 0 1000 24" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M8 8 H992"/><path class="fill" id="trackFill" d="M8 8 H992"/><path class="trail" id="trackTrail" d="M8 8 H992"/><path class="pulse" id="trackPulse" d="M8 8 H992"/></svg>
       <ol class="steps" id="steps">
-        <li><small>01</small><h4>Netzplanung</h4><p>Begehung, Trassen, Genehmigungen.</p></li>
-        <li><small>02</small><h4>Projektsteuerung</h4><p>Bauzeitenplan, Teams, Doku.</p></li>
-        <li><small>03</small><h4>Netzknoten</h4><p>POP-Ausbau und Backbone.</p></li>
-        <li><small>04</small><h4>Tiefbau</h4><p>Rohrverbände im Verteilnetz.</p></li>
-        <li><small>05</small><h4>Einblasen &amp; Spleißen</h4><p>Faser einblasen, verbinden, messen.</p></li>
-        <li><small>06</small><h4>Hausanschluss</h4><p>Ins Gebäude, bis in die Wohnung.</p></li>
-        <li><small>07</small><h4>Aktivierung</h4><p>Schaltung und Abnahme.</p></li>
-        <li><small>08</small><h4>Störungsdienst</h4><p>Schnell vor Ort, wenn's zählt.</p></li>
+        <li><small>01</small><h3>Netzplanung</h3><p>Begehung, Trassen, Genehmigungen.</p></li>
+        <li><small>02</small><h3>Projektsteuerung</h3><p>Bauzeitenplan, Teams, Doku.</p></li>
+        <li><small>03</small><h3>Netzknoten</h3><p>POP-Ausbau und Backbone.</p></li>
+        <li><small>04</small><h3>Tiefbau</h3><p>Rohrverbände im Verteilnetz.</p></li>
+        <li><small>05</small><h3>Einblasen &amp; Spleißen</h3><p>Faser einblasen, verbinden, messen.</p></li>
+        <li><small>06</small><h3>Hausanschluss</h3><p>Ins Gebäude, bis in die Wohnung.</p></li>
+        <li><small>07</small><h3>Aktivierung</h3><p>Schaltung und Abnahme.</p></li>
+        <li><small>08</small><h3>Störungsdienst</h3><p>Schnell vor Ort, wenn's zählt.</p></li>
       </ol>
     </div>
   </div>
@@ -506,17 +141,17 @@
 
 <section class="projects" id="projekte">
   <div class="wrap top">
-    <div><div class="kicker" style="color:#B4B4B8">[ 04 ] · <b style="color:#14B8A6">PROJEKTE</b></div><h2 class="display split">Unsere Arbeit.</h2></div>
-    <div class="ctrl"><span class="count" id="pc">[ 01 / 07 ]</span><button id="prev" aria-label="Vorheriges Projekt">←</button><button id="next" aria-label="Nächstes Projekt">→</button></div>
+    <div><div class="kicker on-dark">[ 04 ] · <b>PROJEKTE</b></div><h2 class="display split">Unsere Arbeit.</h2></div>
+    <div class="ctrl"><span class="count" id="pc">[ 01 / 07 ]</span><button type="button" id="prev" aria-label="Vorheriges Projekt">←</button><button type="button" id="next" aria-label="Nächstes Projekt">→</button></div>
   </div>
-  <div class="rail" id="rail">
-    <article class="card"><figure class="ph-slot"><span class="tag">Telekom · Tiefbau FTTH</span><img src="assets/photos/aue-22.jpg" alt=""></figure><div class="body"><div class="loc">Aue-Bad Schlema · Sachsen</div><h3>Aue-Bad Schlema</h3><ul><li>Tiefbau</li><li>Rohrverlegung</li><li>Einblasen</li></ul></div></article>
-    <article class="card"><figure class="ph-slot"><span class="tag">Tiefbau · FTTH</span><img src="assets/photos/civil-22.jpg" alt=""></figure><div class="body"><div class="loc">Hausach · Mühlenbach · Baden-Württemberg</div><h3>Kinzigtal</h3><ul><li>Tiefbau</li><li>Rohrverlegung</li><li>Hausanschluss</li></ul></div></article>
-    <article class="card"><figure class="ph-slot"><span class="tag">Hausanschluss</span><img src="assets/photos/hxc-12.jpg" alt=""></figure><div class="body"><div class="loc">Höxter · Nordrhein-Westfalen</div><h3>Höxter</h3><ul><li>Tiefbau</li><li>Hausanschluss</li><li>Montage</li></ul></div></article>
-    <article class="card"><figure class="ph-slot"><span class="tag">NE4 · Inhouse</span><img src="assets/photos/ne4-44.jpg" alt=""></figure><div class="body"><div class="loc">Harsewinkel · Nordrhein-Westfalen</div><h3>Harsewinkel</h3><ul><li>Gebäudeverteiler</li><li>Spleißen</li><li>Messung</li></ul></div></article>
-    <article class="card"><figure class="ph-slot"><span class="tag">FTTH · NE3</span><img src="assets/photos/field-003.jpg" alt=""></figure><div class="body"><div class="loc">Roßdorf · Hessen</div><h3>Roßdorf</h3><ul><li>Tiefbau</li><li>Einblasen</li><li>Spleißen</li></ul></div></article>
-    <article class="card"><figure class="ph-slot"><span class="tag">FTTH · Hausanschluss</span><img src="assets/photos/field-045.jpg" alt=""></figure><div class="body"><div class="loc">Groß-Zimmern · Hessen</div><h3>Groß-Zimmern</h3><ul><li>Einblasen</li><li>Montage</li><li>Spleißen</li></ul></div></article>
-    <article class="card"><figure class="ph-slot"><span class="tag">FTTH · Hausanschluss</span><img src="assets/photos/field-009.jpg" alt=""></figure><div class="body"><div class="loc">Reinheim · Hessen</div><h3>Reinheim</h3><ul><li>Einblasen</li><li>Spleißen</li><li>Aktivierung</li></ul></div></article>
+  <div class="rail" id="rail" tabindex="0" role="region" aria-label="Projektgalerie">
+    <article class="card"><figure class="ph-slot"><span class="tag">Telekom · Tiefbau FTTH</span><img alt="Projektfoto Aue-Bad Schlema" src="assets/photos/aue-22.webp" srcset="assets/photos/aue-22-640.webp 640w, assets/photos/aue-22.webp 916w" sizes="(max-width:980px) 86vw, 380px" width="916" height="858" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Aue-Bad Schlema · Sachsen</div><h3>Aue-Bad Schlema</h3><ul><li>Tiefbau</li><li>Rohrverlegung</li><li>Einblasen</li></ul></div></article>
+    <article class="card"><figure class="ph-slot"><span class="tag">Tiefbau · FTTH</span><img alt="Projektfoto Kinzigtal" src="assets/photos/civil-22.webp" srcset="assets/photos/civil-22-640.webp 640w, assets/photos/civil-22.webp 1200w" sizes="(max-width:980px) 86vw, 380px" width="1421" height="1391" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Hausach · Mühlenbach · Baden-Württemberg</div><h3>Kinzigtal</h3><ul><li>Tiefbau</li><li>Rohrverlegung</li><li>Hausanschluss</li></ul></div></article>
+    <article class="card"><figure class="ph-slot"><span class="tag">Hausanschluss</span><img alt="Projektfoto Höxter" src="assets/photos/hxc-12.webp" srcset="assets/photos/hxc-12-640.webp 640w, assets/photos/hxc-12.webp 1200w" sizes="(max-width:980px) 86vw, 380px" width="1421" height="1330" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Höxter · Nordrhein-Westfalen</div><h3>Höxter</h3><ul><li>Tiefbau</li><li>Hausanschluss</li><li>Montage</li></ul></div></article>
+    <article class="card"><figure class="ph-slot"><span class="tag">NE4 · Inhouse</span><img alt="Projektfoto Harsewinkel" src="assets/photos/ne4-44.webp" srcset="assets/photos/ne4-44-640.webp 640w, assets/photos/ne4-44.webp 1128w" sizes="(max-width:980px) 86vw, 380px" width="1128" height="1749" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Harsewinkel · Nordrhein-Westfalen</div><h3>Harsewinkel</h3><ul><li>Gebäudeverteiler</li><li>Spleißen</li><li>Messung</li></ul></div></article>
+    <article class="card"><figure class="ph-slot"><span class="tag">FTTH · NE3</span><img alt="Projektfoto Roßdorf" src="assets/photos/field-003.webp" srcset="assets/photos/field-003-640.webp 640w, assets/photos/field-003.webp 1200w" sizes="(max-width:980px) 86vw, 380px" width="1800" height="814" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Roßdorf · Hessen</div><h3>Roßdorf</h3><ul><li>Tiefbau</li><li>Einblasen</li><li>Spleißen</li></ul></div></article>
+    <article class="card"><figure class="ph-slot"><span class="tag">FTTH · Hausanschluss</span><img alt="Projektfoto Groß-Zimmern" src="assets/photos/field-045.webp" srcset="assets/photos/field-045-640.webp 640w, assets/photos/field-045.webp 1200w" sizes="(max-width:980px) 86vw, 380px" width="1259" height="1800" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Groß-Zimmern · Hessen</div><h3>Groß-Zimmern</h3><ul><li>Einblasen</li><li>Montage</li><li>Spleißen</li></ul></div></article>
+    <article class="card"><figure class="ph-slot"><span class="tag">FTTH · Hausanschluss</span><img alt="Projektfoto Reinheim" src="assets/photos/field-009.webp" srcset="assets/photos/field-009-640.webp 640w, assets/photos/field-009.webp 1200w" sizes="(max-width:980px) 86vw, 380px" width="1800" height="814" loading="lazy" decoding="async"></figure><div class="body"><div class="loc">Reinheim · Hessen</div><h3>Reinheim</h3><ul><li>Einblasen</li><li>Spleißen</li><li>Aktivierung</li></ul></div></article>
   </div>
 </section>
 
@@ -558,9 +193,9 @@
       <a class="btn p" href="#kontakt" data-open="job">Jetzt bewerben</a>
     </div>
     <div class="stack">
-      <figure class="c ph-slot"><img src="assets/photos/civil-4.jpg" alt=""></figure>
-      <figure class="b ph-slot"><img src="assets/photos/ne4-58.jpg" alt=""></figure>
-      <figure class="a ph-slot"><img src="assets/photos/civil-42.jpg" alt=""></figure>
+      <figure class="c ph-slot"><img alt="" src="assets/photos/civil-4.webp" srcset="assets/photos/civil-4-640.webp 640w, assets/photos/civil-4.webp 1200w" sizes="(max-width:980px) 75vw, 520px" width="1421" height="1391" loading="lazy" decoding="async"></figure>
+      <figure class="b ph-slot"><img alt="" src="assets/photos/ne4-58.webp" srcset="assets/photos/ne4-58-640.webp 640w, assets/photos/ne4-58.webp 1128w" sizes="(max-width:980px) 75vw, 520px" width="1128" height="1307" loading="lazy" decoding="async"></figure>
+      <figure class="a ph-slot"><img alt="" src="assets/photos/civil-42.webp" srcset="assets/photos/civil-42-640.webp 640w, assets/photos/civil-42.webp 1200w" sizes="(max-width:980px) 75vw, 520px" width="1421" height="1391" loading="lazy" decoding="async"></figure>
     </div>
   </div>
 </section>
@@ -572,16 +207,16 @@
       <p class="fade">Ein paar Klicks genügen. Wir melden uns innerhalb von 24 Stunden – persönlich, nicht automatisch.</p>
     </div>
 
-    <div class="tabs" role="tablist"><i class="tab-ind" aria-hidden="true"></i>
-      <button role="tab" class="tab on" data-tab="biz" aria-selected="true"><small>Für Unternehmen</small>Projekt anfragen</button>
-      <button role="tab" class="tab" data-tab="job" aria-selected="false"><small>Für Fachkräfte &amp; Partner</small>Bei uns arbeiten</button>
+    <div class="tabs" role="tablist" aria-label="Art der Anfrage"><i class="tab-ind" aria-hidden="true"></i>
+      <button type="button" role="tab" class="tab on" id="tab-biz" data-tab="biz" aria-controls="form-biz" aria-selected="true"><small>Für Unternehmen</small>Projekt anfragen</button>
+      <button type="button" role="tab" class="tab" id="tab-job" data-tab="job" aria-controls="form-job" aria-selected="false" tabindex="-1"><small>Für Fachkräfte &amp; Partner</small>Bei uns arbeiten</button>
     </div>
 
     <div class="cgrid">
-    <aside class="csum" aria-live="polite">
+    <aside class="csum" aria-label="Zusammenfassung Ihrer Anfrage">
       <div class="csum-bg" aria-hidden="true"></div>
       <div class="csum-in">
-        <div class="kicker" style="color:#B4B4B8">IHRE ANFRAGE</div>
+        <div class="kicker on-dark">IHRE ANFRAGE</div>
         <h3 id="sumTitle">Projekt anfragen</h3>
         <ul id="sumList"><li class="empty">Wählen Sie rechts aus – hier entsteht Ihre Anfrage.</li></ul>
         <div class="promise">
@@ -593,12 +228,12 @@
     </aside>
     <div class="cforms">
     <!-- BUSINESS ENQUIRY -->
-    <form class="cform on" id="form-biz" data-to="administration@umtelkomd.com" data-cc="ihorstmann@umtelkomd.com" data-subject="Projektanfrage über umtelkomd.net" novalidate>
+    <form class="cform on" id="form-biz" role="tabpanel" aria-labelledby="tab-biz" data-to="administration@umtelkomd.com" data-cc="ihorstmann@umtelkomd.com" data-subject="Projektanfrage über umtelkomd.net" novalidate>
       <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
       <div class="prog"><div class="prog-top"><span class="prog-n"><b id="stepN">01</b> / 03</span><span class="prog-l" id="stepL">Projekt</span></div><div class="prog-bar"><i id="progFill"></i></div></div>
 
       <fieldset class="step on">
-        <legend>Wobei dürfen wir helfen?</legend>
+        <legend tabindex="-1">Wobei dürfen wir helfen?</legend>
         <p class="hint">Mehrfachauswahl möglich.</p>
         <div class="chips" data-name="Leistungen" data-multi>
           <button type="button">Planung &amp; Genehmigung</button><button type="button">Tiefbau</button><button type="button">Einblasen &amp; Montage</button><button type="button">Spleißen &amp; Messen</button><button type="button">Hausanschluss</button><button type="button">Inhouse</button><button type="button">Aktivierung</button><button type="button">Störungsdienst</button><button type="button">Alles aus einer Hand</button>
@@ -607,11 +242,11 @@
       </fieldset>
 
       <fieldset class="step">
-        <legend>Wie groß ist Ihr Vorhaben?</legend>
+        <legend tabindex="-1">Wie groß ist Ihr Vorhaben?</legend>
         <p class="hint">Eine grobe Schätzung reicht völlig.</p>
-        <label class="lbl">Wohneinheiten</label>
+        <p class="lbl">Wohneinheiten</p>
         <div class="chips" data-name="Wohneinheiten"><button type="button">unter 100</button><button type="button">100 – 500</button><button type="button">500 – 2.000</button><button type="button">über 2.000</button><button type="button">noch offen</button></div>
-        <label class="lbl">Gewünschter Start</label>
+        <p class="lbl">Gewünschter Start</p>
         <div class="chips" data-name="Start"><button type="button">sofort</button><button type="button">in 1–3 Monaten</button><button type="button">in 3–6 Monaten</button><button type="button">später</button></div>
         <div class="grid2">
           <label class="fld"><span>Ort oder Region</span><input name="Region" placeholder="z. B. Höxter, Landkreis Darmstadt-Dieburg"></label>
@@ -621,7 +256,7 @@
       </fieldset>
 
       <fieldset class="step">
-        <legend>Wie erreichen wir Sie?</legend>
+        <legend tabindex="-1">Wie erreichen wir Sie?</legend>
         <div class="grid2">
           <label class="fld"><span>Name *</span><input name="Name" required autocomplete="name"></label>
           <label class="fld"><span>Unternehmen *</span><input name="Unternehmen" required autocomplete="organization"></label>
@@ -634,11 +269,11 @@
         <p class="err" aria-live="polite"></p>
       </fieldset>
 
-      <div class="done"><svg class="tick" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36"/><path d="M24 41 l11 11 l21 -24"/></svg><b>Danke!</b><p data-mail="Ihr E-Mail-Programm öffnet sich mit der fertigen Anfrage. Einfach absenden – wir melden uns innerhalb von 24 Stunden.">Ihre Anfrage ist bei uns angekommen. Wir melden uns innerhalb von 24 Stunden.</p></div>
+      <div class="done" tabindex="-1"><svg class="tick" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36"/><path d="M24 41 l11 11 l21 -24"/></svg><b>Danke!</b><p data-mail="Ihr E-Mail-Programm öffnet sich mit der fertigen Anfrage. Einfach absenden – wir melden uns innerhalb von 24 Stunden.">Ihre Anfrage ist bei uns angekommen. Wir melden uns innerhalb von 24 Stunden.</p></div>
     </form>
 
     <!-- APPLICATION / CONTRACTOR -->
-    <form class="cform" id="form-job" data-to="administration@umtelkomd.com" data-cc="ihorstmann@umtelkomd.com" data-subject="Bewerbung / Partneranfrage über umtelkomd.net" novalidate>
+    <form class="cform" id="form-job" role="tabpanel" aria-labelledby="tab-job" data-to="administration@umtelkomd.com" data-cc="ihorstmann@umtelkomd.com" data-subject="Bewerbung / Partneranfrage über umtelkomd.net" novalidate>
       <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
       <div class="who">
         <label><input type="radio" name="Ich bin" value="Fachkraft" checked><span><b>Fachkraft</b>Ich möchte bei UMTELKOMD arbeiten.</span></label>
@@ -646,24 +281,24 @@
       </div>
 
       <div class="only-person">
-        <label class="lbl">Was machen Sie am liebsten?</label>
+        <p class="lbl">Was machen Sie am liebsten?</p>
         <div class="chips" data-name="Tätigkeit" data-multi><button type="button">Tiefbau</button><button type="button">Einblasen</button><button type="button">Montage</button><button type="button">Spleißen</button><button type="button">Hausanschluss / Inhouse</button><button type="button">Bauleitung</button><button type="button">Quereinsteiger</button></div>
-        <label class="lbl">Erfahrung im Glasfaserbau</label>
+        <p class="lbl">Erfahrung im Glasfaserbau</p>
         <div class="chips" data-name="Erfahrung"><button type="button">keine – will lernen</button><button type="button">unter 1 Jahr</button><button type="button">1–3 Jahre</button><button type="button">über 3 Jahre</button></div>
-        <label class="lbl">Führerschein</label>
+        <p class="lbl">Führerschein</p>
         <div class="chips" data-name="Führerschein" data-multi><button type="button">B</button><button type="button">BE</button><button type="button">C1</button><button type="button">C / CE</button><button type="button">keiner</button></div>
       </div>
 
       <div class="only-firm" hidden>
-        <label class="lbl">Ihre Gewerke</label>
+        <p class="lbl">Ihre Gewerke</p>
         <div class="chips" data-name="Gewerke" data-multi><button type="button">Tiefbau</button><button type="button">Spülbohrung</button><button type="button">Einblasen</button><button type="button">Spleißen &amp; Messen</button><button type="button">Hausanschluss</button><button type="button">Inhouse / NE4</button></div>
-        <label class="lbl">Teamgröße</label>
+        <p class="lbl">Teamgröße</p>
         <div class="chips" data-name="Teamgröße"><button type="button">1–3</button><button type="button">4–10</button><button type="button">11–25</button><button type="button">über 25</button></div>
-        <label class="lbl">Eigene Ausrüstung</label>
+        <p class="lbl">Eigene Ausrüstung</p>
         <div class="chips" data-name="Ausrüstung" data-multi><button type="button">Bagger</button><button type="button">Einblasgerät</button><button type="button">Spleißgerät</button><button type="button">OTDR</button><button type="button">Fahrzeuge</button></div>
       </div>
 
-      <label class="lbl">Sprachen</label>
+      <p class="lbl">Sprachen</p>
       <div class="chips" data-name="Sprachen" data-multi><button type="button">Deutsch</button><button type="button">Spanisch</button><button type="button">Englisch</button><button type="button">Andere</button></div>
 
       <div class="grid2">
@@ -678,7 +313,7 @@
       <label class="consent"><input type="checkbox" required> <span>Ich bin einverstanden, dass meine Angaben für das Bewerbungs- bzw. Partnerverfahren verarbeitet werden. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</span></label>
       <div class="nav-row"><span></span><button type="submit" class="btn p">Jetzt senden</button></div>
       <p class="err" aria-live="polite"></p>
-      <div class="done"><svg class="tick" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36"/><path d="M24 41 l11 11 l21 -24"/></svg><b>Danke!</b><p data-mail="Ihr E-Mail-Programm öffnet sich mit Ihren Angaben. Hängen Sie gern Ihren Lebenslauf an und senden Sie ab – wir melden uns schnell.">Ihre Nachricht ist bei uns angekommen. Wir melden uns schnell.</p></div>
+      <div class="done" tabindex="-1"><svg class="tick" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36"/><path d="M24 41 l11 11 l21 -24"/></svg><b>Danke!</b><p data-mail="Ihr E-Mail-Programm öffnet sich mit Ihren Angaben. Hängen Sie gern Ihren Lebenslauf an und senden Sie ab – wir melden uns schnell.">Ihre Nachricht ist bei uns angekommen. Wir melden uns schnell.</p></div>
     </form>
 
     </div>
@@ -689,221 +324,24 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer id="footer">
   <div class="wrap">
     <div class="grid">
       <div><h2 class="display big">Sprechen wir über Ihr Netz.</h2><a class="btn p" href="#kontakt">Projekt anfragen</a></div>
-      <div><h5>Leistungen</h5><ul><li><a href="#leistungen">Planung</a></li><li><a href="#leistungen">Tiefbau</a></li><li><a href="#leistungen">Spleißen</a></li><li><a href="#leistungen">Inhouse</a></li><li><a href="#leistungen">Energieanlagen</a></li><li><a href="#leistungen">Antennen</a></li></ul></div>
-      <div><h5>Unternehmen</h5><ul><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#kunden">Kunden</a></li><li><a href="#karriere">Karriere</a></li></ul></div>
-      <div><h5>Kontakt</h5><ul><li>UMTELKOMD GmbH</li><li><a href="mailto:administration@umtelkomd.com">administration@umtelkomd.com</a></li><li><a href="mailto:ihorstmann@umtelkomd.com">ihorstmann@umtelkomd.com</a></li></ul></div>
+      <div><h3>Leistungen</h3><ul><li><a href="#leistungen">Planung</a></li><li><a href="#leistungen">Tiefbau</a></li><li><a href="#leistungen">Spleißen</a></li><li><a href="#leistungen">Inhouse</a></li><li><a href="#leistungen">Energieanlagen</a></li><li><a href="#leistungen">Antennen</a></li></ul></div>
+      <div><h3>Unternehmen</h3><ul><li><a href="#ablauf">Ablauf</a></li><li><a href="#projekte">Projekte</a></li><li><a href="#kunden">Kunden</a></li><li><a href="#karriere">Karriere</a></li></ul></div>
+      <div><h3>Kontakt</h3><ul><li>UMTELKOMD GmbH</li><li><a href="mailto:administration@umtelkomd.com">administration@umtelkomd.com</a></li><li><a href="mailto:ihorstmann@umtelkomd.com">ihorstmann@umtelkomd.com</a></li></ul></div>
     </div>
     <div class="base"><img src="assets/umtelkomd-horizontal-negative.svg" alt="UMTELKOMD"><span>Ein Unternehmen der HMR nexus Gruppe · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span></div>
   </div>
 </footer>
 
-<script src="assets/vendor/gsap.min.js"></script>
-<script src="assets/vendor/ScrollTrigger.min.js"></script>
-<script src="assets/vendor/SplitText.min.js"></script>
-<script src="assets/vendor/lenis.min.js"></script>
-<script>
-(() => {
-  const nav = document.getElementById('nav');
-  const onScroll = () => nav.classList.toggle('solid', scrollY > innerHeight * .8);
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-  // services: hover / click swaps the image
-  const items = [...document.querySelectorAll('#svcList li')], imgs = [...document.querySelectorAll('#svcView img')];
-  const pick = li => { items.forEach(x => x.classList.toggle('on', x === li)); imgs.forEach(im => im.classList.toggle('on', im.dataset.k === li.dataset.img)); };
-  items.forEach(li => { li.querySelector('button').addEventListener('click', () => pick(li)); li.addEventListener('mouseenter', () => pick(li)); });
-
-  // projects carousel
-  const rail = document.getElementById('rail'), cards = [...rail.children], pc = document.getElementById('pc');
-  const idx = () => Math.round(rail.scrollLeft / (cards[0].offsetWidth + 24));
-  const go = d => rail.scrollTo({ left: Math.max(0, Math.min(cards.length - 1, idx() + d)) * (cards[0].offsetWidth + 24), behavior: 'smooth' });
-  document.getElementById('prev').onclick = () => go(-1); document.getElementById('next').onclick = () => go(1);
-  rail.addEventListener('scroll', () => { pc.textContent = `[ ${String(idx() + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')} ]`; }, { passive: true });
-
-
-  // ---- contact forms: friendly steps, chips; POST to /api/contact (contact-service), mailto fallback when no server ----
-  const tabs = [...document.querySelectorAll('.tab')];
-  const showTab = k => { document.querySelector('.tabs').classList.toggle('job', k === 'job'); document.getElementById('sumTitle').textContent = k === 'job' ? 'Bei uns arbeiten' : 'Projekt anfragen'; setTimeout(updateSum, 0); tabs.forEach(t => { const on = t.dataset.tab === k; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); });
-    document.querySelectorAll('.cform').forEach(f => f.classList.toggle('on', f.id === 'form-' + k)); };
-  tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
-  document.querySelectorAll('[data-open]').forEach(a => a.addEventListener('click', () => showTab(a.dataset.open)));
-  document.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
-    if (!g.hasAttribute('data-multi')) g.querySelectorAll('button').forEach(x => x !== b && x.classList.remove('on'));
-    b.classList.toggle('on');
-    if (b.classList.contains('on')) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
-  }));
-  const biz = document.getElementById('form-biz'), fsteps = [...biz.querySelectorAll('.step')], ind = [];
-  let cur = 0;
-  const labels = ['Projekt', 'Umfang', 'Kontakt'];
-  const goStep = i => { cur = i; fsteps.forEach((s, k) => s.classList.toggle('on', k === i)); document.getElementById('stepN').textContent = '0' + (i + 1); document.getElementById('stepL').textContent = labels[i]; document.getElementById('progFill').style.width = ((i + 1) / 3 * 100) + '%';
-    biz.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
-  biz.querySelectorAll('.next').forEach(b => b.addEventListener('click', () => goStep(Math.min(cur + 1, fsteps.length - 1))));
-  biz.querySelectorAll('.back').forEach(b => b.addEventListener('click', () => goStep(Math.max(cur - 1, 0))));
-  const job = document.getElementById('form-job');
-  job.querySelectorAll('input[name="Ich bin"]').forEach(r => r.addEventListener('change', () => {
-    const firm = job.querySelector('input[name="Ich bin"]:checked').value === 'Subunternehmer';
-    job.querySelector('.only-person').hidden = firm; job.querySelector('.only-firm').hidden = !firm;
-    const fi = job.querySelector('.only-firm-in'); fi.hidden = !firm; fi.querySelector('input').required = firm;
-  }));
-  const sumList = document.getElementById('sumList');
-  const updateSum = () => {
-    const f = document.querySelector('.cform.on'); if (!f) return;
-    const rows = collect(f).split('\n').filter(Boolean).filter(r => !/^(Nachricht|Telefon|E-Mail): /.test(r));
-    sumList.innerHTML = rows.length ? rows.map(r => { const i = r.indexOf(': '); return `<li><span><small>${r.slice(0, i)}</small>${r.slice(i + 2).replace(/</g, '&lt;')}</span></li>`; }).join('') : '<li class="empty">Wählen Sie rechts aus – hier entsteht Ihre Anfrage.</li>';
-  };
-  document.querySelectorAll('.cform').forEach(f => { f.addEventListener('click', e => { if (e.target.closest('.chips button')) setTimeout(updateSum, 0); }); f.addEventListener('input', updateSum); f.addEventListener('change', updateSum); });
-  const collect = f => {
-    const lines = [];
-    const who = f.querySelector('input[name="Ich bin"]:checked'); if (who) lines.push('Ich bin: ' + who.value);
-    f.querySelectorAll('.chips').forEach(g => { if (g.closest('[hidden]')) return; const v = [...g.querySelectorAll('button.on')].map(b => b.textContent.trim()); if (v.length) lines.push(g.dataset.name + ': ' + v.join(', ')); });
-    f.querySelectorAll('input[name]:not([type=radio]):not([type=checkbox]):not([type=file]):not([name=website]), textarea[name]').forEach(i => { if (i.closest('[hidden]') || !i.value.trim()) return; lines.push(i.name + ': ' + i.value.trim()); });
-    return lines.join('\n');
-  };
-  document.querySelectorAll('.cform').forEach(f => f.addEventListener('submit', e => {
-    e.preventDefault();
-    const errs = [...f.querySelectorAll('.err')];
-    const bad = [...f.querySelectorAll('input[required], textarea[required]')].filter(i => !i.closest('[hidden]') && !i.closest('.step:not(.on)') && !i.checkValidity());
-    f.querySelectorAll('.fld').forEach(x => x.classList.remove('bad'));
-    bad.forEach(i => i.closest('.fld') && i.closest('.fld').classList.add('bad'));
-    if (bad.length) { errs.forEach(x => x.textContent = bad.some(i => i.type === 'checkbox') ? 'Bitte füllen Sie die markierten Felder aus und bestätigen Sie den Datenschutz.' : 'Bitte füllen Sie die markierten Felder korrekt aus.'); bad[0].focus(); return; }
-    errs.forEach(x => x.textContent = '');
-    const cv = f.querySelector('input[name=cv]'), file = cv && cv.files[0];
-    if (file && file.size > 5 * 1024 * 1024) { errs.forEach(x => x.textContent = 'Die Datei ist größer als 5 MB.'); cv.focus(); return; }
-    const viaMail = () => {
-      const p = f.querySelector('.done p'); p.textContent = p.dataset.mail;
-      f.classList.add('sent');
-      window.location.href = `mailto:${f.dataset.to}?cc=${encodeURIComponent(f.dataset.cc)}&subject=${encodeURIComponent(f.dataset.subject)}&body=${encodeURIComponent(collect(f) + '\n\n— gesendet über umtelkomd.net')}`;
-    };
-    if (location.protocol === 'file:') return viaMail(); // prototype opened by double-click: no server
-    const fd = new FormData();
-    fd.append('form', f.id === 'form-job' ? 'job' : 'biz');
-    fd.append('name', f.querySelector('input[name=Name]').value.trim());
-    fd.append('email', f.querySelector('input[name="E-Mail"]').value.trim());
-    fd.append('summary', collect(f).split('\n').filter(l => !/^(Name|E-Mail): /.test(l)).join('\n')); // server adds validated name/e-mail itself
-    fd.append('website', f.querySelector('input[name=website]').value);
-    if (file) fd.append('cv', file, file.name);
-    const btn = f.querySelector('button[type=submit]:not([hidden])'); btn.disabled = true;
-    const msgs = { invalid_email: 'Bitte prüfen Sie Ihre E-Mail-Adresse.', invalid_file: 'Bitte laden Sie eine PDF-, Word-, JPG- oder PNG-Datei bis 5 MB hoch.', too_large: 'Die Datei ist zu groß (max. 5 MB).', rate_limited: 'Zu viele Anfragen. Bitte versuchen Sie es in einigen Minuten erneut.' };
-    fetch('/api/contact', { method: 'POST', body: fd })
-      .then(r => r.json().catch(() => ({})).then(j => ({ status: r.status, j })))
-      .then(({ status, j }) => {
-        if (j.ok) { f.classList.add('sent'); return; }
-        if (status >= 500 || status === 404 || !j.error) return viaMail(); // server not reachable or not deployed
-        errs.forEach(x => x.textContent = msgs[j.error] || 'Bitte prüfen Sie Ihre Angaben.');
-      })
-      .catch(viaMail)
-      .finally(() => { btn.disabled = false; });
-  }));
-
-  // press wave on buttons, chips, tabs and choice cards
-  const NS = 'http://www.w3.org/2000/svg';
-  document.addEventListener('pointerdown', e => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const host = e.target.closest('.btn, .chips button, .tab, .who label');
-    if (!host || host.disabled) return;
-    const el = host.matches('.who label') ? host.querySelector('span') : host;
-    const r = el.getBoundingClientRect(), W = r.width, H = r.height, mid = H - Math.min(10, H * .18); // just under the label
-    const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'press-wave');
-    svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'none'); svg.setAttribute('aria-hidden', 'true');
-    const trail = document.createElementNS(NS, 'path'), pulse = document.createElementNS(NS, 'path');
-    trail.setAttribute('class', 'trail'); pulse.setAttribute('class', 'pulse'); svg.append(trail, pulse);
-    el.querySelectorAll('.press-wave').forEach(n => n.remove()); el.append(svg);
-    const fromRight = e.clientX - r.left > W / 2, t0 = performance.now(), dur = 380;
-    const frame = now => {
-      const t = Math.min(1, (now - t0) / dur), amp = Math.min(4, H * .08) * (1 - t * .5);
-      let d = ''; for (let x = 0; x <= W; x += 4) { const y = mid + Math.sin(x / 9 - t * 14) * amp * Math.sin(x / W * Math.PI); d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1); }
-      trail.setAttribute('d', d); pulse.setAttribute('d', d);
-      const L = pulse.getTotalLength(), seg = L * .4, head = (fromRight ? 1 - t : t) * (L + seg) - (fromRight ? 0 : seg);
-      [pulse, trail].forEach(p => { p.style.strokeDasharray = `${seg} ${L * 2}`; p.style.strokeDashoffset = -head; });
-      svg.style.opacity = t > .8 ? (1 - t) / .2 : 1;
-      if (t < 1) requestAnimationFrame(frame); else svg.remove();
-    };
-    requestAnimationFrame(frame);
-  }, { passive: true });
-
-  // mobile menu
-  const navEl = document.getElementById('nav'), menuBtn = navEl.querySelector('.menu-btn');
-  const setMenu = open => { navEl.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen'); };
-  menuBtn.addEventListener('click', () => setMenu(!navEl.classList.contains('open')));
-  navEl.querySelectorAll('#navLinks a, .nav-cta').forEach(a => a.addEventListener('click', () => setMenu(false)));
-  addEventListener('keydown', e => { if (e.key === 'Escape' && navEl.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
-  addEventListener('resize', () => { if (innerWidth > 980) setMenu(false); });
-
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!window.gsap || reduce) { document.querySelectorAll('[data-count]').forEach(b => b.textContent = b.dataset.count + (b.dataset.suffix || '')); return; }
-  gsap.registerPlugin(ScrollTrigger, SplitText);
-
-  const lenis = new Lenis({ lerp: .09 });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
-  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -80 }); } }));
-
-  // hero intro + parallax
-  gsap.from('.hero h1 .w>span', { yPercent: 115, duration: 1.1, ease: 'power4.out', stagger: .07, delay: .15 });
-  gsap.from(['.hero .kicker', '.hero p', '.hero .ctas', '.hero .reel'], { y: 20, autoAlpha: 0, duration: .9, ease: 'power3.out', stagger: .1, delay: .55 });
-  gsap.fromTo('.hero .bg', { scale: 1.12 }, { scale: 1, duration: 2.2, ease: 'power2.out' });
-  gsap.to('#heroBg', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-
-  // hero light: the original site's light pulse, riding a moving wave
-  const wb = document.getElementById('waveBase'), wt = document.getElementById('waveTrail'), wp = document.getElementById('wavePulse');
-  const W = 1200, wave = { ph: 0, head: -.1 };
-  const waveD = ph => { let d = ''; for (let x = 0; x <= W; x += 10) { const y = 35 + Math.sin(x / 140 + ph) * 13 * Math.sin(x / W * Math.PI); d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1); } return d; };
-  const paint = () => { const d = waveD(wave.ph); [wb, wt, wp].forEach(p => p.setAttribute('d', d)); const L = wp.getTotalLength(), h = L * wave.head;
-    wp.style.strokeDasharray = `26 ${L}`; wp.style.strokeDashoffset = 26 - h; wt.style.strokeDasharray = `150 ${L}`; wt.style.strokeDashoffset = 150 - h; };
-  gsap.to(wave, { ph: Math.PI * 2, duration: 6, ease: 'none', repeat: -1, onUpdate: paint });
-  gsap.to(wave, { head: 1.1, duration: 3.4, ease: 'power1.inOut', repeat: -1, repeatDelay: .9, delay: 1.2 });
-
-  // headings: words rise on scroll
-  document.querySelectorAll('.split').forEach(h => {
-    const s = new SplitText(h, { type: 'words', mask: 'words' });
-    gsap.from(s.words, { yPercent: 110, duration: .9, ease: 'power4.out', stagger: .05, scrollTrigger: { trigger: h, start: 'top 85%' } });
-  });
-  gsap.utils.toArray('.fade').forEach(el => gsap.from(el, { y: 24, autoAlpha: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
-
-  // image parallax + clip reveal
-  gsap.utils.toArray('.par').forEach(img => {
-    gsap.fromTo(img.parentElement, { clipPath: 'inset(14% 0 0 0 round 10px)' }, { clipPath: 'inset(0% 0 0 0 round 10px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: img.parentElement, start: 'top 85%' } });
-    gsap.fromTo(img, { yPercent: -10 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
-
-  // numbers count up
-  document.querySelectorAll('[data-count]').forEach(b => {
-    const o = { v: 0 }, to = +b.dataset.count, suf = b.dataset.suffix || '';
-    // Count in coarse steps and reserve the final width: Cinzel digits are proportional,
-    // so changing every unit each frame makes the number jitter and look blurred.
-    const step = to >= 1000 ? 100 : to >= 100 ? 10 : 1, fmt = v => v.toLocaleString('de-DE') + suf;
-    b.textContent = fmt(to); b.style.minWidth = b.getBoundingClientRect().width + 'px'; b.textContent = fmt(0);
-    let last = 0;
-    gsap.to(o, { v: to, duration: 2.8, ease: 'power1.inOut', scrollTrigger: { trigger: b, start: 'top 70%', toggleActions: 'play none none none' },
-      onUpdate: () => { const v = Math.min(to, Math.round(o.v / step) * step); if (v !== last) { last = v; b.textContent = fmt(v); } } });
-  });
-
-  // process: the fiber fills with the scroll, each step lights up, a light pulse runs ahead
-  const fill = document.getElementById('trackFill'), FL = fill.getTotalLength(), steps = [...document.querySelectorAll('#steps li')];
-  gsap.set(fill, { strokeDasharray: FL, strokeDashoffset: FL });
-  ScrollTrigger.create({ trigger: '.process .track', start: 'top 75%', end: 'bottom 45%', scrub: .6,
-    onUpdate: s => { fill.style.strokeDashoffset = FL * (1 - s.progress); steps.forEach((li, i) => li.classList.toggle('lit', s.progress >= i / (steps.length - 1) - .02)); } });
-  ['trackTrail', 'trackPulse'].forEach((id, k) => { const p = document.getElementById(id), L = p.getTotalLength(), h = k ? 30 : 160;
-    gsap.set(p, { strokeDasharray: `${h} ${L + h}`, strokeDashoffset: h }); gsap.to(p, { strokeDashoffset: -L, duration: 3.6, ease: 'power1.inOut', repeat: -1, repeatDelay: .6 }); });
-  gsap.from(steps, { y: 26, autoAlpha: 0, duration: .7, ease: 'power3.out', stagger: .06, scrollTrigger: { trigger: '#steps', start: 'top 85%' } });
-
-  // site gallery: endless drift, speeds up with scroll velocity
-  const mq = document.getElementById('mq'); mq.innerHTML += mq.innerHTML;
-  const loop = gsap.to(mq, { xPercent: -50, duration: 60, ease: 'none', repeat: -1 });
-  ScrollTrigger.create({ trigger: '.site', start: 'top bottom', end: 'bottom top', onUpdate: s => { gsap.to(loop, { timeScale: 1 + Math.min(Math.abs(s.getVelocity()) / 400, 4), duration: .2, overwrite: true }); gsap.to(loop, { timeScale: 1, duration: 1.2, delay: .25 }); } });
-
-  // career stack fans out
-  gsap.from('.stack figure', { rotate: (i) => [-6, 4, 8][i], y: 60, autoAlpha: 0, duration: 1.1, ease: 'power3.out', stagger: .12, scrollTrigger: { trigger: '.stack', start: 'top 80%' } });
-  gsap.from('.clients > .wrap > ul li', { y: 30, autoAlpha: 0, duration: .8, ease: 'power3.out', stagger: .06, scrollTrigger: { trigger: '.clients > .wrap > ul', start: 'top 85%' } });
-  gsap.from('.clients .ops li', { y: 20, autoAlpha: 0, duration: .8, ease: 'power3.out', stagger: .06, scrollTrigger: { trigger: '.clients .ops', start: 'top 90%' } });
-  gsap.from('.card', { x: 80, autoAlpha: 0, duration: 1, ease: 'power3.out', stagger: .1, scrollTrigger: { trigger: '#rail', start: 'top 85%' } });
-  addEventListener('load', () => ScrollTrigger.refresh());
-})();
-</script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/SplitText.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,4 @@
+Contact: mailto:administration@umtelkomd.com
+Expires: 2027-11-09T00:00:00.000Z
+Preferred-Languages: de, en, es
+Canonical: https://umtelkomd.net/.well-known/security.txt
