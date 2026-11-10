@@ -13,7 +13,7 @@ HEADERS=/etc/nginx/snippets/umtelkomd-security-headers.conf
 BACKUP=/root/landing-backup-$TS.tgz
 
 [ "$(id -u)" = 0 ] || { echo "run as root"; exit 1; }
-PAGES="index.html 404.html impressum.html datenschutz.html favicon.ico robots.txt sitemap.xml"
+PAGES="service-worker.js sw.js index.html 404.html impressum.html datenschutz.html favicon.ico robots.txt sitemap.xml"
 for f in nginx-landing.conf nginx-security-headers.conf dist/assets/site.css dist/assets/site.js dist/.well-known/security.txt $(printf "dist/%s " $PAGES); do
   [ -f "$f" ] || { echo "missing $f in bundle"; exit 1; }
 done
@@ -68,6 +68,7 @@ check https://umtelkomd.net/does-not-exist 404
 check https://umtelkomd.net/.index.html.bak-20261109 404
 check https://www.umtelkomd.net/ 301
 check https://umtelkomd.net/manifest.json 404
+check https://umtelkomd.net/service-worker.js 200
 check https://umtelkomd.net/signatur/umtelkomd-knot-112.png 200
 if [ "$FAILED" = 1 ]; then
   echo "self-check failed: restoring the previous nginx files (the new site files stay; they work with either configuration)"

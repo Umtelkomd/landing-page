@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC, OUT = ROOT / "prototype", ROOT / "dist"
 PAGES = {"umtelkomd-v11.html": "index.html", "impressum.html": "impressum.html",
          "datenschutz.html": "datenschutz.html", "404.html": "404.html"}
-EXTRA = ["favicon.ico", "robots.txt", "sitemap.xml", ".well-known/security.txt", "assets/og.jpg"]
+EXTRA = ["service-worker.js", "sw.js", "favicon.ico", "robots.txt", "sitemap.xml", ".well-known/security.txt", "assets/og.jpg"]
 HOME = "umtelkomd-v11.html"
 
 ATTR = re.compile(r'(?:href|src)="([^"]+)"')
