@@ -67,6 +67,7 @@ check https://umtelkomd.net/.well-known/security.txt 200
 check https://umtelkomd.net/does-not-exist 404
 check https://umtelkomd.net/.index.html.bak-20261109 404
 check https://www.umtelkomd.net/ 301
+check https://umtelkomd.net/manifest.json 404
 check https://umtelkomd.net/signatur/umtelkomd-knot-112.png 200
 if [ "$FAILED" = 1 ]; then
   echo "self-check failed: restoring the previous nginx files (the new site files stay; they work with either configuration)"
